@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMapEditor.Desktop", "TMapE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMapEditor.Browser", "TMapEditor.Browser\TMapEditor.Browser.csproj", "{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMFormat", "..\TibiaMobile\TMFormat\TMFormat.csproj", "{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

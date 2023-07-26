@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TMapEditor.Views.LoadingView"
+			 xmlns:utils="clr-namespace:TMapEditor.Utils"
+			 Foreground="White"
+             Background="#171C2C">
+	
+	<Grid>
+		<StackPanel VerticalAlignment="Center" MaxWidth="600">
+			<Grid Height="256">
+				<Image x:Name="imgLogo"
+			 Source="/Assets/logo.png"
+			 Height="200"
+			 HorizontalAlignment="Center" />
+
+			</Grid>
+
+			<Label Margin="5" Content="{Binding Message, FallbackValue='Cargando...'}" Foreground="{StaticResource White}" FontWeight="Bold" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+			<ProgressBar Value="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Progress}" Minimum="0" Maximum="1"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

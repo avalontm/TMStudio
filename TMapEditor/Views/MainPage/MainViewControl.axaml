@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TMapEditor.Views.MainPage.MainViewControl"
+			 xmlns:monoGame="clr-namespace:AvaloniaInside.MonoGame;assembly=AvaloniaInside.MonoGame"
+			 xmlns:utils="clr-namespace:TMapEditor.Utils"
+			 Foreground="White"
+             Background="#171C2C">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- TOOLBAR -->
+		<Grid Grid.Row="0">
+			<StackPanel Margin="5" Orientation="Horizontal">
+
+			</StackPanel>
+		</Grid>
+
+		<!-- MAP SCREEN -->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100" MinWidth="100"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!-- TOOLS -->
+			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<Grid Grid.Row="0" Margin="5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<Grid Grid.Row="0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+
+						<Label Grid.Row="0" Content="Seleccion" FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center"/>
+
+						<Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<Image Source="{Binding ItemSelect.Image}" Width="32" Height="32" Stretch="Uniform"/>
+						</Border>
+
+					</Grid>
+
+					<Label Grid.Row="1" Content="Grupos" FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center"/>
+
+					<ComboBox Grid.Row="2" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemsCategory}" SelectedIndex="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=GroupIndex}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+				</Grid>
+
+				<Grid Grid.Row="1">
+
+				</Grid>
+			</Grid>
+
+			<GridSplitter Grid.Column="0" Width="2" HorizontalAlignment="Right" />
+
+			<!-- MAP -->
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<monoGame:MonoGameControl Grid.Row="0" Game="{Binding CurrentGame}" />
+
+				<ScrollBar Grid.Row="1" Grid.Column="0" Orientation="Horizontal" AllowAutoHide="False" Visibility="Visible"/>
+				<ScrollBar Grid.Row="0" Grid.Column="1" Orientation="Vertical" AllowAutoHide="False" Visibility="Visible"/>
+			</Grid>
+
+		</Grid>
+
+	</Grid>
+</UserControl>

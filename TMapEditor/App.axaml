@@ -1,10 +1,41 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TMapEditor.App"
-             RequestedThemeVariant="Default">
+			 xmlns:local="using:UClient"
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
+	<Application.Resources>
+			<SolidColorBrush x:Key="NavBackground">#1f1f1f</SolidColorBrush>
+			<SolidColorBrush x:Key="MenuBackground">#ebebeb</SolidColorBrush>
+			<SolidColorBrush x:Key="HeaderMenu">#b5b5b5</SolidColorBrush>
+			<SolidColorBrush x:Key="IconMenu">#949494</SolidColorBrush>
+
+			<SolidColorBrush x:Key="White">#f5f5f5</SolidColorBrush>
+			<SolidColorBrush x:Key="Green">#0d7a41</SolidColorBrush>
+			<SolidColorBrush x:Key="Red">#e04141</SolidColorBrush>
+			<SolidColorBrush x:Key="Blue">#205abd</SolidColorBrush>
+			<SolidColorBrush x:Key="Black">#000000</SolidColorBrush>
+			<SolidColorBrush x:Key="Gray">#737373</SolidColorBrush>
+			<SolidColorBrush x:Key="GrayLight">#ebebeb</SolidColorBrush>
+			<SolidColorBrush x:Key="GrayBorder">#d1d1d1</SolidColorBrush>
+			<SolidColorBrush x:Key="Yellow">#f5a742</SolidColorBrush>
+
+			<SolidColorBrush x:Key="ToolbarBackground">#404040</SolidColorBrush>
+			<SolidColorBrush x:Key="ToolbarBorder">#515151</SolidColorBrush>
+
+			<FontFamily x:Key="SFLight">Assets\Fonts\SF-Pro-Text-Light.otf#SF Pro Text</FontFamily>
+			<FontFamily x:Key="SFRegular">Assets\Fonts\SF-Pro-Text-Regular.otf#SF Pro Text</FontFamily>
+			<FontFamily x:Key="SFSemiBold">Assets\Fonts\SF-Pro-Text-Semibold.otf#SF Pro Text</FontFamily>
+			<FontFamily x:Key="SFMedium">Assets\Fonts\SF-Pro-Text-Medium.otf#SF Pro Text</FontFamily>
+			<FontFamily x:Key="SFBold">Assets\Fonts\SF-Pro-Text-Bold.otf#SF Pro Text</FontFamily>
+			<FontFamily x:Key="SFHeavy">Assets\Fonts\SF-Pro-Text-Heavy.otf#SF Pro Text</FontFamily>
+	</Application.Resources>
+	
     <Application.Styles>
         <FluentTheme />
+		<StyleInclude Source="Styles\Theme.axaml"/>
+		<StyleInclude Source="Styles\TabControl.axaml"/>
     </Application.Styles>
+
 </Application>

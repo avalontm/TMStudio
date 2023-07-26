@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMFormat.Formats;
 
 namespace TMapEditor.Engine
 {
@@ -13,19 +14,12 @@ namespace TMapEditor.Engine
     {
         GraphicsDeviceManager GraphicsDeviceManager { get; }
 
-        private Matrix _world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-        private readonly Matrix _view = Matrix.CreateLookAt(new Vector3(0, 0, 10), new Vector3(0, 0, 0), Vector3.UnitY);
-        private readonly Matrix _projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 0.1f, 100f);
-
         private SpriteBatch _spriteBatch;
         private ResolutionRenderer _res;
 
         private int _lastWidth, _lastHeight;
 
-        public Vector3 DiffuseColor { get; set; } = new(1f, 0.2f, 0.2f);
-        public Vector3 SpecularColor { get; set; } = new(0, 1, 0);
-        public Vector3 AmbientLightColor { get; set; } = new(0.2f, 0.2f, 0.2f);
-        public Vector3 EmissiveColor { get; set; } = new(1, 0, 0);
+        public static List<TMSprite> Items;
 
         public MapEngine()
         {
@@ -57,8 +51,6 @@ namespace TMapEditor.Engine
 
         protected override void Update(GameTime gameTime)
         {
-            _world = Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
-
             if (_lastWidth != GraphicsDevice.Viewport.Width ||
                 _lastHeight != GraphicsDevice.Viewport.Height)
             {
