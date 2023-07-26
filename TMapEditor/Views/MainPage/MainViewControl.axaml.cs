@@ -77,6 +77,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     async void onLoadContent()
     {
+        MapManager.Instance.SetScrolls(hScroll, vScroll);
         Toolbar_Tapped("draw");
         onLoadSoprites();
     }
@@ -157,5 +158,20 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         }
 
        button.IsChecked = true;
+    }
+
+    void onScrollHorizontalChanged(object? sender, RangeBaseValueChangedEventArgs e)
+    {
+        MapManager.Instance.Camera.ToMove((int)hScroll.Value, (int)vScroll.Value);
+    }
+
+    void onScrollVerticalChanged(object? sender, RangeBaseValueChangedEventArgs e)
+    {
+        MapManager.Instance.Camera.ToMove((int)hScroll.Value, (int)vScroll.Value);
+    }
+
+    public void onOpen()
+    {
+        MapManager.Instance.Open();
     }
 }

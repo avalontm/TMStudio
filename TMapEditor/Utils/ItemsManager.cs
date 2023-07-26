@@ -154,7 +154,7 @@ namespace TMapEditor.Utils
         }
         #endregion
 
-        public static ItemsManager Instance = new ItemsManager();
+        public readonly static ItemsManager Instance = new ItemsManager();
 
         public ItemsManager()
         {
@@ -246,8 +246,6 @@ namespace TMapEditor.Utils
 
             if (GroupIndex >= 0)
             {
-                //sprites = new ObservableCollection<TMSprite>(groups[GroupIndex].Items);
-                //lstSprites.ItemsSource = sprites;
                 return true;
             }
 

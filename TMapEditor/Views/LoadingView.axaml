@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TMapEditor.Views.LoadingView"
+			 xmlns:monoGame="clr-namespace:AvaloniaInside.MonoGame;assembly=AvaloniaInside.MonoGame"
 			 xmlns:utils="clr-namespace:TMapEditor.Utils"
 			 Foreground="White"
              Background="#171C2C">
@@ -17,6 +18,8 @@
 			 HorizontalAlignment="Center" />
 
 			</Grid>
+
+			<monoGame:MonoGameControl Game="{Binding CurrentGame}" IsVisible="False"/>
 
 			<Label Margin="5" Content="{Binding Message, FallbackValue='Cargando...'}" Foreground="{StaticResource White}" FontWeight="Bold" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
 			<ProgressBar Value="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Progress}" Minimum="0" Maximum="1"/>

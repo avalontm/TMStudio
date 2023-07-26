@@ -12,11 +12,29 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<!-- TOOLBAR -->
+		<!-- MENU -->
 		<Grid Grid.Row="0">
+			<Menu>
+				<MenuItem Header="_Archivo">
+					<MenuItem Header="_Nuevo" Command="{Binding onNew}"/>
+					<MenuItem Header="_Abrir" Command="{Binding onOpen}"/>
+					<MenuItem Header="_Guardar" Command="{Binding onSave}"/>
+					<Separator />
+					<MenuItem Header="_Guardar Como..." Command="{Binding onSaveAs}"/>
+					<Separator />
+					<MenuItem Header="_Propiedades" Command="{Binding onMapProperties}"/>
+					<Separator />
+					<MenuItem Header="_Salir" Command="{Binding onExit}"/>
+				</MenuItem>
+			</Menu>
+	    </Grid>
+		
+		<!-- TOOLBAR -->
+		<Grid Grid.Row="1">
 			<StackPanel x:Name="panelMenu" Orientation="Horizontal">
 
 				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="draw" ToolTip.Tip="Dibujar">
@@ -40,7 +58,7 @@
 		</Grid>
 
 		<!-- MAP SCREEN -->
-		<Grid Grid.Row="1">
+		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="100" MinWidth="100"/>
 				<ColumnDefinition Width="*"/>
@@ -118,8 +136,8 @@
 
 				<monoGame:MonoGameControl Grid.Row="0" Game="{Binding CurrentGame}" />
 
-				<ScrollBar Grid.Row="1" Grid.Column="0" Orientation="Horizontal" AllowAutoHide="False" Visibility="Visible"/>
-				<ScrollBar Grid.Row="0" Grid.Column="1" Orientation="Vertical" AllowAutoHide="False" Visibility="Visible"/>
+				<ScrollBar x:Name="hScroll" Grid.Row="1" Grid.Column="0" Orientation="Horizontal" AllowAutoHide="False" Maximum="0"  ValueChanged="onScrollVerticalChanged"/>
+				<ScrollBar x:Name="vScroll" Grid.Row="0" Grid.Column="1" Orientation="Vertical" AllowAutoHide="False" Maximum="0" ValueChanged="onScrollHorizontalChanged"/>
 			</Grid>
 
 		</Grid>

@@ -2,7 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using TMapEditor.Engine;
 using TMapEditor.Utils;
@@ -37,6 +41,8 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
     }
 
     bool isAnimation;
+
+    public Game CurrentGame { get; set; } = new MonoEngine();
 
     public LoadingView()
     {
@@ -97,8 +103,10 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
     {
         onAnimation();
 
-        TMInstance.Init(false, true);
+        await WaitForDevice();
 
+        TMInstance.InitAvalonia(CurrentGame.GraphicsDevice);
+   
         await SetMessage("Cargando configuracion");
 
         await SetMessage("Cargando Items...");
@@ -107,6 +115,20 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
 
         await SetMessage($"Se han cargado [{ MapEngine.Items.Count}] items");
 
+        await Task.Delay(100);
+
+        await SetMessage($"Iniciando");
+
+        await Task.Delay(500);
+
         MainView.Instance.ToPage(new MainViewControl());
+    }
+
+    async  Task WaitForDevice()
+    {
+        while (CurrentGame.GraphicsDevice == null)
+        {
+            await Task.Delay(1);
+        }
     }
 }
