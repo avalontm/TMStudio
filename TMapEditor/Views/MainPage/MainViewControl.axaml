@@ -17,8 +17,25 @@
 
 		<!-- TOOLBAR -->
 		<Grid Grid.Row="0">
-			<StackPanel Margin="5" Orientation="Horizontal">
+			<StackPanel x:Name="panelMenu" Orientation="Horizontal">
 
+				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="draw" ToolTip.Tip="Dibujar">
+					<ToggleButton.Content>
+						<Image Margin="2" Source="/Assets/toolbar_pencil.png" Stretch="Uniform" Width="24" Height="24"/>
+					</ToggleButton.Content>
+				</ToggleButton>
+
+				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="eraser" ToolTip.Tip="Borrar">
+					<ToggleButton.Content>
+						<Image Margin="2" Source="/Assets/toolbar_eraser.png" Stretch="Uniform" Width="24" Height="24"/>
+					</ToggleButton.Content>
+				</ToggleButton>
+
+				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="pz" ToolTip.Tip="Proteccion">
+					<ToggleButton.Content>
+						<Image Margin="2" Source="/Assets/toolbar_shield.png" Stretch="Uniform" Width="24" Height="24"/>
+					</ToggleButton.Content>
+				</ToggleButton>
 			</StackPanel>
 		</Grid>
 
@@ -53,18 +70,36 @@
 						<Label Grid.Row="0" Content="Seleccion" FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center"/>
 
 						<Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-							<Image Source="{Binding ItemSelect.Image}" Width="32" Height="32" Stretch="Uniform"/>
+							<Image Source="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemSelect.Image}" Width="32" Height="32" Stretch="Uniform"/>
 						</Border>
 
 					</Grid>
 
 					<Label Grid.Row="1" Content="Grupos" FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center"/>
 
-					<ComboBox Grid.Row="2" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemsCategory}" SelectedIndex="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=GroupIndex}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+					<ComboBox Grid.Row="2" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemsCategory}" SelectedIndex="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=GroupIndex}" SelectionChanged="onGroupSelectionChanged"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 				</Grid>
 
 				<Grid Grid.Row="1">
+					<ListBox Margin="2" Name="lstSprites" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Sprites}" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Grid Margin="2">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="32" />
+									</Grid.ColumnDefinitions>
 
+									<TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+									<Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+										<Image Source="{Binding Image}" Width="32" Height="32" Stretch="Uniform"/>
+									</Border>
+
+								</Grid>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
 				</Grid>
 			</Grid>
 

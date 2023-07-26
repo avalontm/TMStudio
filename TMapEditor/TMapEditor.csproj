@@ -13,6 +13,9 @@
   
   <ItemGroup>
     <None Remove="Assets\logo.png" />
+    <None Remove="Assets\toolbar_eraser.png" />
+    <None Remove="Assets\toolbar_pencil.png" />
+    <None Remove="Assets\toolbar_shield.png" />
   </ItemGroup>
 
   <ItemGroup>

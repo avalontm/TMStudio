@@ -3,15 +3,27 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TMapEditor.Engine.Enums;
 using TMFormat.Formats;
 
 namespace TMapEditor.Engine
 {
-    public class MapEngine : Game
+    public class MapEngine : Game, INotifyPropertyChanged
     {
+        #region Propiedades
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         GraphicsDeviceManager GraphicsDeviceManager { get; }
 
         private SpriteBatch _spriteBatch;
@@ -21,8 +33,24 @@ namespace TMapEditor.Engine
 
         public static List<TMSprite> Items;
 
+        PincelStatus _pincel;
+        public PincelStatus Pincel
+        {
+            get { return _pincel; }
+            set
+            {
+                _pincel = value;
+                OnPropertyChanged("Pincel");
+            }
+        }
+
+        public static MapEngine? Instance { private set; get; }
+
+        #endregion
+
         public MapEngine()
         {
+            Instance = this;
             GraphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }

@@ -39,7 +39,7 @@ namespace TMapEditor.Utils
 
         ObservableCollection<TMSprite> _sprites;
 
-        public ObservableCollection<TMSprite> sprites
+        public ObservableCollection<TMSprite> Sprites
         {
             get { return _sprites; }
             set
@@ -50,7 +50,7 @@ namespace TMapEditor.Utils
         }
 
         ObservableCollection<GroupSprites> _groups;
-        public ObservableCollection<GroupSprites> groups
+        public ObservableCollection<GroupSprites> Groups
         {
             get { return _groups; }
             set
@@ -182,11 +182,11 @@ namespace TMapEditor.Utils
 
             int index = 0;
 
-            groups = new ObservableCollection<GroupSprites>();
+            Groups = new ObservableCollection<GroupSprites>();
 
             for (int i = 0; i < Enum.GetNames(typeof(TypeItem)).Length; i++)
             {
-                groups.Add(new GroupSprites());
+                Groups.Add(new GroupSprites());
             }
 
             foreach (var item in MapEngine.Items)
@@ -206,35 +206,35 @@ namespace TMapEditor.Utils
                 switch ((TypeItem)item.Type)
                 {
                     case TypeItem.Tile:
-                        groups[0].Items.Add(item);
+                        Groups[0].Items.Add(item);
                         break;
 
                     case TypeItem.Border:
-                        groups[1].Items.Add(item);
+                        Groups[1].Items.Add(item);
                         break;
 
                     case TypeItem.Field:
-                        groups[2].Items.Add(item);
+                        Groups[2].Items.Add(item);
                         break;
 
                     case TypeItem.Item:
-                        groups[3].Items.Add(item);
+                        Groups[3].Items.Add(item);
                         break;
 
                     case TypeItem.Tree:
-                        groups[4].Items.Add(item);
+                        Groups[4].Items.Add(item);
                         break;
 
                     case TypeItem.Wall:
-                        groups[5].Items.Add(item);
+                        Groups[5].Items.Add(item);
                         break;
 
                     case TypeItem.Stair:
-                        groups[6].Items.Add(item);
+                        Groups[6].Items.Add(item);
                         break;
 
                     case TypeItem.Door:
-                        groups[7].Items.Add(item);
+                        Groups[7].Items.Add(item);
                         break;
                 }
 
