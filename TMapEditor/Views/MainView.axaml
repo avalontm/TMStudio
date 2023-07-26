@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TMapEditor.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:monoGame="clr-namespace:AvaloniaInside.MonoGame;assembly=AvaloniaInside.MonoGame"
+             x:Class="TMapEditor.Views.MainView"
+			 Foreground="White"
+             Background="#171C2C">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- TOOLBAR -->
+		<Grid Grid.Row="0">
+			<StackPanel Margin="5" Orientation="Horizontal">
+				
+			</StackPanel>
+		</Grid>
+
+		<!-- MAP SCREEN -->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100" MinWidth="100"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<!-- TOOLS -->
+			<Grid Grid.Column="0">
+				<TabControl>
+					<TabItem Header="Exterior">
+						
+					</TabItem>
+					<TabItem Header="Interior">
+
+					</TabItem>
+				</TabControl>
+			</Grid>
+				
+			<GridSplitter Grid.Column="0" Width="2" HorizontalAlignment="Right" />
+			
+			<!-- MAP -->
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				
+				<monoGame:MonoGameControl Grid.Row="0" Game="{Binding CurrentGame}" />
+				
+				<ScrollBar Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Visibility="Visible"/>
+				<ScrollBar Grid.Row="0" Grid.Column="1" Orientation="Vertical" Visibility="Visible"/>
+			</Grid>
+
+		</Grid>
+
+	</Grid>
+
+</UserControl>
