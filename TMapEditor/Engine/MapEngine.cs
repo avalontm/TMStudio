@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using AvaloniaInside.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,6 +19,7 @@ using TMFormat;
 using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Inputs;
+using TMStudio.Models;
 
 namespace TMapEditor.Engine
 {
@@ -39,6 +41,28 @@ namespace TMapEditor.Engine
         public SpriteBatch SpriteBatch
         {
             get { return _spriteBatch; }
+        }
+
+        int _actualX;
+        public int ActualX
+        {
+            get { return _actualX; }
+            set
+            {
+                _actualX = value;
+                OnPropertyChanged("ActualX");
+            }
+        }
+
+        int _actualY;
+        public int ActualY
+        {
+            get { return _actualY; }
+            set
+            {
+                _actualY = value;
+                OnPropertyChanged("ActualY");
+            }
         }
 
         int _actualWidth;
@@ -102,31 +126,6 @@ namespace TMapEditor.Engine
             }
         }
 
-        MouseState _mouseState;
-        public MouseState MouseState
-        {
-            get { return _mouseState; }
-            set
-            {
-                _mouseState = value;
-                OnPropertyChanged("Mouse");
-            }
-        }
-
-        KeyboardState _previousState;
-        MouseState _lastMouseState;
-
-        KeyboardState _keyboardState;
-        public KeyboardState KeyboardState
-        {
-            get { return _keyboardState; }
-            set
-            {
-                _keyboardState = value;
-                OnPropertyChanged("Keyboard");
-            }
-        }
-
         public static MapEngine? Instance { private set; get; }
 
         bool _isFocus;
@@ -140,8 +139,8 @@ namespace TMapEditor.Engine
             }
         }
 
-        int xOffset = 0;
-        int yOffset = 0;
+        float gamePositionX;
+        float gamePositionY;
 
         #endregion
 
@@ -150,6 +149,8 @@ namespace TMapEditor.Engine
             Instance = this;
             GraphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
+            
         }
 
         protected override void Initialize()
@@ -162,11 +163,8 @@ namespace TMapEditor.Engine
                 ScreenResolution = new Point(ActualWidth, ActualHeight),
                 Method = ResizeMethod.Fill
             };
-  
-            MouseState = Mouse.GetState();
-            KeyboardState = Keyboard.GetState();
 
-            // Create a new SpriteBatch, which can be used to draw textures.
+            // Crea un nuevo SpriteBatch, que se puede usar para dibujar texturas.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             TMInstance.GraphicsDevice = GraphicsDevice;
@@ -181,38 +179,22 @@ namespace TMapEditor.Engine
 
         protected override void Update(GameTime gameTime)
         {
-            MouseState = Mouse.GetState();
-            KeyboardState = Keyboard.GetState();
-
-            if (ActualWidth != GraphicsDevice.Viewport.Width || ActualHeight != GraphicsDevice.Viewport.Height)
-            {
-                ActualWidth = GraphicsDevice.Viewport.Width;
-                ActualHeight = GraphicsDevice.Viewport.Height;
-
-                _res.ScreenResolution = new Point(ActualWidth, ActualHeight);
-            }
-
             if (IsFocus)
             {
                 if (MapManager.Instance.MapBase != null)
                 {
-                    GlobalPos = new Vector2(((MouseState.X) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X, ((MouseState.Y) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y);
-                    ScreenPos = new Vector2(((MouseState.X) / TMBaseMap.TileSize), ((MouseState.Y) / TMBaseMap.TileSize));
-
                     OnInput();
                 }
             }
 
             MapManager.Instance.Update(gameTime);
-            base.Update(gameTime);
 
-            _previousState = KeyboardState;
-            _lastMouseState = MouseState;
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            _res.Begin();
+           // _res.Begin();
 
             _spriteBatch.Begin();
             GraphicsDevice.Clear(Color.Black);
@@ -223,11 +205,50 @@ namespace TMapEditor.Engine
             DrawRectangle(ScreenPos, Color.Red, 2);
 
             _spriteBatch.End();
-            _res.End();
+           // _res.End();
 
             base.Draw(gameTime);
 
         }
+
+        public void SizeChanged(int width, int height)
+        {
+            // Obtener el tamaño actual
+            ActualWidth = width;
+            ActualHeight = height;
+
+            // Actualizar la posición del juego en la ventana cuando esta cambie de tamaño
+            gamePositionX = (float)GraphicsDeviceManager.PreferredBackBufferWidth / width;
+            gamePositionY = (float)GraphicsDeviceManager.PreferredBackBufferHeight / height;
+
+            _res.ScreenResolution = new Point(ActualWidth, ActualHeight);
+            ScreenResolution();
+
+            Debug.WriteLine($"[SizeChanged] {width}, {height}");
+        }
+
+        public void ScreenResolution()
+        {
+            // Establecer la nueva resolución del juego
+            GraphicsDeviceManager.PreferredBackBufferWidth = ActualWidth;
+            GraphicsDeviceManager.PreferredBackBufferHeight = ActualHeight;
+
+            // Actualizar la ventana del juego para aplicar los cambios
+            GraphicsDeviceManager.ApplyChanges();
+        }
+
+        public void MouseMove(MouseModel CurrentMouse)
+        {
+            if (MapManager.Instance.MapBase != null)
+            {
+                // Obtener las coordenadas del mouse en base a la resolución del juego
+                ScreenPos = new Vector2((int)(CurrentMouse.X * gamePositionX / TMBaseMap.TileSize) , (int)(CurrentMouse.Y * gamePositionY / TMBaseMap.TileSize));
+                GlobalPos = new Vector2(((CurrentMouse.X / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X), ((CurrentMouse.Y / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y));
+             
+                Debug.WriteLine($"[MouseMove] {ScreenPos.X}, {ScreenPos.Y}");
+            }
+        }
+
 
         public void KeyDown(Avalonia.Input.Key key)
         {
@@ -250,8 +271,7 @@ namespace TMapEditor.Engine
 
         void OnInput()
         {
-            
-
+            /*
             if (MouseState.LeftButton == ButtonState.Pressed)
             {
                 switch (Pincel)
@@ -266,8 +286,8 @@ namespace TMapEditor.Engine
                         onProtectionZone();
                         break;
                 }
-
             }
+            */
         }
 
         void DrawTextureSelect(Vector2 pos)

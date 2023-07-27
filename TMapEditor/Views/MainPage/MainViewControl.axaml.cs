@@ -4,14 +4,17 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using AvaloniaInside.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using TMapEditor.Engine;
 using TMapEditor.Engine.Enums;
+using TMapEditor.Helpers;
 using TMapEditor.Models;
 using TMapEditor.Utils;
 using TMFormat.Formats;
@@ -125,7 +128,12 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
                 onLoadSoprites();
             }
         }
-      
+
+    }
+
+    void MonoGame_SizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        MapEngine.Instance.SizeChanged((int)e.NewSize.Width, (int)e.NewSize.Height);
     }
 
     void MonoGame_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
@@ -146,9 +154,12 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     void MonoGame_PointerMoved(object? sender, Avalonia.Input.PointerEventArgs e)
     {
-        CurrentMouse = new MouseModel((int)MapEngine.Instance.GlobalPos.X, (int)MapEngine.Instance.GlobalPos.Y);
+        var position = e.GetPosition((sender as MonoGameControl));
+        MapEngine.Instance.MouseMove(new MouseModel((int)position.X, (int)position.Y));
+
+        CurrentMouse = new MouseModel((int) MapEngine.Instance.GlobalPos.X, (int)MapEngine.Instance.GlobalPos.Y);
         CurrentFloor = MapManager.Instance.FloorCurrent;
-        Debug.WriteLine($"[Moved] {CurrentMouse.X},{CurrentMouse.Y},{CurrentFloor}");
+      
     }
 
     public void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)
@@ -236,6 +247,8 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
             await DialogManager.Display("Error", "No se pudo cargar el archivo.\nFormato desconocido.", "OK");
             return;
         }
+
+        MapEngine.Instance.SizeChanged((int)monoGame.Bounds.Width, (int)monoGame.Bounds.Height);
     }
 
     public async void onSave()
