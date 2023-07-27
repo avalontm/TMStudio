@@ -19,6 +19,7 @@ using TMapEditor.Views;
 using TMapEditor.Views.MainPage;
 using TMFormat.Formats;
 using TMFormat.Framework.Maps;
+using TMStudio.Utils;
 
 namespace TMapEditor.Utils
 {
@@ -188,9 +189,14 @@ namespace TMapEditor.Utils
             {
                 FileMap = result;
 
-                if (!File.Exists(FileMap))
+                if (File.Exists(FileMap))
                 {
-                    return false;
+                    var resposne = await DialogManager.Display("Confirmar", "Esta seguro que desea sobreescribir este mapa?", "SI", "NO");
+                    
+                    if(!resposne)
+                    {
+                        return null;
+                    }
                 }
 
                 return await onSaveMap();
@@ -201,7 +207,7 @@ namespace TMapEditor.Utils
 
         async Task<bool> onSaveMap()
         {
-            bool result = MapManager.Instance.MapBase.Save(FileMap);
+            bool result = MapBase.Save(FileMap);
 
             if (result)
             {
