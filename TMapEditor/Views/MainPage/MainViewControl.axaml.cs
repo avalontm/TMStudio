@@ -51,7 +51,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         }
     }
 
-    public Game CurrentGame { get; set; } = new MapEngine();
+    public Game CurrentGame { get; set; } = MapManager.CurrentGame;
     public static MainViewControl? Instance { get; private set; }
 
     public MainViewControl()

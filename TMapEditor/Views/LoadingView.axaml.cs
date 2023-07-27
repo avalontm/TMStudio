@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 using TMapEditor.Engine;
 using TMapEditor.Utils;
 using TMapEditor.Views.MainPage;
-using TMFormat;
-using TMFormat.Framework.Maps;
 
 namespace TMapEditor.Views;
 
@@ -42,7 +40,7 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
 
     bool isAnimation;
 
-    public Game CurrentGame { get; set; } = new MonoEngine();
+    public Game CurrentGame { get; set; } = MapManager.CurrentGame;
 
     public LoadingView()
     {
@@ -105,7 +103,7 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
 
         await WaitForDevice();
 
-        TMInstance.InitAvalonia(CurrentGame.GraphicsDevice);
+        TMFormat.TMInstance.InitAvalonia(CurrentGame.GraphicsDevice);
    
         await SetMessage("Cargando configuracion");
 
@@ -113,7 +111,7 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
 
         bool status = await ItemsManager.Instance.Load();
 
-        await SetMessage($"Se han cargado [{ MapEngine.Items.Count}] items");
+        await SetMessage($"Se han cargado [{MapEngine.Items.Count}] items");
 
         await Task.Delay(100);
 

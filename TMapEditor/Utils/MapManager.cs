@@ -70,6 +70,7 @@ namespace TMapEditor.Utils
         int TimeItem = 250;
 
         public readonly static MapManager? Instance = new MapManager();
+        public readonly static Game CurrentGame = new MapEngine();
 
         #endregion
 
