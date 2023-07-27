@@ -126,6 +126,12 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
       
     }
 
+    void MonoGame_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
+    {
+        Debug.WriteLine($"[KeyDown] {e.Key}");
+        MapEngine.Instance.KeyDown(e.Key);
+    }
+
     void MonoGame_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
     {
         MapEngine.Instance.IsFocus = false;
@@ -138,7 +144,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     void MonoGame_PointerMoved(object? sender, Avalonia.Input.PointerEventArgs e)
     {
-        CurrentMouse = new MouseModel(MapEngine.Instance.GlobalPos.X, MapEngine.Instance.GlobalPos.Y);
+        CurrentMouse = new MouseModel((int)MapEngine.Instance.GlobalPos.X, (int)MapEngine.Instance.GlobalPos.Y);
   
         CurrentFloor = MapManager.Instance.FloorCurrent;
         Debug.WriteLine($"[Moved] {CurrentMouse.X},{CurrentMouse.Y},{CurrentFloor}");

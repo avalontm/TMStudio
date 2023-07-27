@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,6 +17,7 @@ using TMapEditor.Views;
 using TMFormat;
 using TMFormat.Enums;
 using TMFormat.Formats;
+using TMFormat.Framework.Inputs;
 
 namespace TMapEditor.Engine
 {
@@ -138,8 +140,8 @@ namespace TMapEditor.Engine
             }
         }
 
-        int xOffset = 45;
-        int yOffset = 16;
+        int xOffset = 0;
+        int yOffset = 0;
 
         #endregion
 
@@ -155,12 +157,12 @@ namespace TMapEditor.Engine
             ActualWidth = GraphicsDevice.Viewport.Width;
             ActualHeight = GraphicsDevice.Viewport.Height;
 
-            _res = new ResolutionRenderer(new Point( GraphicsDevice.Adapter.CurrentDisplayMode.Width, GraphicsDevice.Adapter.CurrentDisplayMode.Height), GraphicsDevice)
+            _res = new ResolutionRenderer(new Point(800, 480), GraphicsDevice)
             {
                 ScreenResolution = new Point(ActualWidth, ActualHeight),
                 Method = ResizeMethod.Fill
             };
-
+  
             MouseState = Mouse.GetState();
             KeyboardState = Keyboard.GetState();
 
@@ -194,8 +196,8 @@ namespace TMapEditor.Engine
             {
                 if (MapManager.Instance.MapBase != null)
                 {
-                    GlobalPos = new Vector2(((MouseState.X - xOffset) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X, ((MouseState.Y - yOffset) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y);
-                    ScreenPos = new Vector2(((MouseState.X- xOffset) / TMBaseMap.TileSize), ((MouseState.Y- yOffset) / TMBaseMap.TileSize));
+                    GlobalPos = new Vector2(((MouseState.X) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X, ((MouseState.Y) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y);
+                    ScreenPos = new Vector2(((MouseState.X) / TMBaseMap.TileSize), ((MouseState.Y) / TMBaseMap.TileSize));
 
                     OnInput();
                 }
@@ -210,23 +212,46 @@ namespace TMapEditor.Engine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            _res.Begin();
 
             _spriteBatch.Begin();
-         
+            GraphicsDevice.Clear(Color.Black);
+
             MapManager.Instance.Draw(gameTime);
 
             DrawTextureSelect(ScreenPos);
             DrawRectangle(ScreenPos, Color.Red, 2);
 
             _spriteBatch.End();
+            _res.End();
 
             base.Draw(gameTime);
 
         }
 
+        public void KeyDown(Avalonia.Input.Key key)
+        {
+            if (key == Avalonia.Input.Key.OemPlus || key == Avalonia.Input.Key.Add)
+            {
+                if (MapManager.Instance.FloorCurrent < (MapManager.Instance.MapBase.Floors.Count - 1))
+                {
+                    MapManager.Instance.FloorCurrent++;
+                }
+            }
+
+            if (key == Avalonia.Input.Key.OemMinus || key == Avalonia.Input.Key.Subtract)
+            {
+                if (MapManager.Instance.FloorCurrent > 0)
+                {
+                    MapManager.Instance.FloorCurrent--;
+                }
+            }
+        }
+
         void OnInput()
         {
+            
+
             if (MouseState.LeftButton == ButtonState.Pressed)
             {
                 switch (Pincel)
