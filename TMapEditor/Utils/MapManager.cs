@@ -147,6 +147,11 @@ namespace TMapEditor.Utils
 
         public async Task<bool?> Save()
         {
+            if (MapBase == null)
+            {
+                return null;
+            }
+
             if (!string.IsNullOrEmpty(FileMap))
             {
                 return await onSaveMap();
@@ -177,6 +182,11 @@ namespace TMapEditor.Utils
 
         public async Task<bool?> SaveAs()
         {
+            if (MapBase == null)
+            {
+                return null;
+            }
+
             var dialog = new Avalonia.Controls.SaveFileDialog();
             dialog.Filters.Add(new FileDialogFilter() { Name = "TMap files", Extensions = new List<string> { "tmap" } });
 
