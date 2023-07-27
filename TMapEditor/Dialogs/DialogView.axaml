@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TMStudio.Dialogs.DialogView">
+
+
+	<Grid>
+		<Grid Background="Black" Opacity="0.5"/>
+		<Border Margin="5" Background="White" CornerRadius="5" BorderBrush="#666666" BorderThickness="2" MinHeight="200" MinWidth="350" VerticalAlignment="Center" HorizontalAlignment="Center"
+				 BoxShadow="2 2 50 2 Black">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<Label Classes="Bold" Content="{Binding Title}" Margin="5" Foreground="Black" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				<TextBlock Grid.Row="1" Margin="5" Text="{Binding Message}" TextWrapping="Wrap" FontSize="14" Foreground="Black" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+				<Grid Grid.Row="2" IsVisible="{Binding IsSingle}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Column="0" Margin="5" Height="42" Cursor="Hand" Content="{Binding Accept}" Command="{Binding onOK}" Background="{StaticResource Blue}" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+				</Grid>
+
+				<Grid Grid.Row="2" IsVisible="{Binding IsQuestion}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Column="0" Margin="5" Height="42" Cursor="Hand" Content="{Binding Accept}" Command="{Binding onAccept}" Background="{StaticResource Blue}" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+					<Button Grid.Column="1" Margin="5" Height="42" Cursor="Hand" Content="{Binding Cancel}" Command="{Binding onCancel}" HotKey="Escape" Background="{StaticResource Red}" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+				</Grid>
+
+			</Grid>
+		</Border>
+	</Grid>
+	
+</UserControl>

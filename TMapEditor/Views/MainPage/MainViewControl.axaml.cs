@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -219,8 +220,37 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         MapManager.Instance.Camera.ToMove((int)hScroll.Value, (int)vScroll.Value);
     }
 
-    public void onOpen()
+    public async void onNew()
+    {
+
+    }
+
+    public async void onOpen()
     {
         MapManager.Instance.Open();
+    }
+
+    public async void onSave()
+    {
+        bool status = await MapManager.Instance.Save();
+
+        Debug.WriteLine($"[Save] {status}");
+    }
+
+    public async void onSaveAs()
+    {
+        bool status = await MapManager.Instance.SaveAs();
+
+        Debug.WriteLine($"[Save] {status}");
+    }
+
+    public async void onMapProperties()
+    {
+
+    }
+
+    public async void onExit()
+    {
+
     }
 }

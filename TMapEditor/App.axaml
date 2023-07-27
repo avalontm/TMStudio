@@ -7,6 +7,7 @@
 
 	<Application.Resources>
 			<SolidColorBrush x:Key="NavBackground">#1f1f1f</SolidColorBrush>
+			<SolidColorBrush x:Key="BackgroundView">#171C2C</SolidColorBrush>
 			<SolidColorBrush x:Key="MenuBackground">#ebebeb</SolidColorBrush>
 			<SolidColorBrush x:Key="HeaderMenu">#b5b5b5</SolidColorBrush>
 			<SolidColorBrush x:Key="IconMenu">#949494</SolidColorBrush>
@@ -20,7 +21,8 @@
 			<SolidColorBrush x:Key="GrayLight">#ebebeb</SolidColorBrush>
 			<SolidColorBrush x:Key="GrayBorder">#d1d1d1</SolidColorBrush>
 			<SolidColorBrush x:Key="Yellow">#f5a742</SolidColorBrush>
-
+		    <SolidColorBrush x:Key="BackgroundBorder">#0b0d14</SolidColorBrush>
+		
 			<SolidColorBrush x:Key="ToolbarBackground">#404040</SolidColorBrush>
 			<SolidColorBrush x:Key="ToolbarBorder">#515151</SolidColorBrush>
 

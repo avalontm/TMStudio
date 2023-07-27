@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,17 @@ namespace TMapEditor.Utils
             }
         }
 
+        string _fileMap;
+        public string FileMap
+        {
+            get { return _fileMap; }
+            set
+            {
+                _fileMap = value;
+                OnPropertyChanged("FileMap");
+            }
+        }
+
         public static readonly int FloorDefault = 7;
 
         public int FloorCurrent = FloorDefault;
@@ -76,7 +88,7 @@ namespace TMapEditor.Utils
 
         public MapManager() 
         {
-         
+            FileMap = string.Empty;
         }
 
         public void SetScrolls(ScrollBar hScroll, ScrollBar vScroll)
@@ -98,9 +110,9 @@ namespace TMapEditor.Utils
 
             if (result != null && result.Any())
             {
-                string FilePath = result.First();
+                FileMap = result.First();
                 MapBase = new TMBaseMap(MapEngine.Items);
-                bool isMapLoaded = MapBase.Load(FilePath);
+                bool isMapLoaded = MapBase.Load(FileMap);
 
                 if(!isMapLoaded)
                 {
@@ -112,7 +124,7 @@ namespace TMapEditor.Utils
                 Camera = new CameraManager();
                 Camera.ToMove(0, 0);
 
-                MainViewControl.Instance.Title = $"{MapBase.mapInfo.Name} - [{FilePath}]";
+                MainViewControl.Instance.Title = $"{MapBase.mapInfo.Name} - [{FileMap}]";
 
                 onLoadScrolls();
 
@@ -121,6 +133,72 @@ namespace TMapEditor.Utils
                 //Cargamos el mapa
                 mapTile = new MapTile(MapBase, MapEngine.Instance.SpriteBatch);
             }
+        }
+
+        public async Task<bool> Save()
+        {
+            if (!string.IsNullOrEmpty(FileMap))
+            {
+                return await onSaveMap();
+            }
+
+            var dialog = new Avalonia.Controls.SaveFileDialog();
+            dialog.Filters.Add(new FileDialogFilter() { Name = "TMap files", Extensions = new List<string> { "tmap" } });
+
+            // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+            var parent = (Window)MainView.Instance.GetVisualRoot();
+
+            string result = await dialog.ShowAsync(parent);
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                FileMap = result;
+
+                if (!File.Exists(FileMap))
+                {
+                    return false;
+                }
+
+                return await onSaveMap();
+            }
+
+            return false;
+        }
+
+        public async Task<bool> SaveAs()
+        {
+            var dialog = new Avalonia.Controls.SaveFileDialog();
+            dialog.Filters.Add(new FileDialogFilter() { Name = "TMap files", Extensions = new List<string> { "tmap" } });
+
+            // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+            var parent = (Window)MainView.Instance.GetVisualRoot();
+
+            string result = await dialog.ShowAsync(parent);
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                FileMap = result;
+
+                if (!File.Exists(FileMap))
+                {
+                    return false;
+                }
+
+                return await onSaveMap();
+            }
+
+            return false;
+        }
+
+        async Task<bool> onSaveMap()
+        {
+            bool result = MapManager.Instance.MapBase.Save(FileMap);
+
+            if (result)
+            {
+              return true;
+            }
+            return false;
         }
 
         void onLoadScrolls(bool _isnew = true)

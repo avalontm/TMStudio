@@ -6,8 +6,8 @@
              x:Class="TMapEditor.Views.LoadingView"
 			 xmlns:monoGame="clr-namespace:AvaloniaInside.MonoGame;assembly=AvaloniaInside.MonoGame"
 			 xmlns:utils="clr-namespace:TMapEditor.Utils"
-			 Foreground="White"
-             Background="#171C2C">
+			 Foreground="{StaticResource White}"
+             Background="{StaticResource BackgroundView}">
 	
 	<Grid>
 		<StackPanel VerticalAlignment="Center" MaxWidth="600">
