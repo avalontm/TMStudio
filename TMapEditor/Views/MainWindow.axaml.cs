@@ -27,7 +27,7 @@ public partial class MainWindow : Window
             {
                 MapEngine.Instance.SizeChanged((int)MainViewControl.Instance.monoGame.Bounds.Width, (int)MainViewControl.Instance.monoGame.Bounds.Height);
                
-                if (MapManager.Instance.Camera != null)
+                if (MapManager.Instance.isLoaded)
                 {
                     MapManager.Instance.Camera.ToMove((int)MainViewControl.Instance.hScroll.Value, (int)MainViewControl.Instance.vScroll.Value);
                 }

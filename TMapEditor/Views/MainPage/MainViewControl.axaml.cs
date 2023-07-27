@@ -143,6 +143,11 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
     void MonoGame_SizeChanged(object? sender, SizeChangedEventArgs e)
     {
         MapEngine.Instance.SizeChanged((int)e.NewSize.Width, (int)e.NewSize.Height);
+
+        if (MapManager.Instance.isLoaded)
+        {
+            MapManager.Instance.Camera.ToMove((int)hScroll.Value, (int)vScroll.Value);
+        }
     }
 
     void MonoGame_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)

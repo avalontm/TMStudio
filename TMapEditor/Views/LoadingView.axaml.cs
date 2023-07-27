@@ -99,6 +99,8 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
 
     async Task onLoading()
     {
+        await Task.Delay(100);
+
         onAnimation();
 
         await WaitForDevice();

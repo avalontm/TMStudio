@@ -19,10 +19,11 @@
 
 			</Grid>
 
-			<monoGame:MonoGameControl Game="{Binding CurrentGame}" IsVisible="False"/>
-
 			<Label Margin="5" Content="{Binding Message, FallbackValue='Cargando...'}" Foreground="{StaticResource White}" FontWeight="Bold" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
 			<ProgressBar Value="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Progress}" Minimum="0" Maximum="1"/>
 		</StackPanel>
+
+		<monoGame:MonoGameControl x:Name="monoGame" Game="{Binding CurrentGame}" IsVisible="False" Width="0" Height="0" VerticalAlignment="Bottom"/>
+
 	</Grid>
 </UserControl>

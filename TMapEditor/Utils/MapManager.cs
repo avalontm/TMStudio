@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TMapEditor.Engine;
 using TMapEditor.Views;
@@ -82,6 +83,7 @@ namespace TMapEditor.Utils
         MapTile mapTile;
         int TimeItem = 250;
 
+        public bool isLoaded { private set; get; }
         public readonly static MapManager? Instance = new MapManager();
         public readonly static Game CurrentGame = new MapEngine();
 
@@ -90,6 +92,7 @@ namespace TMapEditor.Utils
         public MapManager() 
         {
             FileMap = string.Empty;
+            isLoaded = false;
         }
 
         public void SetScrolls(ScrollBar hScroll, ScrollBar vScroll)
@@ -133,6 +136,7 @@ namespace TMapEditor.Utils
 
                 //Cargamos el mapa
                 mapTile = new MapTile(MapBase, MapEngine.Instance.SpriteBatch);
+                isLoaded = true;
 
                 return true;
             }
