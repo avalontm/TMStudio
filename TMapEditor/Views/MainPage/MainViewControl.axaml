@@ -30,6 +30,13 @@
 					<Separator />
 					<MenuItem Header="_Salir" Command="{Binding onExit}"/>
 				</MenuItem>
+
+				<MenuItem Header="_Ayuda">
+					<MenuItem Header="Ver la Ayuda" Command="{Binding onHelp}"/>
+					<MenuItem Header="Colaboradores" Command="{Binding onCollaborators}"/>
+					<Separator />
+					<MenuItem Header="Acerca de TibiaMobile Studio" Command="{Binding onAbout}"/>
+				</MenuItem>
 			</Menu>
 	    </Grid>
 		

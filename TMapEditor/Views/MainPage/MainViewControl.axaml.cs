@@ -147,7 +147,6 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
     void MonoGame_PointerMoved(object? sender, Avalonia.Input.PointerEventArgs e)
     {
         CurrentMouse = new MouseModel((int)MapEngine.Instance.GlobalPos.X, (int)MapEngine.Instance.GlobalPos.Y);
-  
         CurrentFloor = MapManager.Instance.FloorCurrent;
         Debug.WriteLine($"[Moved] {CurrentMouse.X},{CurrentMouse.Y},{CurrentFloor}");
     }
@@ -228,24 +227,42 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     public async void onOpen()
     {
-        MapManager.Instance.Open();
+        await DialogManager.Show("Cargando mapa...");
+        bool? status  = await MapManager.Instance.Open();
+        await DialogManager.Close();
+
+        if(status != null && !status.Value)
+        {
+            await DialogManager.Display("Error", "No se pudo cargar el archivo.\nFormato desconocido.", "OK");
+            return;
+        }
     }
 
     public async void onSave()
     {
         await DialogManager.Show("Guardando mapa...");
-        bool status = await MapManager.Instance.Save();
+        bool? status = await MapManager.Instance.Save();
         await DialogManager.Close();
-        Debug.WriteLine($"[Save] {status}");
+
+        if (status != null && !status.Value)
+        {
+            await DialogManager.Display("Error", "No se pudo guardar el mapa.", "OK");
+            return;
+        }
     }
 
     public async void onSaveAs()
     {
         await DialogManager.Show("Guardando mapa...");
-        bool status = await MapManager.Instance.SaveAs();
+        bool? status = await MapManager.Instance.SaveAs();
         await DialogManager.Close();
- 
-        Debug.WriteLine($"[Save] {status}");
+
+        if (status != null && !status.Value)
+        {
+            await DialogManager.Display("Error", "No se pudo guardar el mapa.", "OK");
+            return;
+        }
+
     }
 
     public async void onMapProperties()

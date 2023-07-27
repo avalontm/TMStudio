@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using TMapEditor.Engine;
@@ -97,7 +98,7 @@ namespace TMapEditor.Utils
             this.vScroll = vScroll;
         }
 
-        public async void Open()
+        public async Task<bool?> Open()
         {
             var dialog = new Avalonia.Controls.OpenFileDialog();
             dialog.Filters.Add(new FileDialogFilter(){Name = "TMap files", Extensions = new List<string> { "tmap" } });
@@ -117,7 +118,7 @@ namespace TMapEditor.Utils
                 if(!isMapLoaded)
                 {
                     Debug.WriteLine($"No se pudo cargar el mapa.");
-                    return;
+                    return false;
                 }
 
                 //Iniciamos la camara
@@ -132,10 +133,14 @@ namespace TMapEditor.Utils
 
                 //Cargamos el mapa
                 mapTile = new MapTile(MapBase, MapEngine.Instance.SpriteBatch);
+
+                return true;
             }
+
+            return null;
         }
 
-        public async Task<bool> Save()
+        public async Task<bool?> Save()
         {
             if (!string.IsNullOrEmpty(FileMap))
             {
@@ -162,10 +167,10 @@ namespace TMapEditor.Utils
                 return await onSaveMap();
             }
 
-            return false;
+            return null;
         }
 
-        public async Task<bool> SaveAs()
+        public async Task<bool?> SaveAs()
         {
             var dialog = new Avalonia.Controls.SaveFileDialog();
             dialog.Filters.Add(new FileDialogFilter() { Name = "TMap files", Extensions = new List<string> { "tmap" } });
@@ -187,7 +192,7 @@ namespace TMapEditor.Utils
                 return await onSaveMap();
             }
 
-            return false;
+            return null;
         }
 
         async Task<bool> onSaveMap()
