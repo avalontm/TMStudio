@@ -328,8 +328,22 @@ namespace TMapEditor.Engine
             _spriteBatch.Draw(_pointTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
         }
 
+        bool isRegion()
+        {
+            if (GlobalPos.X >=0 && GlobalPos.X < MapManager.Instance.MapBase.mapInfo.Size.X && GlobalPos.Y >= 0 && GlobalPos.Y < MapManager.Instance.MapBase.mapInfo.Size.Y)
+            {
+                return true;
+            }
+            return false;
+        }
+
         void onErase()
         {
+            if(!isRegion())
+            {
+                return;
+            }
+
             if (MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].item == null)
             {
                 return;
@@ -355,6 +369,10 @@ namespace TMapEditor.Engine
 
         void onProtectionZone()
         {
+            if (!isRegion())
+            {
+                return;
+            }
             if (MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].item == null)
             {
                 return;
@@ -365,6 +383,10 @@ namespace TMapEditor.Engine
 
         void onPincel()
         {
+            if (!isRegion())
+            {
+                return;
+            }
             if (ItemsManager.Instance.ItemSelect == null)
             {
                 return;
