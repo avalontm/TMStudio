@@ -139,6 +139,17 @@ namespace TMapEditor.Engine
             }
         }
 
+        bool _mousePressed;
+        public bool MousePressed
+        {
+            get { return _mousePressed; }
+            set
+            {
+                _mousePressed = value;
+                OnPropertyChanged("MousePressed");
+            }
+        }
+
         float gamePositionX;
         float gamePositionY;
 
@@ -199,10 +210,13 @@ namespace TMapEditor.Engine
             _spriteBatch.Begin();
             GraphicsDevice.Clear(Color.Black);
 
-            MapManager.Instance.Draw(gameTime);
+            if (MapManager.Instance.MapBase != null)
+            {
+                MapManager.Instance.Draw(gameTime);
 
-            DrawTextureSelect(ScreenPos);
-            DrawRectangle(ScreenPos, Color.Red, 2);
+                DrawTextureSelect(ScreenPos);
+                DrawRectangle(ScreenPos, Color.Red, 2);
+            }
 
             _spriteBatch.End();
            // _res.End();
@@ -271,8 +285,7 @@ namespace TMapEditor.Engine
 
         void OnInput()
         {
-            /*
-            if (MouseState.LeftButton == ButtonState.Pressed)
+            if (MousePressed)
             {
                 switch (Pincel)
                 {
@@ -286,8 +299,8 @@ namespace TMapEditor.Engine
                         onProtectionZone();
                         break;
                 }
+
             }
-            */
         }
 
         void DrawTextureSelect(Vector2 pos)

@@ -128,7 +128,16 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
                 onLoadSoprites();
             }
         }
+    }
 
+    void MonoGame_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+    {
+        MapEngine.Instance.MousePressed = false;
+    }
+
+    void MonoGame_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    {
+        MapEngine.Instance.MousePressed = true;
     }
 
     void MonoGame_SizeChanged(object? sender, SizeChangedEventArgs e)
@@ -144,6 +153,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     void MonoGame_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
     {
+        MapEngine.Instance.MousePressed = false;
         MapEngine.Instance.IsFocus = false;
     }
 

@@ -164,7 +164,7 @@
 							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 
-						<monoGame:MonoGameControl x:Name="monoGame" Grid.Row="0" SizeChanged="MonoGame_SizeChanged" Game="{Binding CurrentGame}" KeyDown="MonoGame_KeyDown" PointerEntered="MonoGame_PointerEntered" PointerExited="MonoGame_PointerExited" PointerMoved="MonoGame_PointerMoved" />
+						<monoGame:MonoGameControl x:Name="monoGame" Grid.Row="0" PointerReleased="MonoGame_PointerReleased" PointerPressed="MonoGame_PointerPressed" SizeChanged="MonoGame_SizeChanged" Game="{Binding CurrentGame}" KeyDown="MonoGame_KeyDown" PointerEntered="MonoGame_PointerEntered" PointerExited="MonoGame_PointerExited" PointerMoved="MonoGame_PointerMoved" />
 
 						<ScrollBar x:Name="hScroll" Grid.Row="1" Grid.Column="0" Orientation="Horizontal" AllowAutoHide="False" Maximum="0"  ValueChanged="onScrollVerticalChanged"/>
 						<ScrollBar x:Name="vScroll" Grid.Row="0" Grid.Column="1" Orientation="Vertical" AllowAutoHide="False" Maximum="0" ValueChanged="onScrollHorizontalChanged"/>

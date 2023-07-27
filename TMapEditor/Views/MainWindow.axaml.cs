@@ -23,8 +23,15 @@ public partial class MainWindow : Window
     {
         if (MainViewControl.Instance != null)
         {
-            MapEngine.Instance.SizeChanged((int)MainViewControl.Instance.monoGame.Bounds.Width, (int)MainViewControl.Instance.monoGame.Bounds.Height);
-            MapManager.Instance.Camera.ToMove((int)MainViewControl.Instance.hScroll.Value, (int)MainViewControl.Instance.vScroll.Value);
+            if (MapEngine.Instance != null)
+            {
+                MapEngine.Instance.SizeChanged((int)MainViewControl.Instance.monoGame.Bounds.Width, (int)MainViewControl.Instance.monoGame.Bounds.Height);
+               
+                if (MapManager.Instance.Camera != null)
+                {
+                    MapManager.Instance.Camera.ToMove((int)MainViewControl.Instance.hScroll.Value, (int)MainViewControl.Instance.vScroll.Value);
+                }
+            }
         }
     }
 }
