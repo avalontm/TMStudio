@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -48,6 +49,28 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         {
             _toolbar = value;
             OnPropertyChanged("Toolbar");
+        }
+    }
+
+    Avalonia.Point _mouse = new Avalonia.Point();
+    public Avalonia.Point Mouse
+    {
+        get { return _mouse; }
+        set
+        {
+            _mouse = value;
+            OnPropertyChanged("Mouse");
+        }
+    }
+
+    int _currentFloor;
+    public int CurrentFloor
+    {
+        get { return _currentFloor; }
+        set
+        {
+            _currentFloor = value;
+            OnPropertyChanged("CurrentFloor");
         }
     }
 
@@ -99,6 +122,24 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
                 onLoadSoprites();
             }
         }
+      
+    }
+
+    void MonoGame_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+        MapEngine.Instance.IsFocus = false;
+    }
+
+    void MonoGame_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+        MapEngine.Instance.IsFocus = true;
+    }
+
+    void MonoGame_PointerMoved(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+        Mouse = new Avalonia.Point(MapEngine.Instance.GlobalPos.X, MapEngine.Instance.GlobalPos.Y);
+        CurrentFloor = MapManager.Instance.FloorCurrent;
+        Debug.WriteLine($"[Moved] {Mouse.X},{Mouse.Y},{CurrentFloor}");
     }
 
     public void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)

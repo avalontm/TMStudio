@@ -39,12 +39,6 @@ namespace TMapEditor.Engine
             get { return _spriteBatch; }
         }
 
-        private ResolutionRenderer _res;
-        public ResolutionRenderer Resolution
-        {
-            get { return _res; }
-        }
-
         int _actualWidth;
         public int ActualWidth
         {
@@ -69,7 +63,9 @@ namespace TMapEditor.Engine
         }
 
         public static List<TMSprite> Items;
+
         Texture2D _pointTexture;
+        ResolutionRenderer _res;
 
         PincelStatus _pincel;
         public PincelStatus Pincel
@@ -131,6 +127,20 @@ namespace TMapEditor.Engine
 
         public static MapEngine? Instance { private set; get; }
 
+        bool _isFocus;
+        public bool IsFocus
+        {
+            get { return _isFocus; }
+            set
+            {
+                _isFocus = value;
+                OnPropertyChanged("IsFocus");
+            }
+        }
+
+        int xOffset = 45;
+        int yOffset = 16;
+
         #endregion
 
         public MapEngine()
@@ -145,7 +155,7 @@ namespace TMapEditor.Engine
             ActualWidth = GraphicsDevice.Viewport.Width;
             ActualHeight = GraphicsDevice.Viewport.Height;
 
-            _res = new ResolutionRenderer(new Point(GraphicsDevice.Adapter.CurrentDisplayMode.Width, GraphicsDevice.Adapter.CurrentDisplayMode.Height), GraphicsDevice)
+            _res = new ResolutionRenderer(new Point( GraphicsDevice.Adapter.CurrentDisplayMode.Width, GraphicsDevice.Adapter.CurrentDisplayMode.Height), GraphicsDevice)
             {
                 ScreenResolution = new Point(ActualWidth, ActualHeight),
                 Method = ResizeMethod.Fill
@@ -169,28 +179,29 @@ namespace TMapEditor.Engine
 
         protected override void Update(GameTime gameTime)
         {
-            
             MouseState = Mouse.GetState();
             KeyboardState = Keyboard.GetState();
 
-            if (MapManager.Instance.MapBase != null)
+            if (ActualWidth != GraphicsDevice.Viewport.Width || ActualHeight != GraphicsDevice.Viewport.Height)
             {
-                GlobalPos = new Vector2((MouseState.X / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X, (MouseState.Y / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y);
-                ScreenPos = new Vector2((MouseState.X / TMBaseMap.TileSize), (MouseState.Y / TMBaseMap.TileSize));
+                ActualWidth = GraphicsDevice.Viewport.Width;
+                ActualHeight = GraphicsDevice.Viewport.Height;
 
-                if (ActualWidth != GraphicsDevice.Viewport.Width || ActualHeight != GraphicsDevice.Viewport.Height)
-                {
-                    ActualWidth = GraphicsDevice.Viewport.Width;
-                    ActualHeight = GraphicsDevice.Viewport.Height;
-
-                    _res.ScreenResolution = new Point(ActualWidth, ActualHeight);
-                }
-
-                OnInput();
-
-                MapManager.Instance.Update(gameTime);
+                _res.ScreenResolution = new Point(ActualWidth, ActualHeight);
             }
 
+            if (IsFocus)
+            {
+                if (MapManager.Instance.MapBase != null)
+                {
+                    GlobalPos = new Vector2(((MouseState.X - xOffset) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X, ((MouseState.Y - yOffset) / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y);
+                    ScreenPos = new Vector2(((MouseState.X- xOffset) / TMBaseMap.TileSize), ((MouseState.Y- yOffset) / TMBaseMap.TileSize));
+
+                    OnInput();
+
+                    MapManager.Instance.Update(gameTime);
+                }
+            }
             base.Update(gameTime);
 
             _previousState = KeyboardState;
@@ -199,20 +210,19 @@ namespace TMapEditor.Engine
 
         protected override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
-
             GraphicsDevice.Clear(Color.Black);
 
-             //_res.Begin();
             _spriteBatch.Begin();
-
+         
             MapManager.Instance.Draw(gameTime);
 
             DrawTextureSelect(ScreenPos);
             DrawRectangle(ScreenPos, Color.Red, 2);
 
             _spriteBatch.End();
-            //_res.End();
+
+            base.Draw(gameTime);
+
         }
 
         void OnInput()
@@ -247,6 +257,7 @@ namespace TMapEditor.Engine
         void DrawRectangle(Vector2 pos, Color color, int lineWidth)
         {
             Rectangle rectangle = new Rectangle((int)pos.X * TMBaseMap.TileSize, (int)pos.Y * TMBaseMap.TileSize, TMBaseMap.TileSize, TMBaseMap.TileSize);
+            
             if (_pointTexture == null)
             {
                 _pointTexture = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1);
@@ -266,7 +277,7 @@ namespace TMapEditor.Engine
                 return;
             }
 
-            if (MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items.Count == 0) //Si no hay mas item borramos el tile.
+            if (MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items?.Count == 0) //Si no hay mas item borramos el tile.
             {
                 MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].isPZ = false;
                 MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].item = null;
