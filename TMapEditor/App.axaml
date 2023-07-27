@@ -36,6 +36,7 @@
 	
     <Application.Styles>
         <FluentTheme />
+		<StyleInclude Source="Styles\ProgressRing.axaml"/>
 		<StyleInclude Source="Styles\Theme.axaml"/>
 		<StyleInclude Source="Styles\TabControl.axaml"/>
     </Application.Styles>

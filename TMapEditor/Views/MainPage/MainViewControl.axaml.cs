@@ -16,6 +16,7 @@ using TMapEditor.Models;
 using TMapEditor.Utils;
 using TMFormat.Formats;
 using TMStudio.Models;
+using TMStudio.Utils;
 
 namespace TMapEditor.Views.MainPage;
 
@@ -232,15 +233,18 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     public async void onSave()
     {
+        await DialogManager.Show("Guardando mapa...");
         bool status = await MapManager.Instance.Save();
-
+        await DialogManager.Close();
         Debug.WriteLine($"[Save] {status}");
     }
 
     public async void onSaveAs()
     {
+        await DialogManager.Show("Guardando mapa...");
         bool status = await MapManager.Instance.SaveAs();
-
+        await DialogManager.Close();
+ 
         Debug.WriteLine($"[Save] {status}");
     }
 
@@ -251,6 +255,6 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     public async void onExit()
     {
-
+        await DialogManager.Display("Confirmar", "Deseas salir de la aplicacion?", "SI", "NO");
     }
 }
