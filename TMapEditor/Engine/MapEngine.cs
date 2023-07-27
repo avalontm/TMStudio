@@ -198,10 +198,10 @@ namespace TMapEditor.Engine
                     ScreenPos = new Vector2(((MouseState.X- xOffset) / TMBaseMap.TileSize), ((MouseState.Y- yOffset) / TMBaseMap.TileSize));
 
                     OnInput();
-
-                    MapManager.Instance.Update(gameTime);
                 }
             }
+
+            MapManager.Instance.Update(gameTime);
             base.Update(gameTime);
 
             _previousState = KeyboardState;

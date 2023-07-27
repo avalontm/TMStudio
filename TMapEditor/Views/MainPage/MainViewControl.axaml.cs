@@ -14,6 +14,7 @@ using TMapEditor.Engine.Enums;
 using TMapEditor.Models;
 using TMapEditor.Utils;
 using TMFormat.Formats;
+using TMStudio.Models;
 
 namespace TMapEditor.Views.MainPage;
 
@@ -52,14 +53,14 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         }
     }
 
-    Avalonia.Point _mouse = new Avalonia.Point();
-    public Avalonia.Point Mouse
+    MouseModel _currentMouse = MouseModel.Zero;
+    public MouseModel CurrentMouse
     {
-        get { return _mouse; }
+        get { return _currentMouse; }
         set
         {
-            _mouse = value;
-            OnPropertyChanged("Mouse");
+            _currentMouse = value;
+            OnPropertyChanged("CurrentMouse");
         }
     }
 
@@ -137,9 +138,10 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     void MonoGame_PointerMoved(object? sender, Avalonia.Input.PointerEventArgs e)
     {
-        Mouse = new Avalonia.Point(MapEngine.Instance.GlobalPos.X, MapEngine.Instance.GlobalPos.Y);
+        CurrentMouse = new MouseModel(MapEngine.Instance.GlobalPos.X, MapEngine.Instance.GlobalPos.Y);
+  
         CurrentFloor = MapManager.Instance.FloorCurrent;
-        Debug.WriteLine($"[Moved] {Mouse.X},{Mouse.Y},{CurrentFloor}");
+        Debug.WriteLine($"[Moved] {CurrentMouse.X},{CurrentMouse.Y},{CurrentFloor}");
     }
 
     public void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)

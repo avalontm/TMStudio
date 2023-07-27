@@ -60,7 +60,7 @@
 		<!-- MAP SCREEN -->
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="100" MinWidth="100"/>
+				<ColumnDefinition Width="150" MinWidth="120"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
@@ -118,6 +118,26 @@
 							</DataTemplate>
 						</ListBox.ItemTemplate>
 					</ListBox>
+				</Grid>
+
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Grid Grid.Column="0">
+						<Label Margin="5,0,0,0" Content="{Binding CurrentMouse.X, StringFormat='X: {0}'}" FontSize="14" FontWeight="DemiBold" />
+					</Grid>
+
+					<Grid Grid.Column="1">
+						<Label Margin="5,0,0,0" Content="{Binding CurrentMouse.Y, StringFormat='Y: {0}'}" FontSize="14" FontWeight="DemiBold" />
+					</Grid>
+
+					<Grid Grid.Column="2">
+						<Label Margin="5,0,0,0" Content="{Binding CurrentFloor, StringFormat='Z: {0}'}" FontSize="14" FontWeight="DemiBold" />
+					</Grid>
 				</Grid>
 			</Grid>
 
