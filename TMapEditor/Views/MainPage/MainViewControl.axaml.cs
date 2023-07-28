@@ -89,8 +89,10 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         InitializeComponent();
         Instance = this;
         Toolbar = new ObservableCollection<ToolbarModel>();
+        MapEngine.Instance.onSelectionReturn += onItemSelectionReturn;
         DataContext = this;
     }
+
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
@@ -200,7 +202,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         switch (parameter)
         {
             case "select":
-                MapEngine.Instance.Pincel = PincelStatus.None;
+                MapEngine.Instance.Pincel = PincelStatus.Selection;
                 break;
             case "draw":
                 MapEngine.Instance.Pincel = PincelStatus.Draw;
@@ -301,6 +303,22 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
             return;
         }
 
+    }
+
+    void onItemSelectionReturn(object? sender, TMSprite e)
+    {
+        if(MapTilePropertieView.Instence != null)
+        {
+            if(MapTilePropertieView.Instence.Item == e)
+            {
+                return;
+            }
+        }
+
+        var _view = new MapTilePropertieView();
+        _view.Item = e;
+        Debug.WriteLine($"[onItemSelectionReturn] {e.Id}");
+        onShowProperties(_view);
     }
 
     public async void onMapProperties()

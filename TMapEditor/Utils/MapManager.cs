@@ -135,8 +135,8 @@ namespace TMapEditor.Utils
 
                 Camera.ToMove((int)hScroll.Value, (int)vScroll.Value);
 
-                //Cargamos el mapa
-                mapTile = new MapTile(MapBase, MapEngine.Instance.SpriteBatch);
+                //Cargamos el mapa en modo editor
+                mapTile = new MapTile(MapBase, MapEngine.Instance.SpriteBatch, true);
                 isLoaded = true;
 
                 return true;

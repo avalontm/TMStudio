@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Threading;
 using AvaloniaInside.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -150,6 +151,7 @@ namespace TMapEditor.Engine
             }
         }
 
+        public EventHandler<TMSprite> onSelectionReturn;
         float gamePositionX;
         float gamePositionY;
 
@@ -289,6 +291,9 @@ namespace TMapEditor.Engine
             {
                 switch (Pincel)
                 {
+                    case PincelStatus.Selection:
+                        onSelection();
+                        break;
                     case PincelStatus.Draw:
                         onPincel();
                         break;
@@ -483,6 +488,24 @@ namespace TMapEditor.Engine
                     break;
             }
 
+        }
+
+        void onSelection()
+        {
+            TMSprite item = null;
+
+            if (MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items != null) // Items
+            {
+                item = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items.LastOrDefault();
+
+                if(item != null)
+                {
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        onSelectionReturn?.Invoke(this, item);
+                    });
+                }
+            }
         }
 
         void onField(TMSprite item)

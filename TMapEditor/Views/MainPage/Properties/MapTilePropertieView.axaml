@@ -3,7 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="800"
-             x:Class="TMStudio.Views.MainPage.Properties.MapPropertieView">
+             x:Class="TMStudio.Views.MainPage.Properties.MapTilePropertieView">
+
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -20,7 +21,5 @@
 			</DataGrid>
 		</Grid>
 		
-		<Button Grid.Row="1" Height="48" Content="Guardar" Command="{Binding onSave}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
 	</Grid>
 </UserControl>

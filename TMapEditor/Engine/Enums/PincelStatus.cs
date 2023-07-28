@@ -9,6 +9,7 @@ namespace TMapEditor.Engine.Enums
     public enum PincelStatus
     {
         None,
+        Selection,
         Draw,
         Erase,
         Protection,
