@@ -15,15 +15,20 @@
 			<Label Content="Informacion del mapa" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 		</Border>
 
-		<StackPanel Margin="5" Grid.Row="1">
-			<Grid>
-				<DataGrid Name="dataGrid" ItemsSource="{Binding Items}" AutoGenerateColumns="False">
+			<Grid Margin="5" Grid.Row="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				
+				<DataGrid Grid.Row="0" Name="dataGrid" ItemsSource="{Binding Items}" AutoGenerateColumns="False" CanUserReorderColumns="False">
 					<DataGrid.Columns>
-						<DataGridTextColumn Header="Nombre"  Binding="{Binding Name}" Width="120"/>
-						<DataGridTextColumn Header="Valor" Binding="{Binding Value}" Width="*" />
+						<DataGridTextColumn Header="Nombre"  Binding="{Binding Name}" Width="120" IsReadOnly="True" CanUserSort="False" CanUserReorder="False" />
+						<DataGridTextColumn Header="Valor" Binding="{Binding Value}" Width="200" IsReadOnly="False" CanUserSort="False" CanUserResize="True" CanUserReorder="False"/>
 					</DataGrid.Columns>
 				</DataGrid>
+
+				<Button Grid.Row="1" Height="48" Content="Guardar" Command="{Binding onSave}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 			</Grid>
-		</StackPanel>
 	</Grid>
 </UserControl>

@@ -217,7 +217,9 @@ namespace TMapEditor.Utils
 
         async Task<bool> onSaveMap()
         {
+            await Task.Delay(100);
             bool result = MapBase.Save(FileMap);
+            await Task.Delay(100);
 
             if (result)
             {
