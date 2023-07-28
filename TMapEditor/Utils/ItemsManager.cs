@@ -159,7 +159,7 @@ namespace TMapEditor.Utils
         public ItemsManager()
         {
             ItemsCategory = new ObservableCollection<string>();
-            ItemsCategory.Add("Tiles");
+            ItemsCategory.Add("Grounds");
             ItemsCategory.Add("Borders");
             ItemsCategory.Add("Fields");
             ItemsCategory.Add("Items");

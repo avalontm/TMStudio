@@ -41,27 +41,35 @@
 	    </Grid>
 		
 		<!-- TOOLBAR -->
-		<Grid Grid.Row="1">
-			<StackPanel x:Name="panelMenu" Orientation="Horizontal">
+		<Grid Grid.Row="1" Background="{StaticResource BackgroundToolbar}">
+			<Border Padding="2" CornerRadius="0" BorderThickness="0">
+				<StackPanel x:Name="panelMenu" Orientation="Horizontal">
 
-				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="draw" ToolTip.Tip="Dibujar">
-					<ToggleButton.Content>
-						<Image Margin="2" Source="/Assets/toolbar_pencil.png" Stretch="Uniform" Width="24" Height="24"/>
-					</ToggleButton.Content>
-				</ToggleButton>
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="select" ToolTip.Tip="Seleccionar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_cursor.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
 
-				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="eraser" ToolTip.Tip="Borrar">
-					<ToggleButton.Content>
-						<Image Margin="2" Source="/Assets/toolbar_eraser.png" Stretch="Uniform" Width="24" Height="24"/>
-					</ToggleButton.Content>
-				</ToggleButton>
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="draw" ToolTip.Tip="Dibujar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_pencil.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
 
-				<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="pz" ToolTip.Tip="Proteccion">
-					<ToggleButton.Content>
-						<Image Margin="2" Source="/Assets/toolbar_shield.png" Stretch="Uniform" Width="24" Height="24"/>
-					</ToggleButton.Content>
-				</ToggleButton>
-			</StackPanel>
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="eraser" ToolTip.Tip="Borrar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_eraser.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="pz" ToolTip.Tip="Proteccion">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_shield.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+				</StackPanel>
+			</Border>
 		</Grid>
 
 		<!-- MAP SCREEN -->
@@ -136,15 +144,15 @@
 					</Grid.ColumnDefinitions>
 
 					<Grid Grid.Column="0">
-						<Label Margin="5,0,0,0" Content="{Binding CurrentMouse.X, StringFormat='X: {0}'}" FontSize="14" FontWeight="DemiBold" />
+						<Label Margin="2,0,0,0" Content="{Binding CurrentMouse.X, StringFormat='X: {0}'}" FontSize="14" FontWeight="DemiBold" />
 					</Grid>
 
 					<Grid Grid.Column="1">
-						<Label Margin="5,0,0,0" Content="{Binding CurrentMouse.Y, StringFormat='Y: {0}'}" FontSize="14" FontWeight="DemiBold" />
+						<Label Margin="2,0,0,0" Content="{Binding CurrentMouse.Y, StringFormat='Y: {0}'}" FontSize="14" FontWeight="DemiBold" />
 					</Grid>
 
 					<Grid Grid.Column="2">
-						<Label Margin="5,0,0,0" Content="{Binding CurrentFloor, StringFormat='Z: {0}'}" FontSize="14" FontWeight="DemiBold" />
+						<Label Margin="2,0,0,0" Content="{Binding CurrentFloor, StringFormat='Z: {0}'}" FontSize="14" FontWeight="DemiBold" />
 					</Grid>
 				</Grid>
 			</Grid>
@@ -152,7 +160,7 @@
 			<GridSplitter Grid.Column="0" Width="2" HorizontalAlignment="Right" />
 
 			<!-- MAP -->
-			<Grid Grid.Column="1" Margin="0,0,5,0">
+			<Grid Grid.Column="1" Margin="0,0,5,0" Background="{StaticResource Black}">
 				<Border Padding="0" BorderBrush="{StaticResource BackgroundBorder}" BorderThickness="4" CornerRadius="0">
 					<Grid>
 						<Grid.RowDefinitions>
@@ -177,7 +185,22 @@
 			
 			<!-- PROPERTIES -->
 			<Grid Grid.Column="2">
-				
+				<Border Margin="2" BorderBrush="{StaticResource BackgroundProperties}" BorderThickness="1">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+
+						<Border Background="{StaticResource BackgroundTitleProperties}">
+							<Label Margin="2" Content="Propiedades" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+						</Border>
+						
+						<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+								<Grid x:Name="gridProperties"/>
+						</ScrollViewer>
+					</Grid>
+				</Border>
 			</Grid>
 		</Grid>
 

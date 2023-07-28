@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="800"
+             x:Class="TMStudio.Views.MainPage.Properties.MapPropertieView">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" Background="{StaticResource BackgroundProperties}">
+			<Label Content="Informacion del mapa" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+		</Border>
+
+		<StackPanel Margin="5" Grid.Row="1">
+			<Grid>
+				<DataGrid Name="dataGrid" ItemsSource="{Binding Items}" AutoGenerateColumns="False">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Nombre"  Binding="{Binding Name}" Width="120"/>
+						<DataGridTextColumn Header="Valor" Binding="{Binding Value}" Width="*" />
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</UserControl>

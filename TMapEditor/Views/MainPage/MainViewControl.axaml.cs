@@ -20,6 +20,7 @@ using TMapEditor.Utils;
 using TMFormat.Formats;
 using TMStudio.Models;
 using TMStudio.Utils;
+using TMStudio.Views.MainPage.Properties;
 
 namespace TMapEditor.Views.MainPage;
 
@@ -107,7 +108,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
     async void onLoadContent()
     {
         MapManager.Instance.SetScrolls(hScroll, vScroll);
-        Toolbar_Tapped("draw");
+        Toolbar_Tapped("select");
         onLoadSoprites();
     }
 
@@ -198,6 +199,9 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
         switch (parameter)
         {
+            case "select":
+                MapEngine.Instance.Pincel = PincelStatus.None;
+                break;
             case "draw":
                 MapEngine.Instance.Pincel = PincelStatus.Draw;
                 break;
@@ -244,6 +248,12 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
     void onScrollVerticalChanged(object? sender, RangeBaseValueChangedEventArgs e)
     {
         MapManager.Instance.Camera.ToMove((int)hScroll.Value, (int)vScroll.Value);
+    }
+
+    public void onShowProperties(Control control)
+    {
+        gridProperties.Children.Clear();
+        gridProperties.Children.Add(control);
     }
 
     public async void onNew()
@@ -295,7 +305,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     public async void onMapProperties()
     {
-
+        onShowProperties(new MapPropertieView());
     }
 
     public async void onExit()

@@ -22,9 +22,11 @@
 			<SolidColorBrush x:Key="GrayBorder">#d1d1d1</SolidColorBrush>
 			<SolidColorBrush x:Key="Yellow">#f5a742</SolidColorBrush>
 		    <SolidColorBrush x:Key="BackgroundBorder">#0b0d14</SolidColorBrush>
+			<SolidColorBrush x:Key="BackgroundToolbar">#0b0d14</SolidColorBrush>
+		    <SolidColorBrush x:Key="BackgroundTitleProperties">#151824</SolidColorBrush>
+			<SolidColorBrush x:Key="BackgroundProperties">#1a1d29</SolidColorBrush>
 		
-			<SolidColorBrush x:Key="ToolbarBackground">#404040</SolidColorBrush>
-			<SolidColorBrush x:Key="ToolbarBorder">#515151</SolidColorBrush>
+		<SolidColorBrush x:Key="ToolbarBorder">#515151</SolidColorBrush>
 
 			<FontFamily x:Key="SFLight">Assets\Fonts\SF-Pro-Text-Light.otf#SF Pro Text</FontFamily>
 			<FontFamily x:Key="SFRegular">Assets\Fonts\SF-Pro-Text-Regular.otf#SF Pro Text</FontFamily>
@@ -36,6 +38,7 @@
 	
     <Application.Styles>
         <FluentTheme />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 		<StyleInclude Source="Styles\ProgressRing.axaml"/>
 		<StyleInclude Source="Styles\Theme.axaml"/>
 		<StyleInclude Source="Styles\TabControl.axaml"/>
