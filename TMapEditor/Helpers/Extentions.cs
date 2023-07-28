@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMapEditor.Views.MainPage;
+using TMFormat.Enums;
 
 namespace TMapEditor.Helpers
 {

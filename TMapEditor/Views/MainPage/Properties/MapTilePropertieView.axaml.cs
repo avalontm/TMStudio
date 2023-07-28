@@ -5,8 +5,10 @@ using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using TMapEditor.Utils;
+using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Enums;
 using TMStudio.Models;
@@ -79,11 +81,13 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
     {
         if (MapManager.Instance.isLoaded)
         {
-            Items.Add(new PropertiesModel() { Name = "Id", Value = Item.Id });
-            Items.Add(new PropertiesModel() { Name = "Tipo", Value = Item.Type });
-            Items.Add(new PropertiesModel() { Name = "Nombre", Value = Item.Name });
-            Items.Add(new PropertiesModel() { Name = "Usable", Value = Item.Use });
-            Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Item.Block });
+            var typeitems = EnumConvert.TypeItemToList();
+
+            Items.Add(new PropertiesModel() { Name = "Id", Value = Item.Id, Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Tipo", Items = typeitems, Type = 2 });
+            Items.Add(new PropertiesModel() { Name = "Nombre", Value = Item.Name, Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Usable", Value = Item.Use, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Item.Block, Type = 1 });
         }
     }
 }

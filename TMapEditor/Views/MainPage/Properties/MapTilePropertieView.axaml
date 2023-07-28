@@ -3,9 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="800"
-             x:Class="TMStudio.Views.MainPage.Properties.MapTilePropertieView">
+             x:Class="TMStudio.Views.MainPage.Properties.MapTilePropertieView"
+			  xmlns:conv="clr-namespace:TMStudio.Converts"
+			 x:Name="root">
 
-
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<conv:ItemPropertieVisibleConverter x:Key="ItemPropertieVisibleConverter"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
@@ -16,7 +23,20 @@
 			<DataGrid Grid.Row="0" Name="dataGrid" ItemsSource="{Binding Items}" AutoGenerateColumns="False" CanUserReorderColumns="False">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Nombre"  Binding="{Binding Name}" Width="120" IsReadOnly="True" CanUserSort="False" CanUserReorder="False" />
-					<DataGridTextColumn Header="Valor" Binding="{Binding Value}" Width="200" IsReadOnly="False" CanUserSort="False" CanUserResize="True" CanUserReorder="False"/>
+
+					<DataGridTemplateColumn Header="Valor" Width="200" IsReadOnly="False" CanUserSort="False" CanUserResize="True" CanUserReorder="False">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Grid>
+									
+									<TextBox Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<CheckBox Margin="5,0,0,0" IsChecked="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<ComboBox ItemsSource="{Binding Items}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+								</Grid>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					
 				</DataGrid.Columns>
 			</DataGrid>
 		</Grid>

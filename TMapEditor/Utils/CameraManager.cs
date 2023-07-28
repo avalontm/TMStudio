@@ -23,7 +23,6 @@ namespace TMapEditor.Utils
 
         public void ToMove(int x, int y)
         {
-            Debug.WriteLine($"[ToMove] {x},{y}");
             int _screenWidth = (int)((x + 1) + (MapEngine.Instance.ActualWidth / TMBaseMap.TileSize));
             int _screenHeight = (int)((y + 1) + (MapEngine.Instance.ActualHeight / TMBaseMap.TileSize));
 
