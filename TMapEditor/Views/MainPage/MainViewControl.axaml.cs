@@ -305,19 +305,18 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     }
 
-    void onItemSelectionReturn(object? sender, TMSprite e)
+    void onItemSelectionReturn(object? sender, TileModel e)
     {
         if(MapTilePropertieView.Instence != null)
         {
-            if(MapTilePropertieView.Instence.Item == e)
+            if(MapTilePropertieView.Instence.Model == e)
             {
                 return;
             }
         }
 
         var _view = new MapTilePropertieView();
-        _view.Item = e;
-        Debug.WriteLine($"[onItemSelectionReturn] {e.Id}");
+        _view.Model = e;
         onShowProperties(_view);
     }
 

@@ -42,14 +42,14 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
 
     }
 
-    TMSprite _item;
-    public TMSprite Item
+    TileModel _model;
+    public TileModel Model
     {
-        get { return _item; }
+        get { return _model; }
         set
         {
-            _item = value;
-            OnPropertyChanged(nameof(Item));
+            _model = value;
+            OnPropertyChanged(nameof(Model));
         }
     }
 
@@ -83,11 +83,11 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
         {
             var typeitems = EnumConvert.TypeItemToList();
 
-            Items.Add(new PropertiesModel() { Name = "Id", Value = Item.Id, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Tipo", Value= Item.Type, Items = typeitems, Type = 2 });
-            Items.Add(new PropertiesModel() { Name = "Nombre", Value = Item.Name, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Usable", Value = Item.Use, Type = 1 });
-            Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Item.Block, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Id", Value = Model.Tile.Id, Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Nombre", Value = Model.Tile.Name, Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Tipo", Value= Model.Tile.Type, Items = typeitems, Type = 2 });
+            Items.Add(new PropertiesModel() { Name = "Usable", Value = Model.Tile.Use, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Model.Tile.Block, Type = 1 });
         }
     }
 }
