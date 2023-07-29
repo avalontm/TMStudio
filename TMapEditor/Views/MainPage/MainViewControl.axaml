@@ -38,8 +38,8 @@
 					<MenuItem Header="Acerca de TibiaMobile Studio" Command="{Binding onAbout}"/>
 				</MenuItem>
 			</Menu>
-	    </Grid>
-		
+		</Grid>
+
 		<!-- TOOLBAR -->
 		<Grid Grid.Row="1" Background="{StaticResource BackgroundToolbar}">
 			<Border Padding="2" CornerRadius="0" BorderThickness="0">
@@ -108,14 +108,17 @@
 						</Border>
 
 					</Grid>
+			</Grid>
 
-					<Label Grid.Row="1" Content="Grupos" FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center"/>
+				<Grid Grid.Row="1" Margin="2">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					
+					<ComboBox Grid.Row="0" Margin="0" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemsCategory}" BorderBrush="{StaticResource Black}" BorderThickness="1" CornerRadius="0" SelectedIndex="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=GroupIndex}" SelectionChanged="onGroupSelectionChanged"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-					<ComboBox Grid.Row="2" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemsCategory}" SelectedIndex="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=GroupIndex}" SelectionChanged="onGroupSelectionChanged"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-				</Grid>
-
-				<Grid Grid.Row="1">
-					<ListBox Margin="2" Name="lstSprites" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Sprites}" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
+					<ListBox Grid.Row="1"  Name="lstSprites" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Sprites}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<Grid Margin="2">
@@ -176,13 +179,13 @@
 
 						<ScrollBar x:Name="hScroll" Grid.Row="1" Grid.Column="0" Orientation="Horizontal" AllowAutoHide="False" Maximum="0"  ValueChanged="onScrollVerticalChanged"/>
 						<ScrollBar x:Name="vScroll" Grid.Row="0" Grid.Column="1" Orientation="Vertical" AllowAutoHide="False" Maximum="0" ValueChanged="onScrollHorizontalChanged"/>
-					 </Grid>
+					</Grid>
 				</Border>
 			</Grid>
 
 
 			<GridSplitter Grid.Column="1" Margin="0" Width="2" HorizontalAlignment="Right" />
-			
+
 			<!-- PROPERTIES -->
 			<Grid Grid.Column="2">
 				<Border Margin="2" BorderBrush="{StaticResource BackgroundProperties}" BorderThickness="1">
@@ -195,9 +198,9 @@
 						<Border Background="{StaticResource BackgroundTitleProperties}">
 							<Label Margin="2" Content="Propiedades" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 						</Border>
-						
+
 						<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-								<Grid x:Name="gridProperties"/>
+							<Grid x:Name="gridProperties"/>
 						</ScrollViewer>
 					</Grid>
 				</Border>

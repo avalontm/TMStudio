@@ -205,7 +205,7 @@ namespace TMapEditor.Utils
 
                 switch ((TypeItem)item.Type)
                 {
-                    case TypeItem.Tile:
+                    case TypeItem.Ground:
                         Groups[0].Items.Add(item);
                         break;
 

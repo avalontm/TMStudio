@@ -127,6 +127,8 @@ namespace TMapEditor.Engine
             }
         }
 
+        Vector3 _lastPosition = Vector3.Zero;
+
         public static MapEngine? Instance { private set; get; }
 
         bool _isFocus;
@@ -151,7 +153,7 @@ namespace TMapEditor.Engine
             }
         }
 
-        public EventHandler<TMSprite> onSelectionReturn;
+        public EventHandler<TileModel> onSelectionReturn;
         float gamePositionX;
         float gamePositionY;
 
@@ -281,10 +283,36 @@ namespace TMapEditor.Engine
             }
         }
 
+        bool IsTileDrawing()
+        {
+            if((int)GlobalPos.X == _lastPosition.X && (int)GlobalPos.Y == _lastPosition.Y  && MapManager.Instance.FloorCurrent == _lastPosition.Z)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Pressed()
+        {
+            MapEngine.Instance.MousePressed = true;
+        }
+
+        public void Released()
+        {
+            MapEngine.Instance.MousePressed = false;
+            _lastPosition = Vector3.Zero;
+        }
+
         void OnInput()
         {
             if (MousePressed)
             {
+                if(IsTileDrawing())
+                {
+                    return;
+                }
+
                 switch (Pincel)
                 {
                     case PincelStatus.Selection:
@@ -300,7 +328,7 @@ namespace TMapEditor.Engine
                         onProtectionZone();
                         break;
                 }
-
+                _lastPosition = new Vector3((int)GlobalPos.X, (int)GlobalPos.Y, MapManager.Instance.FloorCurrent);
             }
         }
 
@@ -398,7 +426,7 @@ namespace TMapEditor.Engine
 
             switch ((TypeItem)ItemsManager.Instance.ItemSelect.Type)
             {
-                case TypeItem.Tile:
+                case TypeItem.Ground:
 
                     MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].item = Item;
 
@@ -488,20 +516,25 @@ namespace TMapEditor.Engine
 
         void onSelection()
         {
-            TMSprite item = null;
+            TMSprite item = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].item;
 
-            if (MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items != null) // Items
+            if (item != null)
             {
-                item = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items.LastOrDefault();
+                TileModel model = new TileModel() 
+                { 
+                    X = (int)GlobalPos.X, 
+                    Y = (int)GlobalPos.Y, 
+                    Z = MapManager.Instance.FloorCurrent, 
+                    Tile = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].item, 
+                    Items = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)GlobalPos.X, (int)GlobalPos.Y].items 
+                };
 
-                if(item != null)
+                Dispatcher.UIThread.Post(() =>
                 {
-                    Dispatcher.UIThread.Post(() =>
-                    {
-                        onSelectionReturn?.Invoke(this, item);
-                    });
-                }
+                      onSelectionReturn?.Invoke(this, model);
+                });
             }
+
         }
 
         void onField(TMSprite item)

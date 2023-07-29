@@ -135,12 +135,12 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     void MonoGame_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
     {
-        MapEngine.Instance.MousePressed = false;
+        MapEngine.Instance.Released();
     }
 
     void MonoGame_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {
-        MapEngine.Instance.MousePressed = true;
+        MapEngine.Instance.Pressed();
     }
 
     void MonoGame_SizeChanged(object? sender, SizeChangedEventArgs e)
@@ -180,7 +180,7 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
       
     }
 
-    public void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)
+    void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (this.IsLoaded)
         {
@@ -239,7 +239,19 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
             }
         }
 
-       button.IsChecked = true;
+        button.IsChecked = true;
+
+        if (MapEngine.Instance.Pincel == PincelStatus.Draw)
+        {
+            if (lstSprites.SelectedIndex >= 0)
+            {
+                ItemsManager.Instance.ItemSelect = ItemsManager.Instance.Sprites[lstSprites.SelectedIndex] as TMSprite;
+            }
+        }
+        else
+        {
+            ItemsManager.Instance.ItemSelect = null;
+        }
     }
 
     void onScrollHorizontalChanged(object? sender, RangeBaseValueChangedEventArgs e)
@@ -307,17 +319,25 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
 
     void onItemSelectionReturn(object? sender, TileModel e)
     {
-        if(MapTilePropertieView.Instence != null)
+        if(MapTilePropertieView.Instance != null)
         {
-            if(MapTilePropertieView.Instence.Model == e)
+            if(MapTilePropertieView.Instance.Model.X == e.X && MapTilePropertieView.Instance.Model.Y == e.Y && MapTilePropertieView.Instance.Model.Z == e.Z)
             {
                 return;
             }
         }
 
-        var _view = new MapTilePropertieView();
-        _view.Model = e;
-        onShowProperties(_view);
+        if (MapTilePropertieView.Instance == null)
+        {
+            var _view = new MapTilePropertieView();
+            _view.onLoadProperties(e);
+        }
+        else
+        {
+            MapTilePropertieView.Instance.onLoadProperties(e);
+        }
+
+        onShowProperties(MapTilePropertieView.Instance);
     }
 
     public async void onMapProperties()

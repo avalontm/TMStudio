@@ -20,7 +20,7 @@
 		</Grid.RowDefinitions>
 
 		<Grid Margin="5">
-			<DataGrid Grid.Row="0" Name="dataGrid" ItemsSource="{Binding Items}" AutoGenerateColumns="False" CanUserReorderColumns="False">
+			<DataGrid Grid.Row="0" Name="dataGrid" ItemsSource="{Binding Items}" GridLinesVisibility="All" AutoGenerateColumns="False" CanUserReorderColumns="False">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Nombre"  Binding="{Binding Name}" Width="120" IsReadOnly="True" CanUserSort="False" CanUserReorder="False" />
 
@@ -29,9 +29,9 @@
 							<DataTemplate>
 								<Grid>
 									
-									<TextBox Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
-									<CheckBox Margin="5,0,0,0" IsChecked="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
-									<ComboBox ItemsSource="{Binding Items}" SelectedIndex="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+									<TextBox IsEnabled="False" Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<CheckBox Margin="5,0,0,0" IsEnabled="False" IsChecked="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<ComboBox IsEnabled="False" ItemsSource="{Binding Items}" SelectedIndex="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Background="Transparent" BorderThickness="0" CornerRadius="0" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 								</Grid>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
