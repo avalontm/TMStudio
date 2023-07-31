@@ -1,5 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Converters;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,21 @@ namespace TMapEditor.Helpers
 {
     public static class Extentions
     {
+        public static SolidColorBrush ToBrush(this string HexColorString)
+        {
+            if (string.IsNullOrEmpty(HexColorString))
+            {
+                return new SolidColorBrush();
+            }
+
+            if (HexColorString[0] == '#')
+            {
+                HexColorString = HexColorString.Remove(0, 1);
+            }
+            int color = Convert.ToInt32(HexColorString, 16);
+            return new SolidColorBrush((uint)color);
+        }
+
         public static Bitmap ToImage(this byte[] byteArray)
         {
             try

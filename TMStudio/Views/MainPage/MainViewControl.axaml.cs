@@ -20,6 +20,7 @@ using TMapEditor.Utils;
 using TMFormat.Formats;
 using TMStudio.Models;
 using TMStudio.Utils;
+using TMStudio.Views.CreaturePage;
 using TMStudio.Views.MainPage.Properties;
 
 namespace TMapEditor.Views.MainPage;
@@ -78,6 +79,17 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         {
             _currentFloor = value;
             OnPropertyChanged("CurrentFloor");
+        }
+    }
+
+    bool _isTools;
+    public bool IsTools
+    {
+        get { return _isTools; }
+        set
+        {
+            _isTools = value;
+            OnPropertyChanged("IsTools");
         }
     }
 
@@ -343,6 +355,33 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
     public async void onMapProperties()
     {
         onShowProperties(new MapPropertieView());
+    }
+
+    public void onToolShow(Control control)
+    {
+        gridTools.Children.Clear();
+        gridTools.Children.Add(control);
+        IsTools = true;
+    }
+
+    public void onToolClose()
+    {
+        IsTools = false;
+        gridTools.Children.Clear();
+    }
+
+    void onEditorItem()
+    {
+
+    }
+
+    public void onEditorCreature()
+    {
+        if (CreatureMainView.Instance == null)
+        {
+            var _control = new CreatureMainView();
+            onToolShow(_control);
+        }
     }
 
     public async void onExit()

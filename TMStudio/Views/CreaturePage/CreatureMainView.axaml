@@ -1,0 +1,480 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TMStudio.Views.CreaturePage.CreatureMainView"
+			 Foreground="{StaticResource White}"
+             Background="{StaticResource BackgroundView}">
+
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- TOOLBAR -->
+		<Grid Grid.Row="0" Background="{StaticResource BackgroundToolbar}">
+			<Border Padding="2" CornerRadius="0" BorderThickness="0">
+				<StackPanel x:Name="panelMenu" Orientation="Horizontal">
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="new" ToolTip.Tip="Nuevo">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_nuevo.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="open" ToolTip.Tip="Abrir">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_open.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="save" ToolTip.Tip="Guardar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_save.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="close" ToolTip.Tip="Cerrar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_close.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+				</StackPanel>
+			</Border>
+		</Grid>
+		
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="250"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<Border Grid.Column="0" Margin="5" Background="{StaticResource Background}" CornerRadius="5">
+				<Grid >
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<Border Grid.Column="0" Margin="5" Background="#333334" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+						<Grid >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<!-- HEADER -->
+							<Grid Grid.Row="0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+
+								<Border Grid.Column="0" Background="{StaticResource Black}" CornerRadius="5,5,0,0">
+									<Label Content="Texturas" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+								</Border>
+
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<Border Grid.Column="0" Background="{StaticResource DarkBrush}">
+										<Label Content="Sprite" HorizontalContentAlignment="Center"/>
+									</Border>
+									<Border Grid.Column="1" Background="{StaticResource DarkBrush}">
+										<Label Content="Mask" HorizontalContentAlignment="Center"/>
+									</Border>
+								</Grid>
+
+							</Grid>
+
+							<Grid Grid.Row="1">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+
+
+								<Grid Grid.Column="0" Margin="2">
+									<Grid Grid.Row="1">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="Auto"/>
+										</Grid.RowDefinitions>
+
+										<!-- TEXTURAS -->
+										<Grid Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto"/>
+											</Grid.RowDefinitions>
+
+											<Grid Grid.Row="0" >
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="Auto"/>
+												</Grid.ColumnDefinitions>
+
+												<Border x:Name="borde" Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="4" >
+													<Image x:Name="texture4" Width="48" Height="48" Stretch="Uniform"  />
+												</Border>
+												<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="3">
+													<Image x:Name="texture3" Width="48" Height="48" Stretch="Uniform"  />
+												</Border>
+											</Grid>
+
+											<Grid Grid.Row="1">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="Auto"/>
+												</Grid.ColumnDefinitions>
+												<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="2" >
+													<Image x:Name="texture2" Width="48" Height="48" Stretch="Uniform"  />
+												</Border>
+												<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="1" >
+													<Image x:Name="texture1" Width="48" Height="48" Stretch="Uniform" />
+												</Border>
+											</Grid>
+										</Grid>
+									</Grid>
+								</Grid>
+
+								<!-- MASCARAS -->
+								<Grid Grid.Column="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+
+									<Grid Grid.Row="0">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+
+										<Border Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="4">
+											<Image x:Name="mask4" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+										<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="3" >
+											<Image x:Name="mask3" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+									</Grid>
+
+									<Grid Grid.Row="1" >
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+
+										<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="2" >
+											<Image x:Name="mask2" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+										<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="1" >
+											<Image  x:Name="mask1" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+									</Grid>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Border>
+
+					<Grid Grid.Row="1" Margin="5">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<Button x:Name="BtnFrame1" Grid.Column="0" Margin="2" Height="32" Command="{Binding onFrame}" CommandParameter="0" Content="Frame1" Foreground="White" Background="#252526" />
+						<Button x:Name="BtnFrame2" Grid.Column="1" Margin="2" Height="32" Command="{Binding onFrame}" CommandParameter="1" Content="Frame2" Foreground="White" Background="#252526"/>
+						<Button x:Name="BtnFrame3" Grid.Column="2" Margin="2" Height="32" Command="{Binding onFrame}" CommandParameter="2" Content="Frame3" Foreground="White" Background="#252526"/>
+					</Grid>
+
+					<Grid Grid.Row="2" Margin="5">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+
+						<Label Grid.Row="0" Content="Animaciones" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+					
+						<ComboBox x:Name="cmbDir" Grid.Row="1" SelectedIndex="{Binding DirIndex}" FontSize="18" FontWeight="Bold" SelectionChanged="onDirSelectionChanged" HorizontalAlignment="Stretch">
+							<ComboBoxItem IsSelected="True">Norte</ComboBoxItem>
+							<ComboBoxItem>Este</ComboBoxItem>
+							<ComboBoxItem>Sur</ComboBoxItem>
+							<ComboBoxItem>Oeste</ComboBoxItem>
+							<ComboBoxItem>Muerto</ComboBoxItem>
+						</ComboBox>
+					</Grid>
+				
+				</Grid>
+			</Border>
+
+			<ScrollViewer Grid.Column="1">
+				<Border  Margin="5,5,10,5" Background="{StaticResource Background}" CornerRadius="5">
+				<Grid>
+					<ScrollViewer >
+						<StackPanel Orientation="Vertical" Margin="10">
+
+							<Expander Header="Informacion" IsExpanded="True" Foreground="White" HorizontalAlignment="Stretch">
+								<StackPanel Orientation="Vertical" Margin="10">
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Tipo:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+									
+										<ComboBox Grid.Column="1" SelectedIndex="{Binding creature.type}" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Stretch">
+											<ComboBoxItem IsSelected="True">Creature</ComboBoxItem>
+											<ComboBoxItem>NPC</ComboBoxItem>
+										</ComboBox>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Nombre:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.name, FallbackValue='Nombre'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+								</StackPanel>
+							</Expander>
+
+							<Expander Header="Propiedades" IsExpanded="True" Foreground="White" HorizontalAlignment="Stretch">
+								<StackPanel Orientation="Vertical" Margin="10">
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Grid Grid.Column="0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="120"/>
+												<ColumnDefinition Width="*"/>
+											</Grid.ColumnDefinitions>
+
+											<Label Grid.Column="0" Margin="0,0,5,0" Content="Agresivo:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+											<CheckBox Grid.Column="1" IsChecked="{Binding creature.is_agressive, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+										</Grid>
+
+										<Grid Grid.Column="1">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="120"/>
+												<ColumnDefinition Width="*"/>
+											</Grid.ColumnDefinitions>
+
+											<Label Grid.Column="0" Margin="0,0,5,0" Content="Centrar:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+											<CheckBox Grid.Column="1" IsChecked="{Binding creature.is_offset, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+										</Grid>
+									</Grid>
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Respawn:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.timespawn, FallbackValue='60'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Movimiento:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.speed, FallbackValue='0.35'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Level:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.level, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Experiencia:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.experience, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Vida:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.heal, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Ataque:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.attack, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Defensa:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.defence, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+								</StackPanel>
+							</Expander>
+
+							<Expander Header="Ataque Magico" IsExpanded="True" Foreground="White" HorizontalAlignment="Stretch">
+								<StackPanel Orientation="Vertical" Margin="10">
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Magia:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<CheckBox Grid.Column="1" IsChecked="{Binding creature.use_spell, Mode=TwoWay, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Tipo:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+									
+										<ComboBox Grid.Column="1" SelectedIndex="{Binding creature.spell_type}" FontSize="18" VerticalContentAlignment="Center" HorizontalAlignment="Stretch">
+											<ComboBoxItem IsSelected="True">Fuego</ComboBoxItem>
+											<ComboBoxItem>Veneno</ComboBoxItem>
+											<ComboBoxItem>Electricidad</ComboBoxItem>
+											<ComboBoxItem>Psiquico</ComboBoxItem>
+										</ComboBox>
+									</Grid>
+								</StackPanel>
+							</Expander>
+
+							<Expander Header="Ataque Distancia" IsExpanded="True" Foreground="White" HorizontalAlignment="Stretch">
+								<StackPanel Orientation="Vertical" Margin="10">
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Distancia:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<CheckBox Grid.Column="1" IsChecked="{Binding creature.use_distance, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+
+									<Grid Margin="5">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="120"/>
+											<ColumnDefinition Width="*"/>
+										</Grid.ColumnDefinitions>
+
+										<Label Grid.Column="0" Margin="0,0,5,0" Content="Tiles:" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Right" />
+										<TextBox Grid.Column="1" Text="{Binding creature.distance_tiles, FallbackValue='0'}" FontSize="18" VerticalContentAlignment="Center"/>
+									</Grid>
+								</StackPanel>
+							</Expander>
+
+							<Expander Header="Loot" IsExpanded="True" Foreground="White" HorizontalAlignment="Stretch">
+								<StackPanel Orientation="Vertical" Margin="0">
+									<Grid Margin="2">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto"/>
+											<RowDefinition Height="*"/>
+										</Grid.RowDefinitions>
+
+										<Grid Margin="0,0,0,2">
+											<Button Command="{Binding onLootNew}" Content="+" FontSize="16" FontWeight="Bold" Cursor="Hand" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+										</Grid>
+
+										<ListBox Grid.Row="1" Name="lstLoot" ItemsSource="{Binding loots}" MinHeight="200" BorderBrush="Black" BorderThickness="1">
+											<ListBox.ItemTemplate>
+												<DataTemplate>
+													<Border Margin="2" Padding="5" Background="Gray" CornerRadius="5">
+														<Grid>
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="*"/>
+																<ColumnDefinition Width="32"/>
+																<ColumnDefinition Width="32"/>
+															</Grid.ColumnDefinitions>
+
+															<Grid Grid.Column="0">
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="*" />
+																	<ColumnDefinition Width="*" />
+																	<ColumnDefinition Width="*" />
+																</Grid.ColumnDefinitions>
+
+																<TextBox Grid.Column="0" Text="{Binding id}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+																<TextBox Grid.Column="1" Text="{Binding units}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+																<TextBox Grid.Column="2" Text="{Binding drop}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+															</Grid>
+
+															<Grid Grid.Column="1" Margin="2">
+																<Button Command="{Binding onLootDelete}" Cursor="Hand" Background="#ad1917" Padding="2" Width="32" Height="32">
+																	<Button.Content>
+																		<Image Margin="5" Source="/Resources/img_trash.png" Stretch="Uniform"/>
+																	</Button.Content>
+																</Button>
+															</Grid>
+
+															<Grid Grid.Column="2" Margin="2">
+																<Button Command="{Binding  onLootSave}" Cursor="Hand" Background="#1466a8" Padding="2" Width="32" Height="32">
+																	<Button.Content>
+																		<Image Margin="5" Source="/Resources/img_edit.png" Stretch="Uniform"/>
+																	</Button.Content>
+																</Button>
+															</Grid>
+														</Grid>
+													</Border>
+												</DataTemplate>
+											</ListBox.ItemTemplate>
+										</ListBox>
+									</Grid>
+								</StackPanel>
+							</Expander>
+						</StackPanel>
+					</ScrollViewer>
+				</Grid>
+			</Border>
+			</ScrollViewer>
+		</Grid>
+	</Grid>
+</UserControl>

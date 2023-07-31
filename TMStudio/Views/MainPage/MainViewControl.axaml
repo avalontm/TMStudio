@@ -31,6 +31,11 @@
 					<MenuItem Header="_Salir" Command="{Binding onExit}"/>
 				</MenuItem>
 
+				<MenuItem Header="_Herramientas">
+					<MenuItem Header="Item Editor" Command="{Binding onEditorItem}"/>
+					<MenuItem Header="Creature Editor" Command="{Binding onEditorCreature}"/>
+				</MenuItem>
+
 				<MenuItem Header="_Ayuda">
 					<MenuItem Header="Ver la Ayuda" Command="{Binding onHelp}"/>
 					<MenuItem Header="Colaboradores" Command="{Binding onCollaborators}"/>
@@ -108,14 +113,14 @@
 						</Border>
 
 					</Grid>
-			</Grid>
+				</Grid>
 
 				<Grid Grid.Row="1" Margin="2">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
-					
+
 					<ComboBox Grid.Row="0" Margin="0" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=ItemsCategory}" BorderBrush="{StaticResource Black}" BorderThickness="1" CornerRadius="0" SelectedIndex="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=GroupIndex}" SelectionChanged="onGroupSelectionChanged"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
 					<ListBox Grid.Row="1"  Name="lstSprites" ItemsSource="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Sprites}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
@@ -175,7 +180,7 @@
 							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 
-						<monoGame:MonoGameControl x:Name="monoGame" Grid.Row="0" PointerReleased="MonoGame_PointerReleased" PointerPressed="MonoGame_PointerPressed" SizeChanged="MonoGame_SizeChanged" Game="{Binding CurrentGame}" KeyDown="MonoGame_KeyDown" PointerEntered="MonoGame_PointerEntered" PointerExited="MonoGame_PointerExited" PointerMoved="MonoGame_PointerMoved" />
+						<monoGame:MonoGameControl Grid.Row="0" x:Name="monoGame" PointerReleased="MonoGame_PointerReleased" PointerPressed="MonoGame_PointerPressed" SizeChanged="MonoGame_SizeChanged" Game="{Binding CurrentGame}" KeyDown="MonoGame_KeyDown" PointerEntered="MonoGame_PointerEntered" PointerExited="MonoGame_PointerExited" PointerMoved="MonoGame_PointerMoved" />
 
 						<ScrollBar x:Name="hScroll" Grid.Row="1" Grid.Column="0" Orientation="Horizontal" AllowAutoHide="False" Maximum="0"  ValueChanged="onScrollVerticalChanged"/>
 						<ScrollBar x:Name="vScroll" Grid.Row="0" Grid.Column="1" Orientation="Vertical" AllowAutoHide="False" Maximum="0" ValueChanged="onScrollHorizontalChanged"/>
@@ -207,5 +212,7 @@
 			</Grid>
 		</Grid>
 
+		<!-- HERRAMIENTAS-->
+		<Grid x:Name="gridTools" Grid.Row="1" Grid.RowSpan="2" IsVisible="{Binding isTools}"/>
 	</Grid>
 </UserControl>

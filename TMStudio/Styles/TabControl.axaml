@@ -6,13 +6,13 @@
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
 			<TabControl  Classes="horizontalScroller">
-				<TabItem Header="Test1" Classes="horizontalScroller">
+				<TabItem Header="Test1" >
 					
 				</TabItem>
-				<TabItem Header="Test2" Classes="horizontalScroller">
+				<TabItem Header="Test2">
 
 				</TabItem>
-				<TabItem Header="Test3" Classes="horizontalScroller">
+				<TabItem Header="Test3">
 
 				</TabItem>
 			</TabControl>

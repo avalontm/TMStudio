@@ -6,6 +6,9 @@
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
 	<Application.Resources>
+			<SolidColorBrush x:Key="Background">#3e3e42</SolidColorBrush>
+			<SolidColorBrush x:Key="DarkBrush">#262626</SolidColorBrush>
+		
 			<SolidColorBrush x:Key="NavBackground">#1f1f1f</SolidColorBrush>
 			<SolidColorBrush x:Key="BackgroundView">#171C2C</SolidColorBrush>
 			<SolidColorBrush x:Key="MenuBackground">#ebebeb</SolidColorBrush>

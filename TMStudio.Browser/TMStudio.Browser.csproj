@@ -16,6 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TMapEditor\TMStudio.csproj" />
+    <ProjectReference Include="..\TMStudio\TMStudio.csproj" />
   </ItemGroup>
 </Project>

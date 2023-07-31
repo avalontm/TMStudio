@@ -12,9 +12,13 @@
 
   
   <ItemGroup>
+    <None Remove="Assets\Fonts\toolbar_close.png" />
+    <None Remove="Assets\Fonts\toolbar_open.png" />
+    <None Remove="Assets\Fonts\toolbar_save.png" />
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\toolbar_cursor.png" />
     <None Remove="Assets\toolbar_eraser.png" />
+    <None Remove="Assets\toolbar_nuevo.png" />
     <None Remove="Assets\toolbar_pencil.png" />
     <None Remove="Assets\toolbar_shield.png" />
   </ItemGroup>
