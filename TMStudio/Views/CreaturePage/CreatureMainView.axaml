@@ -123,10 +123,10 @@
 													<ColumnDefinition Width="Auto"/>
 												</Grid.ColumnDefinitions>
 
-												<Border x:Name="borde" Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="4" >
+												<Border x:Name="borde" Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="3" >
 													<Image x:Name="texture4" Width="48" Height="48" Stretch="Uniform"  />
 												</Border>
-												<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="3">
+												<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="2">
 													<Image x:Name="texture3" Width="48" Height="48" Stretch="Uniform"  />
 												</Border>
 											</Grid>
@@ -136,10 +136,10 @@
 													<ColumnDefinition Width="Auto"/>
 													<ColumnDefinition Width="Auto"/>
 												</Grid.ColumnDefinitions>
-												<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="2" >
+												<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="1" >
 													<Image x:Name="texture2" Width="48" Height="48" Stretch="Uniform"  />
 												</Border>
-												<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="1" >
+												<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="0" >
 													<Image x:Name="texture1" Width="48" Height="48" Stretch="Uniform" />
 												</Border>
 											</Grid>
@@ -160,10 +160,10 @@
 											<ColumnDefinition Width="Auto"/>
 										</Grid.ColumnDefinitions>
 
-										<Border Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="4">
+										<Border Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="3">
 											<Image x:Name="mask4" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
-										<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="3" >
+										<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="2" >
 											<Image x:Name="mask3" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
 									</Grid>
@@ -174,10 +174,10 @@
 											<ColumnDefinition Width="Auto"/>
 										</Grid.ColumnDefinitions>
 
-										<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="2" >
+										<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="1" >
 											<Image x:Name="mask2" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
-										<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="1" >
+										<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportMask" Tag="0" >
 											<Image  x:Name="mask1" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
 									</Grid>

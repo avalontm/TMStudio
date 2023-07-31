@@ -22,6 +22,8 @@ using Avalonia.VisualTree;
 using Avalonia.Media;
 using System.Diagnostics;
 using TMapEditor.Views.MainPage;
+using TMStudio.Enums;
+using TMFormat.Helpers;
 
 namespace TMStudio.Views.CreaturePage;
 
@@ -335,12 +337,55 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
 
     void onImportTexture(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {
-       
+        Border control = sender as Border;
+
+        if (control != null)
+        {
+            int index = int.Parse(control.Tag.ToString());
+
+            switch (index)
+            {
+                case 0:
+                    onImportTextures(texture1, SlootEnum.Texture, index);
+                    break;
+                case 1:
+                    onImportTextures(texture2, SlootEnum.Texture, index);
+                    break;
+                case 2:
+                    onImportTextures(texture3, SlootEnum.Texture, index);
+                    break;
+                case 3:
+                    onImportTextures(texture4, SlootEnum.Texture, index);
+                    break;
+            }
+          
+        }
     }
 
     void onImportMask(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {
-       
+        Border control = sender as Border;
+
+        if (control != null)
+        {
+            int index = int.Parse(control.Tag.ToString());
+
+            switch (index)
+            {
+                case 0:
+                    onImportTextures(mask1, SlootEnum.Mask, index);
+                    break;
+                case 1:
+                    onImportTextures(mask2, SlootEnum.Mask, index);
+                    break;
+                case 2:
+                    onImportTextures(mask3, SlootEnum.Mask, index);
+                    break;
+                case 3:
+                    onImportTextures(mask4, SlootEnum.Mask, index);
+                    break;
+            }
+        }
     }
 
     void onDirSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -385,6 +430,60 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
                 BtnFrame1.Background = new SolidColorBrush("#252526".ToBrush().Color);
                 BtnFrame2.Background = new SolidColorBrush("#252526".ToBrush().Color);
                 BtnFrame3.Background = new SolidColorBrush("#333337".ToBrush().Color);
+                break;
+        }
+    }
+
+    async void onImportTextures(Image source, SlootEnum sloot, int index)
+    {
+        if(creature == null)
+        {
+            return;
+        }
+
+        var dialog = new Avalonia.Controls.OpenFileDialog();
+        dialog.Filters.Add(new FileDialogFilter() { Name = "images files (*.png, *.bmp)|*.png; *.bmp;", Extensions = new List<string> { "png", "bmp"} });
+        dialog.AllowMultiple = false;
+
+        // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+        var parent = (Window)MainView.Instance.GetVisualRoot();
+
+        string[] result = await dialog.ShowAsync(parent);
+
+        if (result != null && result.Any())
+        {
+            string _fileName = result.FirstOrDefault();
+
+            if (File.Exists(_fileName))
+            {
+                onLoadTextureFromFile(source, sloot, index, _fileName);
+            }
+        }
+    }
+
+    void onLoadTextureFromFile(Image source, SlootEnum sloot, int index, string file)
+    {
+        byte[] _bytes = TMImageHelper.FromFile(file, true);
+
+        switch (sloot)
+        {
+            case SlootEnum.Texture:
+                {
+                    creature.dirs[DirIndex].sprites[SpriteIndex].textures[index] = _bytes;
+                    if (creature.dirs[DirIndex].sprites[SpriteIndex].textures[index] != null)
+                    {
+                        source.Source = creature.dirs[DirIndex].sprites[SpriteIndex].textures[index].ToImage();
+                    }
+                }
+                break;
+            case SlootEnum.Mask:
+                {
+                    creature.dirs[DirIndex].sprites[SpriteIndex].masks[index] = _bytes;
+                    if (creature.dirs[DirIndex].sprites[SpriteIndex].masks[index] != null)
+                    {
+                        source.Source = creature.dirs[DirIndex].sprites[SpriteIndex].masks[index].ToImage();
+                    }
+                }
                 break;
         }
     }
