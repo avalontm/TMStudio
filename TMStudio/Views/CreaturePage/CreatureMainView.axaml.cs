@@ -140,7 +140,7 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
         switch (parameter)
         {
             case "new":
-
+                onNew();
                 break;
             case "open":
                 onOpen();
@@ -196,6 +196,30 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
         }
     }
 
+    async void onNew()
+    {
+
+        if (!string.IsNullOrEmpty(FileCreature))
+        {
+            bool response = await DialogManager.Display("Confirmar", "¿Desea crear una nueva creatura?", "SI", "NO");
+
+            if (!response)
+            {
+                return;
+            }
+        }
+
+        await DialogManager.Show("Creando creatura");
+
+        FileCreature = string.Empty;
+        creature = new TMCreature();
+        creature.name = "creatura";
+        //Title = $"{creature.name} - [sin guardar]";
+        onLoadCreature();
+
+        await DialogManager.Close();
+    }
+
     async void onOpen()
     {
         var dialog = new Avalonia.Controls.OpenFileDialog();
@@ -237,25 +261,26 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
             return;
         }
 
-        var dialog = new Avalonia.Controls.OpenFileDialog();
+        var dialog = new Avalonia.Controls.SaveFileDialog();
         dialog.Filters.Add(new FileDialogFilter() { Name = "TMC files", Extensions = new List<string> { "tmc" } });
-        dialog.AllowMultiple = false;
 
         // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
         var parent = (Window)MainView.Instance.GetVisualRoot();
 
-        string[] result = await dialog.ShowAsync(parent);
+        string result = await dialog.ShowAsync(parent);
 
         if (result != null && result.Any())
         {
-            FileCreature = result.FirstOrDefault();
+            FileCreature = result;
             onSaveFile();
         }
     }
 
     async void onSaveFile()
     {
+        await DialogManager.Show("Guardando creatura");
         bool result = creature.SaveToFile(FileCreature);
+        await DialogManager.Close();
 
         if (result)
         {
