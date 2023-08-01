@@ -84,8 +84,29 @@
 		</Grid>
 	</Border>
 
+	<Grid Margin="5" Grid.Row="2">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<Label Grid.Row="0" Content="Compatible con los sistemas operativos" Classes="Light" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-	
+		<Grid Grid.Row="1" HorizontalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			
+			<Image Grid.Column="0" Margin="0,5,5,5" Source="/Assets/icon_windows.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			<Image Grid.Column="1" Margin="5,5,5,5" Source="/Assets/icon_mac.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			<Image Grid.Column="2" Margin="5,5,5,5" Source="/Assets/icon_linux.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			<Image Grid.Column="3" Margin="5,5,5,5" Source="/Assets/icon_android.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		</Grid>
+	</Grid>
+
 	<Grid Margin="5" Grid.Row="3">
 		<Label Content="Desarollado por AvalonTM © (2023)" Classes="Light" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 	</Grid>

@@ -15,8 +15,12 @@
     <None Remove="Assets\Fonts\toolbar_close.png" />
     <None Remove="Assets\Fonts\toolbar_open.png" />
     <None Remove="Assets\Fonts\toolbar_save.png" />
+    <None Remove="Assets\icon_android.png" />
     <None Remove="Assets\icon_creature.png" />
+    <None Remove="Assets\icon_linux.png" />
+    <None Remove="Assets\icon_mac.png" />
     <None Remove="Assets\icon_posion.png" />
+    <None Remove="Assets\icon_windows.png" />
     <None Remove="Assets\icon_world.png" />
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\toolbar_cursor.png" />
