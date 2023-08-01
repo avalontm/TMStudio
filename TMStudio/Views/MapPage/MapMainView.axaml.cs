@@ -12,11 +12,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using TMapEditor.Engine;
-using TMapEditor.Engine.Enums;
-using TMapEditor.Helpers;
-using TMapEditor.Models;
-using TMapEditor.Utils;
+using TMStudio.Engine;
+using TMStudio.Engine.Enums;
+using TMStudio.Helpers;
+using TMStudio.Models;
+using TMStudio.Utils;
 using TMFormat.Formats;
 using TMStudio.Models;
 using TMStudio.Utils;
@@ -24,7 +24,7 @@ using TMStudio.Views.CreaturePage;
 using TMStudio.Views.MainPage;
 using TMStudio.Views.MapPage.Properties;
 
-namespace TMapEditor.Views.MapPage;
+namespace TMStudio.Views.MapPage;
 
 public partial class MapMainView : UserControl, INotifyPropertyChanged
 {

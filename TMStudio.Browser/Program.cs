@@ -5,7 +5,7 @@ using Avalonia;
 using Avalonia.Browser;
 using Avalonia.ReactiveUI;
 
-using TMapEditor;
+using TMStudio;
 
 [assembly: SupportedOSPlatform("browser")]
 

@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Headers;
-using TMapEditor.Utils;
+using TMStudio.Utils;
 using TMStudio.Models;
 using TMStudio.Utils;
 

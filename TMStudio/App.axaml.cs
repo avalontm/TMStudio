@@ -1,9 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using TMapEditor.Views;
+using TMStudio.Views;
 
-namespace TMapEditor;
+namespace TMStudio;
 
 public partial class App : Application
 {

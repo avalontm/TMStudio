@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMStudio.Browser", "TMStudi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMFormat", "..\TibiaMobile\TMFormat\TMFormat.csproj", "{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMSudio.Android", "TMSudio.Droid.Android\TMSudio.Android.csproj", "{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF6D180-9631-4DCD-8D1E-A3F88BEBD182}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

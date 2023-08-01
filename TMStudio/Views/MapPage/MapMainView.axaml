@@ -3,9 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TMapEditor.Views.MapPage.MapMainView"
+             x:Class="TMStudio.Views.MapPage.MapMainView"
 			 xmlns:monoGame="clr-namespace:AvaloniaInside.MonoGame;assembly=AvaloniaInside.MonoGame"
-			 xmlns:utils="clr-namespace:TMapEditor.Utils"
+			 xmlns:utils="clr-namespace:TMStudio.Utils"
 			 Foreground="{StaticResource White}"
              Background="{StaticResource BackgroundView}">
 

@@ -7,7 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TMapEditor.Views;
+using TMStudio.Views;
 using TMFormat.Formats;
 using TMStudio.Models;
 using TMStudio.Utils;

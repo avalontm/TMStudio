@@ -14,14 +14,14 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TMapEditor.Engine;
-using TMapEditor.Views;
-using TMapEditor.Views.MapPage;
+using TMStudio.Engine;
+using TMStudio.Views;
+using TMStudio.Views.MapPage;
 using TMFormat.Formats;
 using TMFormat.Framework.Maps;
 using TMStudio.Utils;
 
-namespace TMapEditor.Utils
+namespace TMStudio.Utils
 {
     public class MapManager : INotifyPropertyChanged
     {

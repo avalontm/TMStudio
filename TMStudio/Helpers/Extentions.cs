@@ -9,10 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMapEditor.Views.MapPage;
+using TMStudio.Views.MapPage;
 using TMFormat.Enums;
 
-namespace TMapEditor.Helpers
+namespace TMStudio.Helpers
 {
     public static class Extentions
     {

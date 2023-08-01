@@ -3,7 +3,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 
-namespace TMapEditor.Desktop;
+namespace TMStudio.Desktop;
 
 class Program
 {

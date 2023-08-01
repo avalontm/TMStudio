@@ -2,7 +2,7 @@
 using Avalonia.Interactivity;
 using System.ComponentModel;
 
-namespace TMapEditor.Views;
+namespace TMStudio.Views;
 
 public partial class MainView : UserControl, INotifyPropertyChanged
 {

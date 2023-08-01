@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMFormat.Formats;
 
-namespace TMapEditor.Models
+namespace TMStudio.Models
 {
     public class GroupSprites
     {

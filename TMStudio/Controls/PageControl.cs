@@ -7,8 +7,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMapEditor.Models;
-using TMapEditor.Views.MapPage;
+using TMStudio.Models;
+using TMStudio.Views.MapPage;
 
 namespace TMapEditor.Controls
 {

@@ -5,10 +5,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMapEditor.Engine;
+using TMStudio.Engine;
 using TMFormat.Formats;
 
-namespace TMapEditor.Utils
+namespace TMStudio.Utils
 {
     public class CameraManager
     {

@@ -8,12 +8,12 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using TMapEditor.Engine;
-using TMapEditor.Utils;
-using TMapEditor.Views.MapPage;
+using TMStudio.Engine;
+using TMStudio.Utils;
+using TMStudio.Views.MapPage;
 using TMStudio.Views.MainPage;
 
-namespace TMapEditor.Views;
+namespace TMStudio.Views;
 
 public partial class LoadingView : UserControl, INotifyPropertyChanged
 {

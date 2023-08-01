@@ -6,10 +6,10 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using TMapEditor.Engine;
-using TMapEditor.Utils;
-using TMapEditor.Views;
-using TMapEditor.Views.MapPage;
+using TMStudio.Engine;
+using TMStudio.Utils;
+using TMStudio.Views;
+using TMStudio.Views.MapPage;
 using TMStudio.Views.CreaturePage;
 using TMStudio.Views.ItemPage;
 

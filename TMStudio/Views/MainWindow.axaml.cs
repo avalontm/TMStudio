@@ -1,10 +1,10 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
-using TMapEditor.Engine;
-using TMapEditor.Utils;
-using TMapEditor.Views.MapPage;
+using TMStudio.Engine;
+using TMStudio.Utils;
+using TMStudio.Views.MapPage;
 
-namespace TMapEditor.Views;
+namespace TMStudio.Views;
 
 public partial class MainWindow : Window
 {

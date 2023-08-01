@@ -11,15 +11,15 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using TMapEditor.Engine;
-using TMapEditor.Helpers;
-using TMapEditor.Models;
+using TMStudio.Engine;
+using TMStudio.Helpers;
+using TMStudio.Models;
 using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Maps;
 using TMFormat.Helpers;
 
-namespace TMapEditor.Utils
+namespace TMStudio.Utils
 {
     public class ItemsManager : INotifyPropertyChanged
     {

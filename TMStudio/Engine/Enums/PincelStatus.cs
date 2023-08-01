@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TMapEditor.Engine.Enums
+namespace TMStudio.Engine.Enums
 {
     public enum PincelStatus
     {

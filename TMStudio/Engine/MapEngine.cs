@@ -13,16 +13,16 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using TMapEditor.Engine.Enums;
-using TMapEditor.Utils;
-using TMapEditor.Views;
+using TMStudio.Engine.Enums;
+using TMStudio.Utils;
+using TMStudio.Views;
 using TMFormat;
 using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Inputs;
 using TMStudio.Models;
 
-namespace TMapEditor.Engine
+namespace TMStudio.Engine
 {
     public class MapEngine : Game, INotifyPropertyChanged
     {

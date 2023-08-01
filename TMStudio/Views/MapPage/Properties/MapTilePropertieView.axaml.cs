@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using TMapEditor.Utils;
+using TMStudio.Utils;
 using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Enums;
