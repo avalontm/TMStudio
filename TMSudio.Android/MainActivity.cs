@@ -9,7 +9,7 @@ using TMStudio;
 namespace TMSudio.Android;
 
 [Activity(
-    Label = "TMSudio.Droid.Android",
+    Label = "TMSudio",
     Theme = "@style/MyTheme.NoActionBar",
     Icon = "@drawable/icon",
     MainLauncher = true,
@@ -20,6 +20,9 @@ public class MainActivity : AvaloniaMainActivity<App>
     {
         return base.CustomizeAppBuilder(builder)
             .WithInterFont()
+            .UseSkia()
+            .UseAndroid()
+            .LogToTrace()
             .UseReactiveUI();
     }
 }
