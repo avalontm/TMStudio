@@ -152,6 +152,17 @@ namespace TMapEditor.Utils
                 OnPropertyChanged("Progress");
             }
         }
+
+        List<TMItem> _items;
+        public List<TMItem> Items
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                OnPropertyChanged("Items");
+            }
+        }
         #endregion
 
         public readonly static ItemsManager Instance = new ItemsManager();
@@ -178,7 +189,8 @@ namespace TMapEditor.Utils
                 Directory.CreateDirectory(dataDir);
             }
 
-            MapEngine.Items = TMItem.Load(Path.Combine(root, "data", "items.dat")).ToSprites();
+            Items = TMItem.Load(Path.Combine(root, "data", "items.dat"));
+            MapEngine.Items = Items.ToSprites();
 
             int index = 0;
 
@@ -245,6 +257,25 @@ namespace TMapEditor.Utils
             }
 
             if (GroupIndex >= 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> Save()
+        {
+            string dataDir = Path.Combine(root, "data");
+
+            if (!Directory.Exists(dataDir))
+            {
+                Directory.CreateDirectory(dataDir);
+            }
+
+            bool status = TMItem.SaveFile(Items, Path.Combine(root, "data", "items_autosave.dat"));
+
+            if(status)
             {
                 return true;
             }
