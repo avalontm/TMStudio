@@ -4,7 +4,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using AvaloniaInside.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -23,6 +22,7 @@ using TMStudio.Utils;
 using TMStudio.Views.CreaturePage;
 using TMStudio.Views.MainPage;
 using TMStudio.Views.MapPage.Properties;
+using TMStudio.AvaloniaInside.MonoGame;
 
 namespace TMStudio.Views.MapPage;
 

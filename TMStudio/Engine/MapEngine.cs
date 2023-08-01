@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using Avalonia.Threading;
-using AvaloniaInside.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,6 +20,7 @@ using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Inputs;
 using TMStudio.Models;
+using TMStudio.AvaloniaInside.MonoGame;
 
 namespace TMStudio.Engine
 {
