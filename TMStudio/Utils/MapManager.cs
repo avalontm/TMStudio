@@ -16,7 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using TMapEditor.Engine;
 using TMapEditor.Views;
-using TMapEditor.Views.MainPage;
+using TMapEditor.Views.MapPage;
 using TMFormat.Formats;
 using TMFormat.Framework.Maps;
 using TMStudio.Utils;
@@ -129,7 +129,7 @@ namespace TMapEditor.Utils
                 Camera = new CameraManager();
                 Camera.ToMove(0, 0);
 
-                MainViewControl.Instance.Title = $"{MapBase.mapInfo.Name} - [{FileMap}]";
+                MapMainView.Instance.Title = $"{MapBase.mapInfo.Name} - [{FileMap}]";
 
                 onLoadScrolls();
 

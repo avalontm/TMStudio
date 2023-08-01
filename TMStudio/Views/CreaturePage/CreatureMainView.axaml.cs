@@ -21,9 +21,10 @@ using TMapEditor.Views;
 using Avalonia.VisualTree;
 using Avalonia.Media;
 using System.Diagnostics;
-using TMapEditor.Views.MainPage;
+using TMapEditor.Views.MapPage;
 using TMStudio.Enums;
 using TMFormat.Helpers;
+using TMStudio.Views.MainPage;
 
 namespace TMStudio.Views.CreaturePage;
 
@@ -183,16 +184,16 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
 
     async void onClose()
     {
-        bool response = await DialogManager.Display("Confirmar", "¿Esta seguro que deseas cerrar la herramienta de editor de creaturas?", "SI", "NO");
+        bool response = await DialogManager.Display("Confirmar", "¿Esta seguro que deseas cerrar el editor?", "SI", "NO");
 
         if (!response)
         {
             return;
         }
 
-        if (MainViewControl.Instance != null)
+        if (MainView.Instance != null)
         {
-            MainViewControl.Instance.onToolClose();
+            MainView.Instance.ToPage(new MainControlView());
         }
     }
 

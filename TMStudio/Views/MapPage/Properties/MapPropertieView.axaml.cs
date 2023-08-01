@@ -13,7 +13,7 @@ using TMapEditor.Utils;
 using TMStudio.Models;
 using TMStudio.Utils;
 
-namespace TMStudio.Views.MainPage.Properties;
+namespace TMStudio.Views.MapPage.Properties;
 
 public partial class MapPropertieView : UserControl, INotifyPropertyChanged
 {

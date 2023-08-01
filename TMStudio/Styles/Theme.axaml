@@ -13,6 +13,11 @@
 		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
 	</Style>
 
+	<Style Selector="Label.Light">
+		<Setter Property="FontFamily" Value="{StaticResource SFLight}" />
+		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
+	</Style>
+	
 	<Style Selector="Label.SemiBold">
 		<Setter Property="FontFamily" Value="{StaticResource SFSemiBold}" />
 		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />

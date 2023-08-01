@@ -2,7 +2,7 @@
 using Avalonia.Interactivity;
 using TMapEditor.Engine;
 using TMapEditor.Utils;
-using TMapEditor.Views.MainPage;
+using TMapEditor.Views.MapPage;
 
 namespace TMapEditor.Views;
 
@@ -21,15 +21,15 @@ public partial class MainWindow : Window
 
     void MainWindow_SizeChanged(object? sender, SizeChangedEventArgs e)
     {
-        if (MainViewControl.Instance != null)
+        if (MapMainView.Instance != null)
         {
             if (MapEngine.Instance != null)
             {
-                MapEngine.Instance.SizeChanged((int)MainViewControl.Instance.monoGame.Bounds.Width, (int)MainViewControl.Instance.monoGame.Bounds.Height);
+                MapEngine.Instance.SizeChanged((int)MapMainView.Instance.monoGame.Bounds.Width, (int)MapMainView.Instance.monoGame.Bounds.Height);
                
                 if (MapManager.Instance.isLoaded)
                 {
-                    MapManager.Instance.Camera.ToMove((int)MainViewControl.Instance.hScroll.Value, (int)MainViewControl.Instance.vScroll.Value);
+                    MapManager.Instance.Camera.ToMove((int)MapMainView.Instance.hScroll.Value, (int)MapMainView.Instance.vScroll.Value);
                 }
             }
         }

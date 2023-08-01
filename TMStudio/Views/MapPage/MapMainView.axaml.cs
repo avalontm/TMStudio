@@ -21,11 +21,12 @@ using TMFormat.Formats;
 using TMStudio.Models;
 using TMStudio.Utils;
 using TMStudio.Views.CreaturePage;
-using TMStudio.Views.MainPage.Properties;
+using TMStudio.Views.MainPage;
+using TMStudio.Views.MapPage.Properties;
 
-namespace TMapEditor.Views.MainPage;
+namespace TMapEditor.Views.MapPage;
 
-public partial class MainViewControl : UserControl, INotifyPropertyChanged
+public partial class MapMainView : UserControl, INotifyPropertyChanged
 {
     public new event PropertyChangedEventHandler? PropertyChanged;
 
@@ -82,21 +83,10 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         }
     }
 
-    bool _isTools;
-    public bool IsTools
-    {
-        get { return _isTools; }
-        set
-        {
-            _isTools = value;
-            OnPropertyChanged("IsTools");
-        }
-    }
-
     public Game CurrentGame { get; set; } = MapManager.CurrentGame;
-    public static MainViewControl? Instance { get; private set; }
+    public static MapMainView? Instance { get; private set; }
 
-    public MainViewControl()
+    public MapMainView()
     {
         InitializeComponent();
         Instance = this;
@@ -357,35 +347,18 @@ public partial class MainViewControl : UserControl, INotifyPropertyChanged
         onShowProperties(new MapPropertieView());
     }
 
-    public void onToolShow(Control control)
-    {
-        gridTools.Children.Clear();
-        gridTools.Children.Add(control);
-        IsTools = true;
-    }
-
-    public void onToolClose()
-    {
-        IsTools = false;
-        gridTools.Children.Clear();
-    }
-
-    void onEditorItem()
-    {
-
-    }
-
-    public void onEditorCreature()
-    {
-        if (CreatureMainView.Instance == null)
-        {
-            var _control = new CreatureMainView();
-            onToolShow(_control);
-        }
-    }
-
     public async void onExit()
     {
-        await DialogManager.Display("Confirmar", "Deseas salir de la aplicacion?", "SI", "NO");
+        bool response = await DialogManager.Display("Confirmar", "¿Esta seguro que deseas cerrar el editor?", "SI", "NO");
+
+        if (!response)
+        {
+            return;
+        }
+
+        if (MainView.Instance != null)
+        {
+            MainView.Instance.ToPage(new MainControlView());
+        }
     }
 }

@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TMStudio.Views.ItemPage.ItemMainView" 
+			 Foreground="{StaticResource White}"
+             Background="{StaticResource BackgroundView}">
+
+<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- TOOLBAR -->
+		<Grid Grid.Row="0" Background="{StaticResource BackgroundToolbar}">
+			<Border Padding="2" CornerRadius="0" BorderThickness="0">
+				<StackPanel x:Name="panelMenu" Orientation="Horizontal">
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="new" ToolTip.Tip="Nuevo">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_nuevo.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="open" ToolTip.Tip="Abrir">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_open.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="save" ToolTip.Tip="Guardar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_save.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+
+					<ToggleButton Margin="2,0,2,0" Command="{Binding Toolbar_Tapped}" CommandParameter="close" ToolTip.Tip="Cerrar">
+						<ToggleButton.Content>
+							<Image Margin="2" Source="/Assets/toolbar_close.png" Stretch="Uniform" Width="24" Height="24"/>
+						</ToggleButton.Content>
+					</ToggleButton>
+				</StackPanel>
+			</Border>
+		</Grid>
+
+		<Grid Grid.Row="1">
+			
+		</Grid>
+	
+</Grid>
+</UserControl>

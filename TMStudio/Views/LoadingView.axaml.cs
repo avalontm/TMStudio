@@ -10,7 +10,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using TMapEditor.Engine;
 using TMapEditor.Utils;
-using TMapEditor.Views.MainPage;
+using TMapEditor.Views.MapPage;
+using TMStudio.Views.MainPage;
 
 namespace TMapEditor.Views;
 
@@ -109,11 +110,11 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
    
         await SetMessage("Cargando configuracion");
 
-        await SetMessage("Cargando Items...");
+       // await SetMessage("Cargando Items...");
 
-        bool status = await ItemsManager.Instance.Load();
+        //bool status = await ItemsManager.Instance.Load();
 
-        await SetMessage($"Se han cargado [{MapEngine.Items.Count}] items");
+       // await SetMessage($"Se han cargado [{MapEngine.Items.Count}] items");
 
         await Task.Delay(100);
 
@@ -121,7 +122,7 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
 
         await Task.Delay(500);
 
-        MainView.Instance.ToPage(new MainViewControl());
+        MainView.Instance.ToPage(new MainControlView());
     }
 
     async  Task WaitForDevice()

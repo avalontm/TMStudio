@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMapEditor.Views.MainPage;
+using TMapEditor.Views.MapPage;
 using TMFormat.Enums;
 
 namespace TMapEditor.Helpers
@@ -54,7 +54,7 @@ namespace TMapEditor.Helpers
             {
                 return new Rect(absolutePos.X, absolutePos.Y, element.Bounds.Width, element.Bounds.Height);
             }
-            var posMW = MainViewControl.Instance.PointToScreen(new Avalonia.Point(0, 0));
+            var posMW = MapMainView.Instance.PointToScreen(new Avalonia.Point(0, 0));
             var _absolutePos = new Avalonia.Point(absolutePos.X - posMW.X, absolutePos.Y - posMW.Y);
             return new Rect(_absolutePos.X, _absolutePos.Y, element.Bounds.Width, element.Bounds.Height);
         }

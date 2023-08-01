@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMapEditor.Models;
-using TMapEditor.Views.MainPage;
+using TMapEditor.Views.MapPage;
 
 namespace TMapEditor.Controls
 {
@@ -32,9 +32,9 @@ namespace TMapEditor.Controls
             set
             {
                 _title = value;
-                if (MainViewControl.Instance != null)
+                if (MapMainView.Instance != null)
                 {
-                    MainViewControl.Instance.Title = _title;
+                    MapMainView.Instance.Title = _title;
                 }
                 OnPropertyChanged("Title");
             }
@@ -47,9 +47,9 @@ namespace TMapEditor.Controls
             set
             {
                 _toolbar = value;
-                if (MainViewControl.Instance != null)
+                if (MapMainView.Instance != null)
                 {
-                    MainViewControl.Instance.Toolbar = _toolbar;
+                    MapMainView.Instance.Toolbar = _toolbar;
                 }
                 OnPropertyChanged("Toolbar");
             }
@@ -66,9 +66,9 @@ namespace TMapEditor.Controls
 
             OnToolbar();
 
-            if (MainViewControl.Instance != null)
+            if (MapMainView.Instance != null)
             {
-                MainViewControl.Instance.Title = Title;
+                MapMainView.Instance.Title = Title;
                 if (Toolbar.Count > 0)
                 {
                     Toolbar.Clear();
@@ -79,15 +79,15 @@ namespace TMapEditor.Controls
 
         public virtual void OnToolbar()
         {
-            if (MainViewControl.Instance != null)
+            if (MapMainView.Instance != null)
             {
                 if (Toolbar == null)
                 {
-                    MainViewControl.Instance.Toolbar = null;
+                    MapMainView.Instance.Toolbar = null;
                     return;
                 }
 
-                MainViewControl.Instance.Toolbar = new ObservableCollection<ToolbarModel>(Toolbar);
+                MapMainView.Instance.Toolbar = new ObservableCollection<ToolbarModel>(Toolbar);
 
             }
         }

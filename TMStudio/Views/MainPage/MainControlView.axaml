@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TMStudio.Views.MainPage.MainControlView"
+			 xmlns:utils="clr-namespace:TMapEditor.Utils"
+			 Foreground="{StaticResource White}"
+             Background="{StaticResource BackgroundView}">
+
+<Grid>
+	<Grid.RowDefinitions>
+		<RowDefinition Height="Auto"/>
+		<RowDefinition Height="*"/>
+		<RowDefinition Height="Auto"/>
+		<RowDefinition Height="Auto"/>
+	</Grid.RowDefinitions>
+
+	<Grid Margin="5,20,5,0" Grid.Row="0">
+		<Label Content="TMStudio" Classes="Bold" FontSize="48" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+	</Grid>
+	
+	<Border Grid.Row="1" Padding="5" Background="{StaticResource DarkBrush}" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="120"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<Button Margin="5" Grid.Column="0" MinWidth="120" Command="{Binding OptionCommand}" CommandParameter="0" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					
+					<Image Grid.Row="0" Margin="5" Source="/Assets/icon_posion.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					<Label Grid.Row="1" Content="Item Editor" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Grid>
+			</Button>
+
+			<Button Margin="5" Grid.Column="1" MinWidth="120" Command="{Binding OptionCommand}" CommandParameter="1" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					
+					<Image Grid.Row="0" Margin="5" Source="/Assets/icon_creature.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					<Label Grid.Row="1" Content="Creatura Editor" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Grid>
+			</Button>
+
+			<Button Margin="5" Grid.Column="2" MinWidth="120" Command="{Binding OptionCommand}" CommandParameter="2" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					
+					<Image Grid.Row="0" Margin="5" Source="/Assets/icon_world.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+					<Label Grid.Row="1" Content="Mapa Editor" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Grid>
+			</Button>
+			</Grid>
+			
+			<Grid Grid.Row="1" Margin="5,5,5,0" IsVisible="{Binding IsLoading}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<ProgressBar Grid.Row="0" Value="{Binding Source={x:Static utils:ItemsManager.Instance}, Path=Progress}" Minimum="0" Maximum="1"/>
+				<Label Grid.Row="1" Margin="5" Content="{Binding Message, FallbackValue='Cargando...'}" Foreground="{StaticResource White}" FontWeight="Bold" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+
+			</Grid>
+		</Grid>
+	</Border>
+
+
+	
+	<Grid Margin="5" Grid.Row="3">
+		<Label Content="Desarollado por AvalonTM © (2023)" Classes="Light" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+	</Grid>
+</Grid>
+</UserControl>

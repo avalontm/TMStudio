@@ -15,6 +15,9 @@
     <None Remove="Assets\Fonts\toolbar_close.png" />
     <None Remove="Assets\Fonts\toolbar_open.png" />
     <None Remove="Assets\Fonts\toolbar_save.png" />
+    <None Remove="Assets\icon_creature.png" />
+    <None Remove="Assets\icon_posion.png" />
+    <None Remove="Assets\icon_world.png" />
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\toolbar_cursor.png" />
     <None Remove="Assets\toolbar_eraser.png" />
@@ -36,5 +39,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\TibiaMobile\TMFormat\TMFormat.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MapPage\MapMainView.axaml.cs">
+      <DependentUpon>MapMainView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
