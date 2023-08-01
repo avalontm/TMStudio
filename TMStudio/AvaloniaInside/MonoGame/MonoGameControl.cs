@@ -69,9 +69,12 @@ namespace TMStudio.AvaloniaInside.MonoGame
         /// </summary>
         public Game? Game
         {
-            get => _game;
+            get {
+                Debug.WriteLine($"[Game] {_game}");
+                return _game; }
             set
             {
+                Debug.WriteLine($"[Game] {_game}");
                 if (_game == value) return;
                 _game = value;
 

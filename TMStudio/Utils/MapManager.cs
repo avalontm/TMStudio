@@ -86,6 +86,7 @@ namespace TMStudio.Utils
 
         public bool isLoaded { private set; get; }
         public readonly static MapManager? Instance = new MapManager();
+
         public readonly static Game CurrentGame = new MapEngine();
 
         #endregion

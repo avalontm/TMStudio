@@ -97,13 +97,11 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 			
 			<Image Grid.Column="0" Margin="0,5,5,5" Source="/Assets/icon_windows.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 			<Image Grid.Column="1" Margin="5,5,5,5" Source="/Assets/icon_mac.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 			<Image Grid.Column="2" Margin="5,5,5,5" Source="/Assets/icon_linux.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			<Image Grid.Column="3" Margin="5,5,5,5" Source="/Assets/icon_android.png" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 		</Grid>
 	</Grid>
 
