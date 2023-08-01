@@ -12,6 +12,11 @@ using TMFormat.Formats;
 using TMStudio.Models;
 using TMStudio.Utils;
 using TMStudio.Views.MainPage;
+using Avalonia.VisualTree;
+using System.Collections.Generic;
+using System.Linq;
+using TMFormat.Framework.Creatures;
+using System.IO;
 
 namespace TMStudio.Views.ItemPage;
 public partial class ItemMainView : UserControl, INotifyPropertyChanged
@@ -38,7 +43,6 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     }
 
     ObservableCollection<TMLoot> _loots;
-
     public ObservableCollection<TMLoot> loots
     {
         get { return _loots; }
@@ -49,8 +53,19 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         }
     }
 
-    TMItem _item;
 
+    List<TMItem> _items;
+    public List<TMItem> items
+    {
+        get { return _items; }
+        set
+        {
+            _items = value;
+            OnPropertyChanged("items");
+        }
+    }
+
+    TMItem _item;
     public TMItem item
     {
         get { return _item; }
@@ -62,7 +77,6 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     }
 
     int _dirIndex;
-
     public int DirIndex
     {
         get { return _dirIndex; }
@@ -74,7 +88,6 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     }
 
     int _spriteIndex;
-
     public int SpriteIndex
     {
         get { return _spriteIndex; }
@@ -86,7 +99,6 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     }
 
     string _fileItem;
-
     public string FileItem
     {
         get { return _fileItem; }
@@ -184,19 +196,78 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         }
     }
 
-    void onSave()
-    {
-  
-    }
-
-    void onOpen()
-    {
-       
-    }
-
     void onNew()
     {
-       
+
     }
 
+    async void onOpen()
+    {
+        var dialog = new Avalonia.Controls.OpenFileDialog();
+        dialog.Filters.Add(new FileDialogFilter() { Name = "TMI files", Extensions = new List<string> { "tmi" } });
+        dialog.AllowMultiple = false;
+
+        // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+        var parent = (Window)MainView.Instance.GetVisualRoot();
+
+        string[] result = await dialog.ShowAsync(parent);
+
+        if (result != null && result.Any())
+        {
+            FileItem = result.FirstOrDefault();
+
+            if (!File.Exists(FileItem))
+            {
+                return;
+            }
+
+            items = TMItem.Load(FileItem);
+
+            if (items == null)
+            {
+                await DialogManager.Display("Error", "No se pudo cargar el archivo.\nFormato desconocido.", "OK");
+                return;
+            }
+
+        }
+    }
+
+    async void onSave()
+    {
+        if (!string.IsNullOrEmpty(FileItem))
+        {
+            onSaveFile();
+            return;
+        }
+
+        var dialog = new Avalonia.Controls.SaveFileDialog();
+        dialog.Filters.Add(new FileDialogFilter() { Name = "TMI files", Extensions = new List<string> { "tmi" } });
+
+        // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+        var parent = (Window)MainView.Instance.GetVisualRoot();
+
+        string result = await dialog.ShowAsync(parent);
+
+        if (result != null && result.Any())
+        {
+            FileItem = result;
+            onSaveFile();
+        }
+    }
+
+    async void onSaveFile()
+    {
+        await DialogManager.Show("Guardando creatura");
+        bool result = TMItem.SaveFile(items, FileItem);
+        await DialogManager.Close();
+
+        if (result)
+        {
+            await DialogManager.Display("Guardado", "El archivo se a guardado correctamente.", "OK");
+        }
+        else
+        {
+            await DialogManager.Display("Error", "El archivo no se ha podido guardar.", "OK");
+        }
+    }
 }
