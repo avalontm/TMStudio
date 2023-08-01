@@ -162,10 +162,10 @@ namespace TMStudio.Engine
         public MapEngine()
         {
             Instance = this;
+
             GraphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
-            
         }
 
         protected override void Initialize()

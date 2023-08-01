@@ -38,16 +38,12 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" PrivateAssets="All"/>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\TibiaMobile\TMFormat\TMFormat.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Views\MapPage\MapMainView.axaml.cs">
-      <DependentUpon>MapMainView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+
 </Project>

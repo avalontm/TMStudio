@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMStudio", "TMStudio\TMStud
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMStudio.Desktop", "TMStudio.Desktop\TMStudio.Desktop.csproj", "{AEFE80BC-11D8-4291-AD9E-2C137C9188C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMStudio.Browser", "TMStudio.Browser\TMStudio.Browser.csproj", "{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMFormat", "..\TibiaMobile\TMFormat\TMFormat.csproj", "{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMSudio.Android", "TMSudio.Android\TMSudio.Android.csproj", "{9764C5EA-8B8E-4E82-96EE-962C5B0B2F98}"
@@ -27,10 +25,6 @@ Global
 		{AEFE80BC-11D8-4291-AD9E-2C137C9188C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEFE80BC-11D8-4291-AD9E-2C137C9188C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEFE80BC-11D8-4291-AD9E-2C137C9188C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36BCF5CB-F849-43A1-ADBF-ED909CB74F95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B9FB7F0-1451-4EED-91B5-172C3AF380E2}.Release|Any CPU.ActiveCfg = Release|Any CPU

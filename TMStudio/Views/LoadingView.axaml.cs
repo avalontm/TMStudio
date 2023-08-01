@@ -110,12 +110,6 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
    
         await SetMessage("Cargando configuracion");
 
-       // await SetMessage("Cargando Items...");
-
-        //bool status = await ItemsManager.Instance.Load();
-
-       // await SetMessage($"Se han cargado [{MapEngine.Items.Count}] items");
-
         await Task.Delay(100);
 
         await SetMessage($"Iniciando");
