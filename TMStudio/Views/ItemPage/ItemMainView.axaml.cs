@@ -378,6 +378,19 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                             continue;
                         }
                     }
+
+
+                    if ((ItemType)item.Type == ItemType.Stair)
+                    {
+                        var _dirs = EnumConvert.TypeDirToList();
+
+                        if (_name == "Dir")
+                        {
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _dirs }); //Arrays
+                            continue;
+                        }
+                    }
+                    Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.FieldType), Name = _name, Value = info.GetValue(item) }); //Default
                 }
             }
         }
