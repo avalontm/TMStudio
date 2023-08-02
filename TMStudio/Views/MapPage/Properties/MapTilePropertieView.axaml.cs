@@ -89,6 +89,7 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
             var fielditems = EnumConvert.TypeItemFieldToList();
 
             bool isPZ = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)Model.X, (int)Model.Y].isPZ;
+
             //Ground
             Items.Add(new PropertiesModel() { Name = "Id", Value = Model.Tile.Id, Type = 0 });
             Items.Add(new PropertiesModel() { Name = "Nombre", Value = Model.Tile.Name, Type = 0 });
@@ -100,6 +101,7 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
             Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Model.Tile.Block, Type = 1 });
             Items.Add(new PropertiesModel() { Name = "Moveable", Value = Model.Tile.Moveable, Type = 1 });
             Items.Add(new PropertiesModel() { Name = "Proteccion", Value = isPZ, Type = 1 });
+
             //Items
             if (Model.Items != null)
             {

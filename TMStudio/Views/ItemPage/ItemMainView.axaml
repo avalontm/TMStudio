@@ -4,9 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TMStudio.Views.ItemPage.ItemMainView" 
+			 xmlns:utils="clr-namespace:TMStudio.Utils"
+			 xmlns:conv="clr-namespace:TMStudio.Converts"
 			 Foreground="{StaticResource White}"
              Background="{StaticResource BackgroundView}">
 
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<conv:ItemPropertieVisibleConverter x:Key="ItemPropertieVisibleConverter"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	
 <Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -46,7 +54,185 @@
 		</Grid>
 
 		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition MinWidth="64" Width="250" MaxWidth="300" />
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<Grid Grid.Column="0">
+				<ListBox Grid.Row="1"  Name="lstSprites" ItemsSource="{Binding Items}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid Margin="2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								
+								<Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+									<Image Source="{Binding Image}" Width="32" Height="32" Stretch="Uniform"/>
+								</Border>
+								
+								<TextBlock Grid.Column="1" Margin="5,0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+
+			<GridSplitter  Grid.Column="1" Width="2" HorizontalAlignment="Left"/>
 			
+			<Grid Grid.Column="1">
+				<Border Margin="10,5,10,5" Padding="5" Background="{StaticResource Background}" CornerRadius="5">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+
+						<Border Grid.Row="0" Padding="2" BorderBrush="{StaticResource BackgroundBorder}" BorderThickness="1" CornerRadius="5">
+							<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+
+							<Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+
+								<!-- TEXTURAS -->
+								<Grid Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+
+									<Grid Grid.Row="0" >
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+
+										<Border x:Name="borde" Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="3" ToolTip.Tip="Texture 3">
+											<Image x:Name="texture4" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+										<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="2" ToolTip.Tip="Texture 2">
+											<Image x:Name="texture3" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+									</Grid>
+
+									<Grid Grid.Row="1">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="1" ToolTip.Tip="Texture 1">
+											<Image x:Name="texture2" Width="48" Height="48" Stretch="Uniform"  />
+										</Border>
+										<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="0" ToolTip.Tip="Main Texture" >
+											<Image x:Name="texture1" Width="48" Height="48" Stretch="Uniform" />
+										</Border>
+									</Grid>
+								</Grid>
+
+							</Grid>
+
+							<Grid Grid.Column="1">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+
+								<Grid Grid.Row="0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<Grid Grid.Column="0">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="*"/>
+											<RowDefinition Height="*"/>
+										</Grid.RowDefinitions>
+
+										<Label Grid.Row="0" Content="Id:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+										<TextBox Margin="5,0,5,0" Grid.Row="1" Text="{Binding Item.Id}" IsReadOnly="True" IsEnabled="False"/>
+
+									</Grid>
+
+									<Grid Grid.Column="1">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="*"/>
+											<RowDefinition Height="*"/>
+										</Grid.RowDefinitions>
+
+										<Label Grid.Row="0" Content="Tipo:" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+										<ComboBox x:Name="cmbType" Margin="5,0,5,0" Grid.Row="1" ItemsSource="{Binding Types}" SelectionChanged="onItemTypeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+
+									</Grid>
+								</Grid>
+								
+								<Grid Grid.Row="1">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*"/>
+										<RowDefinition Height="*"/>
+									</Grid.RowDefinitions>
+									
+									<Label Grid.Row="0" Content="Nombre" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+									<TextBox Margin="5,0,5,0" Grid.Row="1" Text="{Binding Item.Name}"/>
+								</Grid>
+
+							
+							</Grid>
+							
+						</Grid>
+						</Border>
+						
+						<!-- PROPIEDADES -->
+						<Grid Grid.Row="1">
+							<ScrollViewer>
+								<ItemsControl ItemsSource="{Binding Properties}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<WrapPanel />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											
+											<Border Margin="5" Padding="2" CornerRadius="5" BorderBrush="{StaticResource BackgroundBorder}" BorderThickness="1" Width="150" Height="90">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto"/>
+														<RowDefinition Height="*"/>
+													</Grid.RowDefinitions>
+													
+													<Label Grid.Row="0" Content="{Binding Name}" HorizontalContentAlignment="Center"/>
+
+													<Grid Grid.Row="1">
+														<TextBox Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+														<CheckBox IsChecked="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+														<ComboBox ItemsSource="{Binding Items}" SelectedIndex="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Background="Transparent" BorderThickness="0" CornerRadius="0" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+													</Grid>
+
+												</Grid>
+											</Border>
+
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</ScrollViewer>
+						</Grid>
+						
+					</Grid>
+				</Border>
+			</Grid>
 		</Grid>
 	
 </Grid>

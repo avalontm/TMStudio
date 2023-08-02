@@ -17,6 +17,18 @@ using System.Collections.Generic;
 using System.Linq;
 using TMFormat.Framework.Creatures;
 using System.IO;
+using Avalonia.Media;
+using TMStudio.Engine.Enums;
+using TMStudio.Engine;
+using TMStudio.Enums;
+using System.Reflection;
+using TMFormat.Helpers;
+using TMStudio.Helpers;
+using System.Diagnostics;
+using TMFormat.Models;
+using TMFormat.Framework.Enums;
+using TMFormat.Enums;
+using System.Data;
 
 namespace TMStudio.Views.ItemPage;
 public partial class ItemMainView : UserControl, INotifyPropertyChanged
@@ -32,47 +44,68 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
     ObservableCollection<TMLook> _sprites;
 
-    public ObservableCollection<TMLook> sprites
+    public ObservableCollection<TMLook> Sprites
     {
         get { return _sprites; }
         set
         {
             _sprites = value;
-            OnPropertyChanged("sprites");
+            OnPropertyChanged("Sprites");
         }
     }
 
     ObservableCollection<TMLoot> _loots;
-    public ObservableCollection<TMLoot> loots
+    public ObservableCollection<TMLoot> Loots
     {
         get { return _loots; }
         set
         {
             _loots = value;
-            OnPropertyChanged("loots");
+            OnPropertyChanged("Loots");
         }
     }
 
+    ObservableCollection<ItemPropertiesModel> _properties;
+    public ObservableCollection<ItemPropertiesModel> Properties
+    {
+        get { return _properties; }
+        set
+        {
+            _properties = value;
+            OnPropertyChanged("Properties");
+        }
+    }
+
+    ObservableCollection<string> _types;
+    public ObservableCollection<string> Types
+    {
+        get { return _types; }
+        set
+        {
+            _types = value;
+            OnPropertyChanged("Types");
+        }
+    }
 
     List<TMItem> _items;
-    public List<TMItem> items
+    public List<TMItem> Items
     {
         get { return _items; }
         set
         {
             _items = value;
-            OnPropertyChanged("items");
+            OnPropertyChanged("Items");
         }
     }
 
     TMItem _item;
-    public TMItem item
+    public TMItem Item
     {
         get { return _item; }
         set
         {
             _item = value;
-            OnPropertyChanged("item");
+            OnPropertyChanged("Item");
         }
     }
 
@@ -117,6 +150,8 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
         Instance = this;
+        Properties = new ObservableCollection<ItemPropertiesModel>();
+        Types = new ObservableCollection<string>(EnumConvert.TypeItemTypesToList());
         DataContext = this;
     }
 
@@ -205,6 +240,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     {
         var dialog = new Avalonia.Controls.OpenFileDialog();
         dialog.Filters.Add(new FileDialogFilter() { Name = "TMI files", Extensions = new List<string> { "tmi" } });
+        dialog.Directory = PathManager.Data;
         dialog.AllowMultiple = false;
 
         // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
@@ -221,9 +257,9 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                 return;
             }
 
-            items = TMItem.Load(FileItem);
+            Items = TMItem.Load(FileItem);
 
-            if (items == null)
+            if (Items == null)
             {
                 await DialogManager.Display("Error", "No se pudo cargar el archivo.\nFormato desconocido.", "OK");
                 return;
@@ -242,6 +278,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
         var dialog = new Avalonia.Controls.SaveFileDialog();
         dialog.Filters.Add(new FileDialogFilter() { Name = "TMI files", Extensions = new List<string> { "tmi" } });
+        dialog.Directory = PathManager.Data;
 
         // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
         var parent = (Window)MainView.Instance.GetVisualRoot();
@@ -258,7 +295,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     async void onSaveFile()
     {
         await DialogManager.Show("Guardando creatura");
-        bool result = TMItem.SaveFile(items, FileItem);
+        bool result = TMItem.SaveFile(Items, FileItem);
         await DialogManager.Close();
 
         if (result)
@@ -268,6 +305,122 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         else
         {
             await DialogManager.Display("Error", "El archivo no se ha podido guardar.", "OK");
+        }
+    }
+
+
+    void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (this.IsLoaded)
+        {
+            if(lstSprites.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            onItemSelect(Items[lstSprites.SelectedIndex]);
+        }
+    }
+
+    async void onItemSelect(TMItem item)
+    {
+        await DialogManager.Show();
+        Properties.Clear();
+
+        FieldInfo[] fi = typeof(TMItem).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+
+        foreach (FieldInfo info in fi)
+        {
+            if (!info.isNotReader() && !info.isHideField())
+            {
+                if (info.FieldType != typeof(List<TMItemTexture>))
+                {
+                    string _name = info.Name.GetTextBetweenAngleBrackets().FirstOrDefault();
+
+                    Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.FieldType), Name = _name, Value = info.GetValue(item) });
+                }
+            }
+        }
+
+        Item = item;
+
+        cmbType.SelectedIndex = Item.Type;
+        onLoadTexture();
+
+        await DialogManager.Close();
+    }
+
+
+    void onLoadTexture()
+    {
+        texture1.Source = Item.Textures[0].Texture1.ToImage();
+        texture2.Source = Item.Textures[0].Texture2.ToImage();
+        texture3.Source = Item.Textures[0].Texture3.ToImage();
+        texture4.Source = Item.Textures[0].Texture4.ToImage();
+    }
+
+    int GetFileType(Type type)
+    {
+        int _ret = 0;
+
+        if(type  == typeof(string))
+        {
+            _ret = 0;
+        }else if(type == typeof(bool))
+        {
+            _ret = 1;
+        }else if (type == typeof(Array))
+        {
+            _ret = 2;
+        }else if(type == typeof(ItemColor))
+        {
+            _ret = 3;
+        }
+        Debug.WriteLine($"[GetFileType] {_ret}");
+        return _ret;
+    }
+
+    void onItemTypeChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (IsLoaded)
+        {
+            if (cmbType.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            if (Item != null)
+            {
+                Item.Type = cmbType.SelectedIndex;
+                onItemSelect(Item);
+            }
+        }
+    }
+
+    void onImportTexture(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    {
+        Border control = sender as Border;
+
+        if (control != null)
+        {
+            int index = int.Parse(control.Tag.ToString());
+
+            switch (index)
+            {
+                case 0:
+                   // onImportTextures(texture1, SlootEnum.Texture, index);
+                    break;
+                case 1:
+                   //onImportTextures(texture2, SlootEnum.Texture, index);
+                    break;
+                case 2:
+                   // onImportTextures(texture3, SlootEnum.Texture, index);
+                    break;
+                case 3:
+                   // onImportTextures(texture4, SlootEnum.Texture, index);
+                    break;
+            }
+
         }
     }
 }

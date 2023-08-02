@@ -123,15 +123,15 @@
 							<DataTemplate>
 								<Grid Margin="2">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*" />
 										<ColumnDefinition Width="32" />
+										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 
-									<TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-
-									<Border Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+									<Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
 										<Image Source="{Binding Image}" Width="32" Height="32" Stretch="Uniform"/>
 									</Border>
+
+									<TextBlock Grid.Column="1" Margin="5,0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" />
 
 								</Grid>
 							</DataTemplate>

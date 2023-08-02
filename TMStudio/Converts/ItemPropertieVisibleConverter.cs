@@ -30,6 +30,10 @@ namespace TMStudio.Converts
             {
                 return true;
             }
+            else if (type == 3 && parameter.ToString() == "color")
+            {
+                return true;
+            }
 
             return false;
         }

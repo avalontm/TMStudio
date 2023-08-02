@@ -107,6 +107,7 @@ namespace TMStudio.Utils
         {
             var dialog = new Avalonia.Controls.OpenFileDialog();
             dialog.Filters.Add(new FileDialogFilter(){Name = "TMap files", Extensions = new List<string> { "tmap" } });
+            dialog.Directory = PathManager.Data;
             dialog.AllowMultiple = false;
 
             // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
@@ -160,6 +161,7 @@ namespace TMStudio.Utils
 
             var dialog = new Avalonia.Controls.SaveFileDialog();
             dialog.Filters.Add(new FileDialogFilter() { Name = "TMap files", Extensions = new List<string> { "tmap" } });
+            dialog.Directory = PathManager.Data;
 
             // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
             var parent = (Window)MainView.Instance.GetVisualRoot();

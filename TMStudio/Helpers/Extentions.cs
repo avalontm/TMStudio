@@ -11,11 +11,26 @@ using System.Text;
 using System.Threading.Tasks;
 using TMStudio.Views.MapPage;
 using TMFormat.Enums;
+using System.Text.RegularExpressions;
 
 namespace TMStudio.Helpers
 {
     public static class Extentions
     {
+        public static string[] GetTextBetweenAngleBrackets(this string input)
+        {
+            string pattern = @"<(.*?)>"; // Patrón para capturar el texto entre < y >
+            MatchCollection matches = Regex.Matches(input, pattern);
+
+            string[] result = new string[matches.Count];
+            for (int i = 0; i < matches.Count; i++)
+            {
+                result[i] = matches[i].Groups[1].Value;
+            }
+
+            return result;
+        }
+
         public static SolidColorBrush ToBrush(this string HexColorString)
         {
             if (string.IsNullOrEmpty(HexColorString))

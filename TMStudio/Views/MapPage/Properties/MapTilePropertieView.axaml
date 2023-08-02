@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="800"
              x:Class="TMStudio.Views.MapPage.Properties.MapTilePropertieView"
-			  xmlns:conv="clr-namespace:TMStudio.Converts"
+			 xmlns:conv="clr-namespace:TMStudio.Converts"
 			 x:Name="root">
 
 	<UserControl.Resources>
