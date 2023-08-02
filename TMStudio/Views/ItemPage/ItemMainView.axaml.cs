@@ -339,11 +339,20 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
                     if ((ItemType)item.Type == ItemType.Field)
                     {
-                        var _fields = EnumConvert.TypeItemFieldToList();
 
                         if (_name == "Field")
                         {
+                            var _fields = EnumConvert.TypeItemFieldToList();
+
                             Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _fields }); //Arrays
+                            continue;
+                        }
+
+                        if (_name == "LightColor")
+                        {
+                            var _lights = EnumConvert.TypeFieldColorToList();
+
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _lights }); //Arrays
                             continue;
                         }
                     }
@@ -359,7 +368,16 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                         }
                     }
 
-                    Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.FieldType), Name = _name, Value = info.GetValue(item) });
+                    if ((ItemType)item.Type == ItemType.Item)
+                    {
+                        var _slots = EnumConvert.EquipSlotTypeToList();
+
+                        if (_name == "LightColor")
+                        {
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _slots }); //Arrays
+                            continue;
+                        }
+                    }
                 }
             }
         }
