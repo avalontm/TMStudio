@@ -331,11 +331,33 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
         foreach (FieldInfo info in fi)
         {
-            if (!info.isNotReader() && !info.isHideField())
+            if (!info.isItemOmite() && !info.isNotReader() && !info.isHideField())
             {
-                if (info.FieldType != typeof(List<TMItemTexture>))
+                if (info.isItemGroup() == ((ItemType)item.Type))
                 {
                     string _name = info.Name.GetTextBetweenAngleBrackets().FirstOrDefault();
+
+                    if ((ItemType)item.Type == ItemType.Field)
+                    {
+                        var _fields = EnumConvert.TypeItemFieldToList();
+
+                        if (_name == "Field")
+                        {
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _fields }); //Arrays
+                            continue;
+                        }
+                    }
+
+                    if ((ItemType)item.Type == ItemType.Item)
+                    {
+                        var _slots = EnumConvert.EquipSlotTypeToList();
+
+                        if (_name == "EquipSlot")
+                        {
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _slots }); //Arrays
+                            continue;
+                        }
+                    }
 
                     Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.FieldType), Name = _name, Value = info.GetValue(item) });
                 }
@@ -376,7 +398,6 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         {
             _ret = 3;
         }
-        Debug.WriteLine($"[GetFileType] {_ret}");
         return _ret;
     }
 
@@ -422,5 +443,15 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
             }
 
         }
+    }
+
+    public async void onItemSave()
+    {
+        if (Item == null)
+        {
+            await DialogManager.Display("Requerido", "Debes seleccionar un item de la lista.", "OK");
+            return;
+        }
+
     }
 }
