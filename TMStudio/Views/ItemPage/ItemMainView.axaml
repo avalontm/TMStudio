@@ -12,6 +12,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<conv:ItemPropertieVisibleConverter x:Key="ItemPropertieVisibleConverter"/>
+			<conv:TileBlockColorToConvert x:Key="TileBlockColorToConvert"/>
 		</ResourceDictionary>
 	</UserControl.Resources>
 	
@@ -57,9 +58,19 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition MinWidth="64" Width="250" MaxWidth="300" />
 				<ColumnDefinition Width="*"/>
+				<ColumnDefinition MinWidth="64" Width="120" MaxWidth="120" />
 			</Grid.ColumnDefinitions>
 
 			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<Border Grid.Row="0" Background="{StaticResource Black}">
+					<Label Content="Items" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Border>
+				
 				<ListBox Grid.Row="1"  Name="lstSprites" ItemsSource="{Binding Items}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
@@ -118,10 +129,10 @@
 											<ColumnDefinition Width="Auto"/>
 										</Grid.ColumnDefinitions>
 
-										<Border x:Name="borde" Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="3" ToolTip.Tip="Texture 3">
+										<Border x:Name="borde" Grid.Column="0" Margin="0,1,0,0" Padding="0" BorderBrush="{Binding Item.Block4, Converter={StaticResource TileBlockColorToConvert}}" Cursor="Hand" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="3" ToolTip.Tip="Texture 3">
 											<Image x:Name="texture4" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
-										<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="2" ToolTip.Tip="Texture 2">
+										<Border Grid.Column="1" Margin="-1,1,0,0" Padding="0" BorderBrush="{Binding Item.Block3, Converter={StaticResource TileBlockColorToConvert}}" Cursor="Hand" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="2" ToolTip.Tip="Texture 2">
 											<Image x:Name="texture3" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
 									</Grid>
@@ -131,10 +142,10 @@
 											<ColumnDefinition Width="Auto"/>
 											<ColumnDefinition Width="Auto"/>
 										</Grid.ColumnDefinitions>
-										<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="1" ToolTip.Tip="Texture 1">
+										<Border Grid.Column="0" Margin="0,-1,0,0" Padding="0" BorderBrush="{Binding Item.Block2, Converter={StaticResource TileBlockColorToConvert}}" Cursor="Hand" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="1" ToolTip.Tip="Texture 1">
 											<Image x:Name="texture2" Width="48" Height="48" Stretch="Uniform"  />
 										</Border>
-										<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="White" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="0" ToolTip.Tip="Main Texture" >
+										<Border Grid.Column="1" Margin="-1,-1,0,0" Padding="0" BorderBrush="{Binding Item.Block, Mode=TwoWay, Converter={StaticResource TileBlockColorToConvert}}" Cursor="Hand" BorderThickness="1" Background="Transparent" PointerPressed="onImportTexture" Tag="0" ToolTip.Tip="Main Texture" >
 											<Image x:Name="texture1" Width="48" Height="48" Stretch="Uniform" />
 										</Border>
 									</Grid>
@@ -236,6 +247,37 @@
 						</Grid>
 					</Grid>
 				</Border>
+			</Grid>
+
+			<GridSplitter  Grid.Column="1" Width="2" HorizontalAlignment="Right"/>
+			
+			<Grid Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<Border Grid.Row="0" Background="{StaticResource Black}">
+					<Label Content="Animacion" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Border>
+
+				<ListBox Grid.Row="1"  Name="lstAnimations" ItemsSource="{Binding Animations}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectAnimationChanged">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid Margin="2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="32" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+									<Image Source="{Binding }" Width="32" Height="32" Stretch="Uniform"/>
+								</Border>
+
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</Grid>
 		</Grid>
 	

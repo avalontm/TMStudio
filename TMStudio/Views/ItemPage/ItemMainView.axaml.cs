@@ -1,34 +1,28 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
+using Avalonia.VisualTree;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
-using TMStudio.Views;
+using TMFormat.Enums;
 using TMFormat.Formats;
+using TMFormat.Framework.Creatures;
+using TMFormat.Framework.Enums;
+using TMFormat.Helpers;
+using TMFormat.Models;
+using TMStudio.Enums;
+using TMStudio.Helpers;
 using TMStudio.Models;
 using TMStudio.Utils;
 using TMStudio.Views.MainPage;
-using Avalonia.VisualTree;
-using System.Collections.Generic;
-using System.Linq;
-using TMFormat.Framework.Creatures;
-using System.IO;
-using Avalonia.Media;
-using TMStudio.Engine.Enums;
-using TMStudio.Engine;
-using TMStudio.Enums;
-using System.Reflection;
-using TMFormat.Helpers;
-using TMStudio.Helpers;
-using System.Diagnostics;
-using TMFormat.Models;
-using TMFormat.Framework.Enums;
-using TMFormat.Enums;
-using System.Data;
 
 namespace TMStudio.Views.ItemPage;
 public partial class ItemMainView : UserControl, INotifyPropertyChanged
@@ -42,17 +36,18 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    ObservableCollection<TMLook> _sprites;
-
-    public ObservableCollection<TMLook> Sprites
+    ObservableCollection<Bitmap> _animations;
+    public ObservableCollection<Bitmap> Animations
     {
-        get { return _sprites; }
+        get { return _animations; }
         set
         {
-            _sprites = value;
-            OnPropertyChanged("Sprites");
+            _animations = value;
+            OnPropertyChanged("Animations");
         }
     }
+    
+
 
     ObservableCollection<TMLoot> _loots;
     public ObservableCollection<TMLoot> Loots
@@ -151,6 +146,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         InitializeComponent();
         Instance = this;
         Properties = new ObservableCollection<ItemPropertiesModel>();
+        Animations = new ObservableCollection<Bitmap>();
         Types = new ObservableCollection<string>(EnumConvert.TypeItemTypesToList());
         DataContext = this;
     }
@@ -313,7 +309,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     {
         if (this.IsLoaded)
         {
-            if(lstSprites.SelectedIndex < 0)
+            if (lstSprites.SelectedIndex < 0)
             {
                 return;
             }
@@ -322,21 +318,29 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         }
     }
 
+    void onSelectAnimationChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (this.IsLoaded)
+        {
+
+        }
+    }
+
     async void onItemSelect(TMItem item)
     {
         await DialogManager.Show();
         Properties.Clear();
 
-        FieldInfo[] fi = typeof(TMItem).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+        PropertyInfo[] fi = typeof(TMItem).GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
-        foreach (FieldInfo info in fi)
+        foreach (PropertyInfo info in fi)
         {
             if (!info.isItemOmite() && !info.isNotReader() && !info.isHideField())
             {
-                if (info.isItemGroup() == ((ItemType)item.Type))
-                {
-                    string _name = info.Name.GetTextBetweenAngleBrackets().FirstOrDefault();
+                string _name = info.Name.GetTextBetweenAngleBrackets().FirstOrDefault();
 
+                if (info.isItemGroup() != null && info.isItemGroup().Value == ((ItemType)item.Type))
+                {
                     if ((ItemType)item.Type == ItemType.Field)
                     {
 
@@ -390,7 +394,13 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                             continue;
                         }
                     }
-                    Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.FieldType), Name = _name, Value = info.GetValue(item) }); //Default
+
+                    Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.PropertyType), Name = _name, Value = info.GetValue(item) }); //Default
+                }
+                else if(info.isItemGroup() == null)
+                {
+
+                    Properties.Add(new ItemPropertiesModel() { Type = GetFileType(info.PropertyType), Name = _name, Value = info.GetValue(item) }); //Default
                 }
             }
         }
@@ -410,22 +420,33 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         texture2.Source = Item.Textures[0].Texture2.ToImage();
         texture3.Source = Item.Textures[0].Texture3.ToImage();
         texture4.Source = Item.Textures[0].Texture4.ToImage();
+
+        //Animaciones
+        Animations.Clear();
+
+        foreach (var tex in Item.Textures)
+        {
+            Animations.Add(tex.Texture1.ToImage());
+        }
     }
 
     int GetFileType(Type type)
     {
         int _ret = 0;
 
-        if(type  == typeof(string))
+        if (type == typeof(string))
         {
             _ret = 0;
-        }else if(type == typeof(bool))
+        }
+        else if (type == typeof(bool))
         {
             _ret = 1;
-        }else if (type == typeof(Array))
+        }
+        else if (type == typeof(Array))
         {
             _ret = 2;
-        }else if(type == typeof(ItemColor))
+        }
+        else if (type == typeof(ItemColor))
         {
             _ret = 3;
         }
@@ -455,27 +476,106 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
         if (control != null)
         {
+            bool useBlock = false;
+            if (e.KeyModifiers == Avalonia.Input.KeyModifiers.Control)
+            {
+                useBlock = true;
+            }
+
             int index = int.Parse(control.Tag.ToString());
 
             switch (index)
             {
                 case 0:
-                   // onImportTextures(texture1, SlootEnum.Texture, index);
+                    if (useBlock)
+                    {
+                        Item.Block = !Item.Block;
+                        return;
+                    }
+                    onImportTextures(texture1, SlootEnum.Texture, index);
                     break;
                 case 1:
-                   //onImportTextures(texture2, SlootEnum.Texture, index);
+                    if (useBlock)
+                    {
+                        Item.Block2 = !Item.Block2;
+                        return;
+                    }
+                    onImportTextures(texture2, SlootEnum.Texture, index);
                     break;
                 case 2:
-                   // onImportTextures(texture3, SlootEnum.Texture, index);
+                    if (useBlock)
+                    {
+                        Item.Block3 = !Item.Block3;
+                        return;
+                    }
+                    onImportTextures(texture3, SlootEnum.Texture, index);
                     break;
                 case 3:
-                   // onImportTextures(texture4, SlootEnum.Texture, index);
+                    if (useBlock)
+                    {
+                        Item.Block4 = !Item.Block4;
+                        return;
+                    }
+                    onImportTextures(texture4, SlootEnum.Texture, index);
                     break;
             }
 
         }
     }
 
+
+    async void onImportTextures(Image source, SlootEnum sloot, int index)
+    {
+        if(Item == null)
+        {
+            return;
+        }
+
+        var dialog = new Avalonia.Controls.OpenFileDialog();
+        dialog.Filters.Add(new FileDialogFilter() { Name = "images files (*.png, *.bmp)|*.png; *.bmp;", Extensions = new List<string> { "png", "bmp" } });
+        dialog.AllowMultiple = false;
+
+        // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+        var parent = (Window)MainView.Instance.GetVisualRoot();
+
+        string[] result = await dialog.ShowAsync(parent);
+
+        if (result != null && result.Any())
+        {
+            string _fileName = result.FirstOrDefault();
+
+            if (File.Exists(_fileName))
+            {
+                onLoadTextureFromFile(source, sloot, index, _fileName);
+            }
+        }
+    }
+
+    void onLoadTextureFromFile(Image source, SlootEnum sloot, int index, string file)
+    {
+        byte[] _bytes = TMImageHelper.FromFile(file, true);
+
+        switch (index)
+        {
+            case 0:
+                Item.Textures[0].Texture1 = _bytes;
+                source.Source = Item.Textures[0].Texture1.ToImage();
+                break;
+            case 1:
+                Item.Textures[0].Texture2 = _bytes;
+                source.Source = Item.Textures[0].Texture2.ToImage();
+                break;
+            case 2:
+                Item.Textures[0].Texture3 = _bytes;
+                source.Source = Item.Textures[0].Texture3.ToImage();
+                break;
+            case 3:
+                Item.Textures[0].Texture4 = _bytes;
+                source.Source = Item.Textures[0].Texture4.ToImage();
+                break;
+        }
+       
+    }
     public async void onItemSave()
     {
         if (Item == null)
