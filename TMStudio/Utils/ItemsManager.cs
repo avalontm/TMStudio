@@ -189,7 +189,7 @@ namespace TMStudio.Utils
                 Directory.CreateDirectory(dataDir);
             }
 
-            Items = TMItem.Load(Path.Combine(root, "data", "items.dat"));
+            Items = TMItem.Load(Path.Combine(root, "data", "items.tmi"));
             MapEngine.Items = Items.ToSprites();
 
             int index = 0;
@@ -273,7 +273,7 @@ namespace TMStudio.Utils
                 Directory.CreateDirectory(dataDir);
             }
 
-            bool status = TMItem.SaveFile(Items, Path.Combine(root, "data", "items_autosave.dat"));
+            bool status = TMItem.SaveFile(Items, Path.Combine(root, "data", "items_autosave.tmi"));
 
             if(status)
             {
