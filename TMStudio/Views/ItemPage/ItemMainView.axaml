@@ -260,6 +260,7 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 
 				<Border Grid.Row="0" Background="{StaticResource Black}">
@@ -283,6 +284,20 @@
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
+
+				<Border Grid.Row="2" Background="{StaticResource Black}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<Button Grid.Column="0" Content="-" Command="{Binding onRemoveItemAnimation}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+						<Button Grid.Column="1" Content="+" Command="{Binding onAddItemAnimation}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+					</Grid>
+					
+				</Border>
 			</Grid>
 		</Grid>
 	

@@ -1,3 +1,4 @@
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
@@ -439,9 +440,9 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
             //Animaciones
             Animations.Clear();
 
-            foreach (var tex in Item.Textures)
+            for (int i=1; i < Item.Textures.Count; i++)
             {
-                Animations.Add(tex.Texture1?.ToImage());
+                Animations.Add(Item.Textures[i].Texture1?.ToImage());
             }
         }
     }
@@ -634,6 +635,8 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
             }
         }
 
+        //Animaciones
+
         var _exist = Items.Where(x => x.Id == Item.Id).FirstOrDefault();
 
         if (_exist != null)
@@ -660,5 +663,53 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         };
 
         onItemSelect(Item);
+    }
+
+    public void onRemoveItemAnimation()
+    {
+        if(Item == null)
+        {
+            return;
+        }
+
+        if(lstAnimations.SelectedIndex < 0)
+        {
+            return;
+        }
+
+        int index = lstAnimations.SelectedIndex;
+        Animations.RemoveAt(index);
+        Item.Textures.RemoveAt(index+1);
+    }
+
+    public async void onAddItemAnimation()
+    {
+        if (Item == null)
+        {
+            return;
+        }
+
+        var dialog = new Avalonia.Controls.OpenFileDialog();
+        dialog.Filters.Add(new FileDialogFilter() { Name = "images files (*.png, *.bmp)|*.png; *.bmp;", Extensions = new List<string> { "png", "bmp" } });
+        dialog.AllowMultiple = false;
+
+        // how to get the window from a control: https://stackoverflow.com/questions/56566570/openfiledialog-in-avalonia-error-with-showasync
+        var parent = (Window)MainView.Instance.GetVisualRoot();
+
+        string[] result = await dialog.ShowAsync(parent);
+
+        if (result != null && result.Any())
+        {
+            string _fileName = result.FirstOrDefault();
+
+            if (File.Exists(_fileName))
+            {
+                using (Stream stream = new FileStream(_fileName, FileMode.Open))
+                {
+                    Item.Textures.Add(new TMItemTexture() { Texture1 = TMImageHelper.ToBytes(stream) });
+                    Animations.Add(Item.Textures.LastOrDefault().Texture1.ToImage());
+                }
+            }
+        }
     }
 }
