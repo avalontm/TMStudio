@@ -125,6 +125,9 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
     {
         base.OnLoaded(e);
         Instance = this;
+        creature = new TMCreature();
+        creature.name = "creatura";
+        onLoadCreature();
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
