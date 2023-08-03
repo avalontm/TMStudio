@@ -118,11 +118,18 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
             Directory.CreateDirectory(dataDir);
         }
 
-        string mapDir = Path.Combine(PathManager.Data, "maps");
+        string mapDir = PathManager.Maps;
 
         if (!Directory.Exists(mapDir))
         {
             Directory.CreateDirectory(mapDir);
+        }
+
+        string creatureDir = PathManager.Creatures;
+
+        if (!Directory.Exists(creatureDir))
+        {
+            Directory.CreateDirectory(creatureDir);
         }
 
         await Task.Delay(100);

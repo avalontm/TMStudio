@@ -25,6 +25,7 @@ using TMStudio.Views.MapPage;
 using TMStudio.Enums;
 using TMFormat.Helpers;
 using TMStudio.Views.MainPage;
+using System.Threading.Tasks;
 
 namespace TMStudio.Views.CreaturePage;
 
@@ -333,7 +334,6 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
 
         await DialogManager.Show("Cargando creatura");
 
-        Debug.WriteLine($"[DirIndex] {DirIndex} | [SpriteIndex] {SpriteIndex}");
         // Texturas //
         texture1.Source = creature.dirs[DirIndex].sprites[SpriteIndex].textures[0].ToImage();
         texture2.Source = creature.dirs[DirIndex].sprites[SpriteIndex].textures[1].ToImage();
@@ -347,6 +347,7 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
         mask4.Source = creature.dirs[DirIndex].sprites[SpriteIndex].masks[3].ToImage();
 
         await DialogManager.Close();
+        await Task.Delay(1);
     }
 
     void onLoadLoots()

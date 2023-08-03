@@ -11,5 +11,7 @@ namespace TMStudio.Utils
     {
         public readonly static string Root = System.IO.Directory.GetCurrentDirectory();
         public readonly static string Data = Path.Combine(Root, "data");
+        public readonly static string Maps = Path.Combine(Data, "maps");
+        public readonly static string Creatures = Path.Combine(Data, "creatures");
     }
 }
