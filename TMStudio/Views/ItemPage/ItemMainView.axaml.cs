@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using TMFormat;
 using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Creatures;
@@ -328,7 +330,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
     async void onItemSelect(TMItem item)
     {
-        await DialogManager.Show();
+        await DialogManager.Show("Cargando item");
         Properties.Clear();
 
         PropertyInfo[] fi = typeof(TMItem).GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
@@ -337,7 +339,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         {
             if (!info.isItemOmite() && !info.isNotReader() && !info.isHideField())
             {
-                string _name = info.Name.GetTextBetweenAngleBrackets().FirstOrDefault();
+                string _name = info.Name;
 
                 if (info.isItemGroup() != null && info.isItemGroup().Value == ((ItemType)item.Type))
                 {
@@ -356,7 +358,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                         {
                             var _lights = EnumConvert.TypeFieldColorToList();
 
-                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _lights }); //Arrays
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = (ItemColor)info.GetValue(item), Items = _lights }); //Arrays
                             continue;
                         }
                     }
@@ -374,11 +376,11 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
                     if ((ItemType)item.Type == ItemType.Item)
                     {
-                        var _slots = EnumConvert.EquipSlotTypeToList();
+                        var _slots = EnumConvert.TypeFieldColorToList();
 
                         if (_name == "LightColor")
                         {
-                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _slots }); //Arrays
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = (ItemColor)info.GetValue(item), Items = _slots }); //Arrays
                             continue;
                         }
                     }
@@ -410,6 +412,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         cmbType.SelectedIndex = Item.Type;
         onLoadTexture();
 
+        await Task.Delay(1);
         await DialogManager.Close();
     }
 
@@ -576,6 +579,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         }
        
     }
+
     public async void onItemSave()
     {
         if (Item == null)
@@ -584,5 +588,62 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
             return;
         }
 
+        PropertyInfo[] fi = typeof(TMItem).GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+
+        foreach (var prop in Properties)
+        {
+            foreach (var info in fi)
+            {
+                if (!info.isItemOmite() && !info.isNotReader() && !info.isHideField())
+                {
+                    string _name = info.Name;
+
+                    if (_name == prop.Name)
+                    {
+                        if (info.PropertyType == typeof(string))
+                        {
+                            info.SetValue(Item, prop.Value.ToString());
+                        }
+                        else if (info.PropertyType == typeof(bool))
+                        {
+                            info.SetValue(Item, bool.Parse(prop.Value.ToString()));
+                        }
+                        else if (info.PropertyType == typeof(double))
+                        {
+                            info.SetValue(Item, double.Parse(prop.Value.ToString()));
+                        }
+                        else if (info.PropertyType == typeof(int))
+                        {
+                            info.SetValue(Item, int.Parse(prop.Value.ToString()));
+                        }
+                        else if (info.PropertyType == typeof(ItemColor))
+                        {
+
+                            switch ((TypeFieldColor)prop.Index)
+                            {
+                                case TypeFieldColor.None:
+                                    info.SetValue(Item, new ItemColor());
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+        var _exist = Items.Where(x => x.Id == Item.Id).FirstOrDefault();
+
+        if (_exist != null)
+        {
+            _exist = Item;
+
+            await DialogManager.Display("Guardado", "Se ha guardado este item.", "OK");
+            return;
+        }
     }
 }

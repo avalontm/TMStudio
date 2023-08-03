@@ -10,6 +10,7 @@ namespace TMStudio.Models
     {
         public int Type { get; set; }
         public string Name { get; set; }
+        public int Index { get; set; }
         public object Value { get; set; }
         public object Items { get; set; }
        
