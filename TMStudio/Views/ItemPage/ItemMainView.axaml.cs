@@ -149,6 +149,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
         Instance = this;
+        Items = new ObservableCollection<TMItem>();
         Properties = new ObservableCollection<ItemPropertiesModel>();
         Animations = new ObservableCollection<Bitmap>();
         Types = new ObservableCollection<string>(EnumConvert.TypeItemTypesToList());
@@ -652,9 +653,22 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         }
     }
 
-    public void onNewItem()
+    public async void onNewItem()
     {
-        int _id = (Items.LastOrDefault().Id + 1);
+        bool response = await DialogManager.Display("Confirmar", "Esta seguro que desea crear un nuevo item?", "SI", "NO");
+
+        if(!response)
+        {
+            return;
+        }
+
+        int _id = 0;
+        var _item = Items.LastOrDefault();
+
+        if(_item != null)
+        {
+            _id = (_item.Id + 1);
+        }
 
         Item = new TMItem()
         {
@@ -665,21 +679,26 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         onItemSelect(Item);
     }
 
-    public void onRemoveItemAnimation()
+    public async void onRemoveItemAnimation()
     {
-        if(Item == null)
+        if (Item == null)
         {
             return;
         }
 
-        if(lstAnimations.SelectedIndex < 0)
+        if (lstAnimations.SelectedIndex < 0)
         {
             return;
         }
 
-        int index = lstAnimations.SelectedIndex;
-        Animations.RemoveAt(index);
-        Item.Textures.RemoveAt(index+1);
+        bool response = await DialogManager.Display("Confirmar", "Esta seguro que desea eliminar esta animacion?", "SI", "NO");
+
+        if (response)
+        {
+            int index = lstAnimations.SelectedIndex;
+            Animations.RemoveAt(index);
+            Item.Textures.RemoveAt(index + 1);
+        }
     }
 
     public async void onAddItemAnimation()
