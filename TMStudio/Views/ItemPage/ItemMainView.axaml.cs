@@ -358,7 +358,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                         {
                             var _lights = EnumConvert.TypeFieldColorToList();
 
-                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = (ItemColor)info.GetValue(item), Items = _lights }); //Arrays
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Index = (int)info.GetValue(item), Value = info.GetValue(item), Items = _lights }); //Arrays
                             continue;
                         }
                     }
@@ -369,7 +369,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
                         if (_name == "EquipSlot")
                         {
-                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = info.GetValue(item), Items = _slots }); //Arrays
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Index = (int)info.GetValue(item),  Value = info.GetValue(item), Items = _slots }); //Arrays
                             continue;
                         }
                     }
@@ -380,7 +380,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
                         if (_name == "LightColor")
                         {
-                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Value = (ItemColor)info.GetValue(item), Items = _slots }); //Arrays
+                            Properties.Add(new ItemPropertiesModel() { Type = 2, Name = _name, Index = (int)info.GetValue(item), Value = (ItemColor)info.GetValue(item), Items = _slots }); //Arrays
                             continue;
                         }
                     }
@@ -616,21 +616,6 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                         {
                             info.SetValue(Item, int.Parse(prop.Value.ToString()));
                         }
-                        else if (info.PropertyType == typeof(ItemColor))
-                        {
-
-                            switch ((TypeFieldColor)prop.Index)
-                            {
-                                case TypeFieldColor.None:
-                                    info.SetValue(Item, new ItemColor());
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                        }
-
-
                     }
                 }
             }
