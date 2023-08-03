@@ -18,6 +18,7 @@ using TMFormat.Enums;
 using TMFormat.Formats;
 using TMFormat.Framework.Creatures;
 using TMFormat.Framework.Enums;
+using TMFormat.Framework.Loaders;
 using TMFormat.Helpers;
 using TMFormat.Models;
 using TMStudio.Enums;
@@ -84,8 +85,8 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         }
     }
 
-    List<TMItem> _items;
-    public List<TMItem> Items
+    ObservableCollection<TMItem> _items;
+    public ObservableCollection<TMItem> Items
     {
         get { return _items; }
         set
@@ -255,7 +256,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
                 return;
             }
 
-            Items = TMItem.Load(FileItem);
+            Items = new ObservableCollection<TMItem>(TMItem.Load(FileItem));
 
             if (Items == null)
             {
@@ -293,7 +294,7 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     async void onSaveFile()
     {
         await DialogManager.Show("Guardando creatura");
-        bool result = TMItem.SaveFile(Items, FileItem);
+        bool result = TMItem.SaveFile(Items.ToList(), FileItem);
         await DialogManager.Close();
 
         if (result)
@@ -307,16 +308,16 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
     }
 
 
-    void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)
+    void onSelectItemsChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (this.IsLoaded)
         {
-            if (lstSprites.SelectedIndex < 0)
+            if (lstItems.SelectedIndex < 0)
             {
                 return;
             }
 
-            onItemSelect(Items[lstSprites.SelectedIndex]);
+            onItemSelect(Items[lstItems.SelectedIndex]);
         }
     }
 
@@ -419,17 +420,29 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
     void onLoadTexture()
     {
-        texture1.Source = Item.Textures[0].Texture1.ToImage();
-        texture2.Source = Item.Textures[0].Texture2.ToImage();
-        texture3.Source = Item.Textures[0].Texture3.ToImage();
-        texture4.Source = Item.Textures[0].Texture4.ToImage();
-
-        //Animaciones
-        Animations.Clear();
-
-        foreach (var tex in Item.Textures)
+        if (Item != null)
         {
-            Animations.Add(tex.Texture1.ToImage());
+            if (Item.Textures.Count== 0)
+            {
+                texture1.Source = null;
+                texture2.Source = null;
+                texture3.Source = null;
+                texture4.Source = null;
+            }
+            else
+            {
+                texture1.Source = Item.Textures[0].Texture1.ToImage();
+                texture2.Source = Item.Textures[0].Texture2.ToImage();
+                texture3.Source = Item.Textures[0].Texture3.ToImage();
+                texture4.Source = Item.Textures[0].Texture4.ToImage();
+            }
+            //Animaciones
+            Animations.Clear();
+
+            foreach (var tex in Item.Textures)
+            {
+                Animations.Add(tex.Texture1?.ToImage());
+            }
         }
     }
 
@@ -627,8 +640,25 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
         {
             _exist = Item;
 
-            await DialogManager.Display("Guardado", "Se ha guardado este item.", "OK");
-            return;
+            await DialogManager.Display("Guardado", "Se ha modificado este item.", "OK");
         }
+        else
+        {
+            Items.Add(Item);
+            await DialogManager.Display("Guardado", "Se ha agregado este item.", "OK");
+        }
+    }
+
+    public void onNewItem()
+    {
+        int _id = (Items.LastOrDefault().Id + 1);
+
+        Item = new TMItem()
+        {
+            Id = _id,
+            Textures = new List<TMItemTexture> { new TMItemTexture() }
+        };
+
+        onItemSelect(Item);
     }
 }

@@ -65,13 +65,14 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 
 				<Border Grid.Row="0" Background="{StaticResource Black}">
 					<Label Content="Items" Foreground="{StaticResource White}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 				</Border>
 				
-				<ListBox Grid.Row="1"  Name="lstSprites" ItemsSource="{Binding Items}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectSpriteChanged">
+				<ListBox Grid.Row="1" Name="lstItems" ItemsSource="{Binding Items}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="onSelectItemsChanged">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<Grid Margin="2">
@@ -90,6 +91,10 @@
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
+
+				<Border Grid.Row="2" Background="{StaticResource Black}">
+					<Button Content="Nuevo Item" Command="{Binding onNewItem}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Border>
 			</Grid>
 
 			<GridSplitter  Grid.Column="1" Width="2" HorizontalAlignment="Left"/>
