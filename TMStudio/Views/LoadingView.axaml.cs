@@ -12,6 +12,7 @@ using TMStudio.Engine;
 using TMStudio.Utils;
 using TMStudio.Views.MapPage;
 using TMStudio.Views.MainPage;
+using System.IO;
 
 namespace TMStudio.Views;
 
@@ -109,6 +110,20 @@ public partial class LoadingView : UserControl, INotifyPropertyChanged
         TMFormat.TMInstance.InitAvalonia(CurrentGame.GraphicsDevice);
    
         await SetMessage("Cargando configuracion");
+
+        string dataDir = PathManager.Data;
+
+        if (!Directory.Exists(dataDir))
+        {
+            Directory.CreateDirectory(dataDir);
+        }
+
+        string mapDir = Path.Combine(PathManager.Data, "maps");
+
+        if (!Directory.Exists(mapDir))
+        {
+            Directory.CreateDirectory(mapDir);
+        }
 
         await Task.Delay(100);
 
