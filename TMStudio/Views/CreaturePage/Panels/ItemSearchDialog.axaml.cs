@@ -128,7 +128,7 @@ public partial class ItemSearchDialog : UserControl, INotifyPropertyChanged
             return;
         }
 
-        var _filter = ItemsManager.Instance.Items.Where(x => (ItemType)x.Type == ItemType.Item && x.Moveable && x.Name.Contains(itemSearch)).ToList();
+        var _filter = ItemsManager.Instance.Items.Where(x => (ItemType)x.Type == ItemType.Item && x.Moveable && x.Name.ToLower().Contains(itemSearch.ToLower())).ToList();
 
         items = new ObservableCollection<TMItem>(_filter);
 

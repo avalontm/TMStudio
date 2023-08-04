@@ -342,6 +342,16 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
             return;
         }
 
+        if (DirIndex < 0)
+        {
+            return;
+        }
+
+        if(SpriteIndex < 0)
+        {
+            return;
+        }
+
         await DialogManager.Show("Cargando texturas");
 
         // Texturas //
