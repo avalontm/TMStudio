@@ -1,0 +1,114 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:utils="clr-namespace:TMStudio.Utils"
+			 xmlns:conv="clr-namespace:TMStudio.Converts"
+             x:Class="TMStudio.Views.CreaturePage.Panels.ItemSearchDialog">
+	
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<conv:ItemIdToImageConverter x:Key="ItemIdToImageConverter"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+
+	<Grid>
+		<Border x:Name="gridBackground" Background="{StaticResource Black}" Opacity="0.5" PointerPressed="GridBackground_PointerPressed"/>
+		<Border Margin="5" Background="{StaticResource White}" VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="500" MaxWidth="600"  MinHeight="350" MaxHeight="450" CornerRadius="5" BorderBrush="{StaticResource BackgroundBorder}" BorderThickness="2">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+
+				<Border Grid.Row="0" Padding="5" Background="{StaticResource Black}">
+					<Label Content="Agregar Loot" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+				</Border>
+
+				<Grid Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<Border Margin="5" Padding="2" Background="Black" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+						<TextBox x:Name="txtSearch" Text="{Binding itemSearch}" TextChanged="TxtSearch_TextChanged"  Background="Transparent" Foreground="White" BorderThickness="0" Watermark="Buscar item"/>
+					</Border>
+
+					<ListBox Grid.Row="2" Margin="5" Name="lstItems" ItemsSource="{Binding items}" Background="Transparent" CornerRadius="0" BorderBrush="{StaticResource Black}" BorderThickness="1" HorizontalAlignment="Stretch" SelectionChanged="LstItems_SelectionChanged">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Border Margin="2" Padding="2" BorderBrush="{StaticResource Black}" BorderThickness="1" CornerRadius="5">
+									<Grid >
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="32" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+
+										<Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+											<Image Source="{Binding Id, Converter={StaticResource ItemIdToImageConverter}}" Width="32" Height="32" Stretch="Uniform"/>
+										</Border>
+
+										<Label Grid.Column="1" Content="{Binding Name}" Foreground="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+									</Grid>
+								</Border>
+
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</Grid>
+
+				<Border Grid.Row="2" Margin="5" Padding="2" BorderBrush="Black" BorderThickness="1" CornerRadius="0">
+					<Grid >
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+
+
+						<Border Grid.Column="0" Margin="2,0,0,0" Background="LightGray" BorderBrush="Black" BorderThickness="1">
+							<Image Source="{Binding item.Id, Converter={StaticResource ItemIdToImageConverter}}" Width="32" Height="32" Stretch="Uniform"/>
+						</Border>
+
+						<Grid Grid.Column="1">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							
+								<Grid Grid.Column="0"  Margin="5,0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Label Content="Units" Foreground="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+									<TextBox x:Name="txtUnits" Grid.Column="1" Margin="5,0,5,0" Text="{Binding units}" Background="{StaticResource Black}" Foreground="{StaticResource White}" Watermark="unidades" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+
+								</Grid>
+
+
+								<Grid Grid.Column="1" Margin="5,0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+								
+									<Label Content="%" Foreground="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+									<TextBox x:Name="txtRate" Grid.Column="1" Margin="5,0,5,0" Text="{Binding rate}"  Background="{StaticResource Black}" Foreground="{StaticResource White}" Watermark="% probalidad" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+
+								</Grid>
+							</Grid>
+						
+						<Button Grid.Column="2" Padding="5,0,5,0" Width="120" Command="{Binding onLootAdd}" Content="Agregar" Background="{StaticResource Black}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+					</Grid>
+				</Border>
+				
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

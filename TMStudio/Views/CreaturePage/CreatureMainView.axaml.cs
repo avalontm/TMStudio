@@ -119,6 +119,7 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
         Instance = this;
+        itemSearch.onReturn = ItemSearchReturn;
         DataContext = this;
     }
 
@@ -332,7 +333,7 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
             return;
         }
 
-        await DialogManager.Show("Cargando creatura");
+        await DialogManager.Show("Cargando texturas");
 
         // Texturas //
         texture1.Source = creature.dirs[DirIndex].sprites[SpriteIndex].textures[0].ToImage();
@@ -346,8 +347,9 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
         mask3.Source = creature.dirs[DirIndex].sprites[SpriteIndex].masks[2].ToImage();
         mask4.Source = creature.dirs[DirIndex].sprites[SpriteIndex].masks[3].ToImage();
 
-        await DialogManager.Close();
         await Task.Delay(1);
+        await DialogManager.Close();
+   
     }
 
     void onLoadLoots()
@@ -364,7 +366,7 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
             loots.Add(new TMLoot() { id = loot.id, units = loot.count, rate = loot.probability });
         }
 
-        lstLoot.ItemsSource = loots;
+        lstLoots.ItemsSource = loots;
     }
 
     void onImportTexture(object? sender, Avalonia.Input.PointerPressedEventArgs e)
@@ -518,5 +520,52 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
                 }
                 break;
         }
+      
+    }
+
+    void onSelectLootChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        
+
+    }
+
+    public async void onRemoveLoot()
+    {
+        if(lstLoots.SelectedIndex < 0)
+        {
+            return;
+        }
+
+        bool response = await DialogManager.Display("Confirmar", "Esta seguro que desea eliminar este item del loot?", "SI", "NO");
+
+        if (!response)
+        {
+            return;
+        }
+
+        var _loot = loots[lstLoots.SelectedIndex];
+
+        if(loots.Remove(_loot))
+        {
+
+        }
+    }
+
+    public void onAddLoot()
+    {
+        itemSearch.Show();
+    }
+
+    async void ItemSearchReturn(object? sender, TMLoot e)
+    {
+        var _loot = loots.Where(x => x.id == e.id).FirstOrDefault();
+
+        if (_loot != null)
+        {
+            await DialogManager.Display("Informacion", "Este item ya se encuentra en el loot.", "OK");
+            return;
+        }
+
+        loots.Add(e);
     }
 }

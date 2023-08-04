@@ -92,7 +92,7 @@ public partial class MainControlView : UserControl, INotifyPropertyChanged
                 MainView.Instance.ToPage(new ItemMainView());
                 break;
             case 1:
-                MainView.Instance.ToPage(new CreatureMainView());
+                onCreatureEditor();
                 break;
             case 2:
                 onMapEditor();
@@ -100,6 +100,27 @@ public partial class MainControlView : UserControl, INotifyPropertyChanged
             default:
                 break;
         }
+    }
+
+    async Task onCreatureEditor()
+    {
+        IsLoading = true;
+
+        ItemsManager.Instance.Progress = 0;
+
+        await SetMessage("Cargando Items...");
+
+        bool status = await ItemsManager.Instance.Load();
+
+        await SetMessage($"Se han cargado [{MapEngine.Items.Count}] items");
+
+        await Task.Delay(100);
+
+        await SetMessage($"Iniciando");
+
+        await Task.Delay(100);
+
+        MainView.Instance.ToPage(new CreatureMainView());
     }
 
     async Task onMapEditor()
