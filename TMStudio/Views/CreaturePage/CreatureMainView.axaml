@@ -218,7 +218,7 @@
 
 						<Label Grid.Row="0" Content="Animaciones" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center"/>
 					
-						<ComboBox x:Name="cmbDir" Grid.Row="1" SelectedIndex="{Binding DirIndex}" FontSize="18" FontWeight="Bold" SelectionChanged="onDirSelectionChanged" HorizontalAlignment="Stretch">
+						<ComboBox x:Name="cmbDir" Grid.Row="1" SelectedIndex="{Binding DirIndex}" FontFamily="{StaticResource SFRegular}"  FontSize="18" FontWeight="Bold" SelectionChanged="onDirSelectionChanged" HorizontalAlignment="Stretch">
 							<ComboBoxItem IsSelected="True">Norte</ComboBoxItem>
 							<ComboBoxItem>Este</ComboBoxItem>
 							<ComboBoxItem>Sur</ComboBoxItem>

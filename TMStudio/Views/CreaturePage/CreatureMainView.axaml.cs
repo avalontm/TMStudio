@@ -199,6 +199,11 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
         if (MainView.Instance != null)
         {
             MainView.Instance.ToPage(new MainControlView());
+
+            if (ItemsManager.Instance != null)
+            {
+                ItemsManager.Instance.Items = null;
+            }
         }
     }
 

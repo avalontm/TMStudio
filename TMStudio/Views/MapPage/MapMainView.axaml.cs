@@ -359,6 +359,11 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
         if (MainView.Instance != null)
         {
             MainView.Instance.ToPage(new MainControlView());
+
+            if (ItemsManager.Instance != null)
+            {
+                ItemsManager.Instance.Items = null;
+            }
         }
     }
 }
