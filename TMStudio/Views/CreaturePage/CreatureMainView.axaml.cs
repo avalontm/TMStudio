@@ -287,6 +287,15 @@ public partial class CreatureMainView : UserControl, INotifyPropertyChanged
     async void onSaveFile()
     {
         await DialogManager.Show("Guardando creatura");
+
+        //Actualizamos el loot
+        creature.loots.Clear();
+
+        foreach(var loot in loots)
+        {
+            creature.loots.Add(new TMCreatureLoot() { id = loot.id, count = loot.units, probability = loot.rate });
+        }
+
         bool result = creature.SaveToFile(FileCreature);
         await DialogManager.Close();
 
