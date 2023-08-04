@@ -32,4 +32,20 @@
 		<Setter Property="FontFamily" Value="{StaticResource SFRegular}" />
 		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
 	</Style>
+
+
+	<Style Selector="Button">
+		<Setter Property="Background" Value="{TemplateBinding Background}" />
+		<Setter Property="BorderThickness" Value="0" />
+	</Style>
+	<Style Selector="Button:pointerover /template/ ContentPresenter">
+		<Setter Property="Background" Value="{TemplateBinding Background}" />
+		<Setter Property="BorderBrush" Value="{StaticResource Black}" />
+		<Setter Property="BorderThickness" Value="1" />
+	</Style>
+	<Style Selector="Button:pressed /template/ ContentPresenter">
+		<Setter Property="Background" Value="{TemplateBinding Background}" />
+		<Setter Property="BorderBrush" Value="{StaticResource White}" />
+		<Setter Property="BorderThickness" Value="1" />
+	</Style>
 </Styles>
