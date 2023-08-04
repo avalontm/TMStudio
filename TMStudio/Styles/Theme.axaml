@@ -7,7 +7,7 @@
 		</Border>
 	</Design.PreviewWith>
 
-	<!-- Add Styles Here -->
+	<!-- LABEL -->
 	<Style Selector="Label">
 		<Setter Property="FontFamily" Value="{StaticResource SFRegular}" />
 		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
@@ -33,16 +33,24 @@
 		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
 	</Style>
 
+	<!-- BUTTON -->
 
 	<Style Selector="Button">
+		<Setter Property="FontFamily" Value="{StaticResource SFRegular}" />
 		<Setter Property="Background" Value="{TemplateBinding Background}" />
 		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
 	</Style>
+	
 	<Style Selector="Button:pointerover /template/ ContentPresenter">
 		<Setter Property="Background" Value="{TemplateBinding Background}" />
 		<Setter Property="BorderBrush" Value="{StaticResource Black}" />
 		<Setter Property="BorderThickness" Value="1" />
 	</Style>
+	
 	<Style Selector="Button:pressed /template/ ContentPresenter">
 		<Setter Property="Background" Value="{TemplateBinding Background}" />
 		<Setter Property="BorderBrush" Value="{StaticResource White}" />

@@ -292,8 +292,8 @@
 							<ColumnDefinition Width="*"/>
 						</Grid.ColumnDefinitions>
 
-						<Button Grid.Column="0" Content="-" Command="{Binding onRemoveItemAnimation}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-						<Button Grid.Column="1" Content="+" Command="{Binding onAddItemAnimation}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+						<Button Grid.Column="0" Margin="2" Content="-" Command="{Binding onRemoveItemAnimation}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+						<Button Grid.Column="1" Margin="2" Content="+" Command="{Binding onAddItemAnimation}" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
 					</Grid>
 					
