@@ -29,9 +29,10 @@
 							<DataTemplate>
 								<Grid>
 									
-									<TextBox IsEnabled="False" Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<TextBox IsEnabled="{Binding IsEnabled}" Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
 									<CheckBox Margin="5,0,0,0" IsEnabled="False" IsChecked="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
 									<ComboBox IsEnabled="False" ItemsSource="{Binding Items}" SelectedIndex="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Background="Transparent" BorderThickness="0" CornerRadius="0" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+									<Button Margin="2" Content="{Binding Value}" Command="{Binding Action}" CommandParameter="{Binding Bind}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='action'}" Background="{StaticResource Black}" Foreground="{StaticResource White}" BorderThickness="0" CornerRadius="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 								</Grid>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>

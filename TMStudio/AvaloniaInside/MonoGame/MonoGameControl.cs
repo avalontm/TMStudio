@@ -55,7 +55,6 @@ namespace TMStudio.AvaloniaInside.MonoGame
         /// </summary>
         public MonoGameControl()
         {
-            Debug.WriteLine("[MonoGameControl]");
             Focusable = true;
         }
 
@@ -70,11 +69,9 @@ namespace TMStudio.AvaloniaInside.MonoGame
         public Game? Game
         {
             get {
-                Debug.WriteLine($"[Game] {_game}");
                 return _game; }
             set
             {
-                Debug.WriteLine($"[Game] {_game}");
                 if (_game == value) return;
                 _game = value;
 
@@ -134,7 +131,6 @@ namespace TMStudio.AvaloniaInside.MonoGame
 
         private void Initialize()
         {
-            Debug.WriteLine($"[Initialize] {this.GetVisualRoot()}");
             if (this.GetVisualRoot() is Window { PlatformImpl: { } } window && window.TryGetPlatformHandle()?.Handle is { } handle)
             {
                 _presentationParameters.DeviceWindowHandle = handle;

@@ -34,6 +34,10 @@ namespace TMStudio.Converts
             {
                 return true;
             }
+            else if (type == 4 && parameter.ToString() == "action")
+            {
+                return true;
+            }
 
             return false;
         }

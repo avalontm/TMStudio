@@ -14,6 +14,7 @@ using TMFormat.Formats;
 using TMFormat.Framework.Enums;
 using TMStudio.Models;
 using TMStudio.Utils;
+using ReactiveUI;
 
 namespace TMStudio.Views.MapPage.Properties;
 
@@ -93,18 +94,20 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
             //Ground
             Items.Add(new PropertiesModel() { Name = "Id", Value = Model.Tile.Id, Type = 0 });
             Items.Add(new PropertiesModel() { Name = "Nombre", Value = Model.Tile.Name, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Tipo", Value= Model.Tile.Type, Items = typeitems, Type = 2 });
+            Items.Add(new PropertiesModel() { Name = "Tipo", Value = Model.Tile.Type, Items = typeitems, Type = 2 });
             Items.Add(new PropertiesModel() { Name = "X", Value = Model.X, Type = 0 });
             Items.Add(new PropertiesModel() { Name = "Y", Value = Model.Y, Type = 0 });
             Items.Add(new PropertiesModel() { Name = "Z", Value = Model.Z, Type = 0 });
             Items.Add(new PropertiesModel() { Name = "Usable", Value = Model.Tile.Use, Type = 1 });
             Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Model.Tile.Block, Type = 1 });
-            Items.Add(new PropertiesModel() { Name = "Moveable", Value = Model.Tile.Moveable, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Movible", Value = Model.Tile.Moveable, Type = 1 });
             Items.Add(new PropertiesModel() { Name = "Proteccion", Value = isPZ, Type = 1 });
 
             //Items
             if (Model.Items != null)
             {
+                int index = 1;
+
                 foreach (var item in Model.Items)
                 {
                     Items.Add(new PropertiesModel() { Name = "Id", Value = item.Id, Type = 0 });
@@ -113,15 +116,37 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
                     Items.Add(new PropertiesModel() { Name = "Campo", Value = item.Field, Items = fielditems, Type = 2 });
                     Items.Add(new PropertiesModel() { Name = "Usable", Value = item.Use, Type = 1 });
                     Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = item.Block, Type = 1 });
-                    Items.Add(new PropertiesModel() { Name = "Moveable", Value = item.Moveable, Type = 1 });
+                    Items.Add(new PropertiesModel() { Name = "Movible", Value = item.Moveable, Type = 1 });
 
-                    if((TypeField)item.Field == TypeField.Teleport)
+                    if ((TypeField)item.Field == TypeField.Teleport)
                     {
-                        Items.Add(new PropertiesModel() { Name = "Destine X:", Value = item.Destine.X, Type = 0 });
-                        Items.Add(new PropertiesModel() { Name = "Destine Y:", Value = item.Destine.Y, Type = 0 });
-                        Items.Add(new PropertiesModel() { Name = "Destine Z:", Value = item.Destine.Z, Type = 0 });
+                        Items.Add(new PropertiesModel() { Id = $"field_{index}_x", Name = "Destino X:", Value = item.Destine.X, Type = 0, IsEnabled = true });
+                        Items.Add(new PropertiesModel() { Id = $"field_{index}_y", Name = "Destino Y:", Value = item.Destine.Y, Type = 0, IsEnabled = true });
+                        Items.Add(new PropertiesModel() { Id = $"field_{index}_z", Name = "Destino Z:", Value = item.Destine.Z, Type = 0, IsEnabled = true });
+                        Items.Add(new PropertiesModel() { Name = "Accion", Value = "Teleport", Type = 4, Action = ReactiveCommand.Create<ItemMapModel>(onTeleport), Bind = new ItemMapModel() {  Index = index, Item  = item} });
                     }
+
+                    index++;
                 }
+            }
+        }
+    }
+
+    async void onTeleport(ItemMapModel model)
+    {
+        var itemX = Items.Where(x => x.Id == $"field_{model.Index}_x").FirstOrDefault();
+        var itemY = Items.Where(x => x.Id == $"field_{model.Index}_y").FirstOrDefault();
+        var itemZ = Items.Where(x => x.Id == $"field_{model.Index}_z").FirstOrDefault();
+
+        if (itemX != null && itemY != null && itemZ != null)
+        {
+            try
+            {
+                model.Item.Destine = new TMFormat.Models.ItemVector3(int.Parse(itemX.Value.ToString()), int.Parse(itemY.Value.ToString()), int.Parse(itemZ.Value.ToString()));
+            }
+            catch (Exception ex)
+            {
+                await DialogManager.Display($"Error", $"{ex.Message}", "OK");
             }
         }
     }
