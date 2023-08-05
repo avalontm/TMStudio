@@ -20,7 +20,7 @@
 		</Grid.RowDefinitions>
 
 		<Grid Margin="5">
-			<DataGrid Grid.Row="0" Name="dataGrid" ItemsSource="{Binding Items}" GridLinesVisibility="All" AutoGenerateColumns="False" CanUserReorderColumns="False">
+			<DataGrid Grid.Row="0" Name="dataGrid" GridLinesVisibility="All" AutoGenerateColumns="False" CanUserReorderColumns="False">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Nombre"  Binding="{Binding Name}" Width="120" IsReadOnly="True" CanUserSort="False" CanUserReorder="False" />
 
@@ -29,10 +29,10 @@
 							<DataTemplate>
 								<Grid>
 									
-									<TextBox IsEnabled="{Binding IsEnabled}" Text="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
-									<CheckBox Margin="5,0,0,0" IsEnabled="False" IsChecked="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
-									<ComboBox IsEnabled="False" ItemsSource="{Binding Items}" SelectedIndex="{Binding Value}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Background="Transparent" BorderThickness="0" CornerRadius="0" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-									<Button Margin="2" Content="{Binding Value}" Command="{Binding Action}" CommandParameter="{Binding Bind}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='action'}" Background="{StaticResource Black}" Foreground="{StaticResource White}" BorderThickness="0" CornerRadius="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+									<TextBox IsEnabled="{Binding IsEnabled}" Text="{Binding Text}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='string'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<CheckBox Margin="5,0,0,0" IsEnabled="False" IsChecked="{Binding Checked}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='bool'}" Foreground="{StaticResource White}" Background="Transparent" BorderBrush="Transparent" CornerRadius="0" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+									<ComboBox IsEnabled="False" ItemsSource="{Binding Items}" SelectedIndex="{Binding Selected}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='array'}" Background="Transparent" BorderThickness="0" CornerRadius="0" Foreground="{StaticResource White}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+									<Button Margin="2" Content="{Binding Text}" Command="{Binding Action}" CommandParameter="{Binding Bind}" IsVisible="{Binding Type, Converter={StaticResource ItemPropertieVisibleConverter}, ConverterParameter='action'}" Background="{StaticResource Black}" Foreground="{StaticResource White}" BorderThickness="0" CornerRadius="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 								</Grid>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
@@ -42,5 +42,7 @@
 			</DataGrid>
 		</Grid>
 		
+		<Grid Grid.Row="1" Margin="0,0,0,50"/>
+			  	  
 	</Grid>
 </UserControl>

@@ -55,11 +55,11 @@ public partial class MapPropertieView : UserControl, INotifyPropertyChanged
     {
         if (MapManager.Instance.isLoaded)
         {
-            Items.Add(new PropertiesModel() { Name = "Nombre", Value = MapManager.Instance.MapBase.mapInfo.Name });
-            Items.Add(new PropertiesModel() { Name = "Autor", Value = MapManager.Instance.MapBase.mapInfo.Autor });
-            Items.Add(new PropertiesModel() { Name = "Version", Value = MapManager.Instance.MapBase.mapInfo.Version });
-            Items.Add(new PropertiesModel() { Name = "Ancho", Value = MapManager.Instance.MapBase.mapInfo.Size.X });
-            Items.Add(new PropertiesModel() { Name = "Alto", Value = MapManager.Instance.MapBase.mapInfo.Size.Y });
+            Items.Add(new PropertiesModel() { Name = "Nombre", Text = MapManager.Instance.MapBase.mapInfo.Name });
+            Items.Add(new PropertiesModel() { Name = "Autor", Text = MapManager.Instance.MapBase.mapInfo.Autor });
+            Items.Add(new PropertiesModel() { Name = "Version", Text = MapManager.Instance.MapBase.mapInfo.Version });
+            Items.Add(new PropertiesModel() { Name = "Ancho", Text = MapManager.Instance.MapBase.mapInfo.Size.X.ToString() });
+            Items.Add(new PropertiesModel() { Name = "Alto", Text = MapManager.Instance.MapBase.mapInfo.Size.Y.ToString() });
         }
     }
 
@@ -79,11 +79,11 @@ public partial class MapPropertieView : UserControl, INotifyPropertyChanged
             var _ancho = Items.Where(x => x.Name == "Ancho").FirstOrDefault();
             var _alto = Items.Where(x => x.Name == "Alto").FirstOrDefault();
 
-            MapManager.Instance.MapBase.mapInfo.Name = _nombre.Value.ToString();
-            MapManager.Instance.MapBase.mapInfo.Autor = _autor.Value.ToString();
-            MapManager.Instance.MapBase.mapInfo.Version = _version.Value.ToString();
-            MapManager.Instance.MapBase.mapInfo.Size.X = int.Parse(_ancho.Value.ToString());
-            MapManager.Instance.MapBase.mapInfo.Size.Y = int.Parse(_alto.Value.ToString());
+            MapManager.Instance.MapBase.mapInfo.Name = _nombre.Text;
+            MapManager.Instance.MapBase.mapInfo.Autor = _autor.Text;
+            MapManager.Instance.MapBase.mapInfo.Version = _version.Text;
+            MapManager.Instance.MapBase.mapInfo.Size.X = int.Parse(_ancho.Text);
+            MapManager.Instance.MapBase.mapInfo.Size.Y = int.Parse(_alto.Text);
 
             await DialogManager.Display("Correcto", "Se han modificado las propiedades.", "OK");
         }

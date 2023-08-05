@@ -10,10 +10,11 @@ namespace TMStudio.Models
 {
     public class PropertiesModel : ObservableObject
     {
-        object? _value;
         public string Id { get; set; }
         public string? Name { get; set; }
-        public object? Value { get { return _value; } set { _value = value; OnPropertyChanged("Value"); } }
+        public string Text { set; get; }
+        public bool Checked { set; get; }
+        public int Selected { set; get; }
         public object? Items { get; set; }
         public int Type { get; set; }
         public ICommand? Action { get; set; }

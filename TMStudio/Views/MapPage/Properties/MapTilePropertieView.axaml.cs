@@ -15,6 +15,8 @@ using TMFormat.Framework.Enums;
 using TMStudio.Models;
 using TMStudio.Utils;
 using ReactiveUI;
+using Microsoft.VisualBasic;
+using System.Threading.Tasks;
 
 namespace TMStudio.Views.MapPage.Properties;
 
@@ -84,6 +86,7 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
 
         if (MapManager.Instance.isLoaded)
         {
+            dataGrid.ItemsSource = null;
             Items.Clear();
 
             var typeitems = EnumConvert.TypeItemToList();
@@ -92,16 +95,16 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
             bool isPZ = MapManager.Instance.MapBase.Floors[MapManager.Instance.FloorCurrent][(int)Model.X, (int)Model.Y].isPZ;
 
             //Ground
-            Items.Add(new PropertiesModel() { Name = "Id", Value = Model.Tile.Id, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Nombre", Value = Model.Tile.Name, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Tipo", Value = Model.Tile.Type, Items = typeitems, Type = 2 });
-            Items.Add(new PropertiesModel() { Name = "X", Value = Model.X, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Y", Value = Model.Y, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Z", Value = Model.Z, Type = 0 });
-            Items.Add(new PropertiesModel() { Name = "Usable", Value = Model.Tile.Use, Type = 1 });
-            Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = Model.Tile.Block, Type = 1 });
-            Items.Add(new PropertiesModel() { Name = "Movible", Value = Model.Tile.Moveable, Type = 1 });
-            Items.Add(new PropertiesModel() { Name = "Proteccion", Value = isPZ, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Id", Text = Model.Tile.Id.ToString(), Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Nombre", Text = Model.Tile.Name, Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Tipo", Selected = Model.Tile.Type, Items = typeitems, Type = 2 });
+            Items.Add(new PropertiesModel() { Name = "X", Text = Model.X.ToString(), Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Y", Text = Model.Y.ToString(), Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Z", Text = Model.Z.ToString(), Type = 0 });
+            Items.Add(new PropertiesModel() { Name = "Usable", Checked = Model.Tile.Use, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Bloqueable", Checked = Model.Tile.Block, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Movible", Checked = Model.Tile.Moveable, Type = 1 });
+            Items.Add(new PropertiesModel() { Name = "Proteccion", Checked = isPZ, Type = 1 });
 
             //Items
             if (Model.Items != null)
@@ -110,24 +113,47 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
 
                 foreach (var item in Model.Items)
                 {
-                    Items.Add(new PropertiesModel() { Name = "Id", Value = item.Id, Type = 0 });
-                    Items.Add(new PropertiesModel() { Name = "Nombre", Value = item.Name, Type = 0 });
-                    Items.Add(new PropertiesModel() { Name = "Tipo", Value = item.Type, Items = typeitems, Type = 2 });
-                    Items.Add(new PropertiesModel() { Name = "Campo", Value = item.Field, Items = fielditems, Type = 2 });
-                    Items.Add(new PropertiesModel() { Name = "Usable", Value = item.Use, Type = 1 });
-                    Items.Add(new PropertiesModel() { Name = "Bloqueable", Value = item.Block, Type = 1 });
-                    Items.Add(new PropertiesModel() { Name = "Movible", Value = item.Moveable, Type = 1 });
+                    Items.Add(new PropertiesModel() { Name = "Id", Text = item.Id.ToString(), Type = 0 });
+                    Items.Add(new PropertiesModel() { Name = "Nombre", Text = item.Name, Type = 0 });
+                    Items.Add(new PropertiesModel() { Name = "Tipo", Selected = item.Type, Items = typeitems, Type = 2 });
+                    Items.Add(new PropertiesModel() { Name = "Campo", Selected = item.Field, Items = fielditems, Type = 2 });
+                    Items.Add(new PropertiesModel() { Name = "Usable", Checked = item.Use, Type = 1 });
+                    Items.Add(new PropertiesModel() { Name = "Bloqueable", Checked = item.Block, Type = 1 });
+                    Items.Add(new PropertiesModel() { Name = "Movible", Checked = item.Moveable, Type = 1 });
+                    Items.Add(new PropertiesModel() { Id = $"item_{index}_cid", Name = "Script ID", Text = item.Cid.ToString(), Type = 0 , IsEnabled =true});
+                    Items.Add(new PropertiesModel() { Name = "Accion", Text = "Guardar", Type = 4, Action = ReactiveCommand.Create<ItemMapModel>(onScript), Bind = new ItemMapModel() { Index = index, Item = item } });
+
 
                     if ((TypeField)item.Field == TypeField.Teleport)
                     {
-                        Items.Add(new PropertiesModel() { Id = $"field_{index}_x", Name = "Destino X:", Value = item.Destine.X, Type = 0, IsEnabled = true });
-                        Items.Add(new PropertiesModel() { Id = $"field_{index}_y", Name = "Destino Y:", Value = item.Destine.Y, Type = 0, IsEnabled = true });
-                        Items.Add(new PropertiesModel() { Id = $"field_{index}_z", Name = "Destino Z:", Value = item.Destine.Z, Type = 0, IsEnabled = true });
-                        Items.Add(new PropertiesModel() { Name = "Accion", Value = "Teleport", Type = 4, Action = ReactiveCommand.Create<ItemMapModel>(onTeleport), Bind = new ItemMapModel() {  Index = index, Item  = item} });
+                        Items.Add(new PropertiesModel() { Id = $"field_{index}_x", Name = "Destino X:", Text = item.Destine.X.ToString(), Type = 0, IsEnabled = true });
+                        Items.Add(new PropertiesModel() { Id = $"field_{index}_y", Name = "Destino Y:", Text = item.Destine.Y.ToString(), Type = 0, IsEnabled = true });
+                        Items.Add(new PropertiesModel() { Id = $"field_{index}_z", Name = "Destino Z:", Text = item.Destine.Z.ToString(), Type = 0, IsEnabled = true });
+                        Items.Add(new PropertiesModel() { Name = "Accion", Text = "Teleport", Type = 4, Action = ReactiveCommand.Create<ItemMapModel>(onTeleport), Bind = new ItemMapModel() {  Index = index, Item  = item} });
                     }
 
                     index++;
                 }
+            }
+
+            dataGrid.ItemsSource = Items;
+        }
+    }
+
+    async void onScript(ItemMapModel model)
+    {
+        var itemCid = Items.Where(x => x.Id == $"item_{model.Index}_cid").FirstOrDefault();
+
+        if (itemCid != null)
+        {
+            try
+            {
+                model.Item.Cid = int.Parse(itemCid.Text);
+                Debug.WriteLine($"[onScript] {model.Item.Cid}");
+            }
+            catch (Exception ex)
+            {
+                await DialogManager.Display($"Error", $"{ex.Message}", "OK");
             }
         }
     }
@@ -142,7 +168,7 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
         {
             try
             {
-                model.Item.Destine = new TMFormat.Models.ItemVector3(int.Parse(itemX.Value.ToString()), int.Parse(itemY.Value.ToString()), int.Parse(itemZ.Value.ToString()));
+                model.Item.Destine = new TMFormat.Models.ItemVector3(int.Parse(itemX.Text), int.Parse(itemY.Text), int.Parse(itemZ.Text));
             }
             catch (Exception ex)
             {
