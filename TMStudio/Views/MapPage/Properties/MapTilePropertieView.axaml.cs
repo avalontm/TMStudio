@@ -120,7 +120,7 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
                     Items.Add(new PropertiesModel() { Name = "Usable", Checked = item.Use, Type = 1 });
                     Items.Add(new PropertiesModel() { Name = "Bloqueable", Checked = item.Block, Type = 1 });
                     Items.Add(new PropertiesModel() { Name = "Movible", Checked = item.Moveable, Type = 1 });
-                    Items.Add(new PropertiesModel() { Id = $"item_{index}_cid", Name = "Script ID", Text = item.Cid.ToString(), Type = 0 , IsEnabled =true});
+                    Items.Add(new PropertiesModel() { Id = $"item_{index}_cid", Name = "UID", Text = item.UID.ToString(), Type = 0 , IsEnabled =true});
                     Items.Add(new PropertiesModel() { Name = "Accion", Text = "Guardar", Type = 4, Action = ReactiveCommand.Create<ItemMapModel>(onScript), Bind = new ItemMapModel() { Index = index, Item = item } });
 
 
@@ -148,8 +148,8 @@ public partial class MapTilePropertieView : UserControl, INotifyPropertyChanged
         {
             try
             {
-                model.Item.Cid = int.Parse(itemCid.Text);
-                Debug.WriteLine($"[onScript] {model.Item.Cid}");
+                model.Item.UID = int.Parse(itemCid.Text);
+                Debug.WriteLine($"[onScript] {model.Item.UID}");
             }
             catch (Exception ex)
             {
