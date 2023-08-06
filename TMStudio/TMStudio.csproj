@@ -25,6 +25,8 @@
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\toolbar_cursor.png" />
     <None Remove="Assets\toolbar_eraser.png" />
+    <None Remove="Assets\toolbar_mas.png" />
+    <None Remove="Assets\toolbar_menos.png" />
     <None Remove="Assets\toolbar_nuevo.png" />
     <None Remove="Assets\toolbar_pencil.png" />
     <None Remove="Assets\toolbar_shield.png" />

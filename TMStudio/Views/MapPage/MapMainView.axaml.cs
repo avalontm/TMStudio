@@ -122,6 +122,12 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
         lstSprites.ItemsSource = ItemsManager.Instance.Sprites;
     }
 
+    void PositionUpdate()
+    {
+        CurrentMouse = new MouseModel((int)MapEngine.Instance.GlobalPos.X, (int)MapEngine.Instance.GlobalPos.Y);
+        CurrentFloor = MapManager.Instance.FloorCurrent;
+    }
+
     public void onGroupSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (this.IsLoaded)
@@ -157,8 +163,8 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
 
     void MonoGame_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
     {
-        Debug.WriteLine($"[KeyDown] {e.Key}");
         MapEngine.Instance.KeyDown(e.Key);
+        PositionUpdate();
     }
 
     void MonoGame_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
@@ -177,9 +183,7 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
         var position = e.GetPosition((sender as MonoGameControl));
         MapEngine.Instance.MouseMove(new MouseModel((int)position.X, (int)position.Y));
 
-        CurrentMouse = new MouseModel((int) MapEngine.Instance.GlobalPos.X, (int)MapEngine.Instance.GlobalPos.Y);
-        CurrentFloor = MapManager.Instance.FloorCurrent;
-      
+        PositionUpdate();
     }
 
     void onSelectSpriteChanged(object? sender, SelectionChangedEventArgs e)
@@ -215,7 +219,12 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
             case "pz":
                 MapEngine.Instance.Pincel = PincelStatus.Protection;
                 break;
-
+            case "floor_minus":
+                onChangeFloor(0);
+                break;
+            case "floor_plus":
+                onChangeFloor(1);
+                break;
             default:
                 MapEngine.Instance.Pincel = PincelStatus.None;
                 break;
@@ -254,6 +263,20 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
         {
             ItemsManager.Instance.ItemSelect = null;
         }
+    }
+
+    void onChangeFloor(int index)
+    {
+        if(index == 0)
+        {
+            MapEngine.Instance.KeyDown(Avalonia.Input.Key.OemMinus);
+        }
+        else
+        {
+            MapEngine.Instance.KeyDown(Avalonia.Input.Key.OemPlus);
+        }
+
+        PositionUpdate();
     }
 
     void onScrollHorizontalChanged(object? sender, RangeBaseValueChangedEventArgs e)

@@ -266,19 +266,22 @@ namespace TMStudio.Engine
 
         public void KeyDown(Avalonia.Input.Key key)
         {
-            if (key == Avalonia.Input.Key.OemPlus || key == Avalonia.Input.Key.Add)
+            if (MapManager.Instance.isLoaded)
             {
-                if (MapManager.Instance.FloorCurrent > 0)
+                if (key == Avalonia.Input.Key.OemPlus || key == Avalonia.Input.Key.Add)
                 {
-                    MapManager.Instance.FloorCurrent--;
+                    if (MapManager.Instance.FloorCurrent > 0)
+                    {
+                        MapManager.Instance.FloorCurrent--;
+                    }
                 }
-            }
 
-            if (key == Avalonia.Input.Key.OemMinus || key == Avalonia.Input.Key.Subtract)
-            {
-                if (MapManager.Instance.FloorCurrent < (MapManager.Instance.MapBase.Floors.Count - 1))
+                if (key == Avalonia.Input.Key.OemMinus || key == Avalonia.Input.Key.Subtract)
                 {
-                    MapManager.Instance.FloorCurrent++;
+                    if (MapManager.Instance.FloorCurrent < (MapManager.Instance.MapBase.Floors.Count - 1))
+                    {
+                        MapManager.Instance.FloorCurrent++;
+                    }
                 }
             }
         }

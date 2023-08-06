@@ -388,11 +388,36 @@ namespace TMStudio.Utils
             Color color = Color.DarkGray;
 
             int tileOffset = (FloorIndex - FloorCurrent);
-            Debug.WriteLine($"[onDrawFloor] {FloorIndex} |  {tileOffset}");
-            // DRAW FLOOR LAYER
-            for (int y = Camera.Screen.Y - tileOffset; y <= Camera.Screen.Height + tileOffset; y++)
+
+            int cameraX = (Camera.Screen.X - tileOffset);
+            int cameraY = (Camera.Screen.Y - tileOffset);
+            int cameraW = (Camera.Screen.Width + tileOffset);
+            int cameraH = (Camera.Screen.Height + tileOffset);
+
+            if (cameraX < 0)
             {
-                for (int x = Camera.Screen.X - tileOffset; x <= Camera.Screen.Width + tileOffset; x++)
+                cameraX = 0;
+            }
+
+            if (cameraW > (int)MapBase.mapInfo.Size.X)
+            {
+                cameraW = (int)MapBase.mapInfo.Size.X;
+            }
+
+            if (cameraY < 0)
+            {
+                cameraY = 0;
+            }
+
+            if (cameraH > (int)MapBase.mapInfo.Size.Y)
+            {
+                cameraH = (int)MapBase.mapInfo.Size.Y;
+            }
+
+            // DRAW FLOOR LAYER
+            for (int y = cameraY; y <= cameraH; y++)
+            {
+                for (int x = cameraX; x <= cameraW; x++)
                 {
                     //COORDENADAS
                     float tmpX = ((x * TMBaseMap.TileSize) - (Camera.Scroll.X * TMBaseMap.TileSize));
@@ -409,9 +434,9 @@ namespace TMStudio.Utils
             }
 
             // DRAW TOP LAYER
-            for (int y = Camera.Screen.Y - tileOffset; y <= Camera.Screen.Height + tileOffset; y++)
+            for (int y = cameraY; y <= cameraH; y++)
             {
-                for (int x = Camera.Screen.X - tileOffset; x <= Camera.Screen.Width + tileOffset; x++)
+                for (int x = cameraX; x <= cameraW; x++)
                 {
                     //COORDENADAS
                     float tmpX = ((x * TMBaseMap.TileSize) - (Camera.Scroll.X * TMBaseMap.TileSize));
