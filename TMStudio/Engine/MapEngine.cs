@@ -268,7 +268,7 @@ namespace TMStudio.Engine
         {
             if (key == Avalonia.Input.Key.OemPlus || key == Avalonia.Input.Key.Add)
             {
-                if (MapManager.Instance.FloorCurrent < (MapManager.Instance.MapBase.Floors.Count - 1))
+                if (MapManager.Instance.FloorCurrent > 0)
                 {
                     MapManager.Instance.FloorCurrent--;
                 }
@@ -276,7 +276,7 @@ namespace TMStudio.Engine
 
             if (key == Avalonia.Input.Key.OemMinus || key == Avalonia.Input.Key.Subtract)
             {
-                if (MapManager.Instance.FloorCurrent > 0)
+                if (MapManager.Instance.FloorCurrent < (MapManager.Instance.MapBase.Floors.Count - 1))
                 {
                     MapManager.Instance.FloorCurrent++;
                 }
