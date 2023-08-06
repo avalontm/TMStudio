@@ -270,7 +270,7 @@ namespace TMStudio.Engine
             {
                 if (MapManager.Instance.FloorCurrent < (MapManager.Instance.MapBase.Floors.Count - 1))
                 {
-                    MapManager.Instance.FloorCurrent++;
+                    MapManager.Instance.FloorCurrent--;
                 }
             }
 
@@ -278,7 +278,7 @@ namespace TMStudio.Engine
             {
                 if (MapManager.Instance.FloorCurrent > 0)
                 {
-                    MapManager.Instance.FloorCurrent--;
+                    MapManager.Instance.FloorCurrent++;
                 }
             }
         }

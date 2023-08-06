@@ -272,7 +272,7 @@ namespace TMStudio.Utils
             {
                 if (!isDungeon())
                 {
-                    for (int z = FloorCurrent; z <= FloorDefault; z++)
+                    for (int z = (FloorCurrent+1); z <=  FloorDefault; z++)
                     {
                         onDrawFloor(z);
                     }
@@ -385,42 +385,43 @@ namespace TMStudio.Utils
 
         void onDrawFloor(int FloorIndex)
         {
-            int _floor = FloorDefault;
+            Color color = Color.DarkGray;
+            int tileOffset = (FloorDefault - FloorIndex)+1; //Offset para acomodar la vista.
 
             // DRAW FLOOR LAYER
-            for (int y = Camera.Screen.Y; y < Camera.Screen.Height; y++)
+            for (int y = Camera.Screen.Y - tileOffset; y <= Camera.Screen.Height - tileOffset; y++)
             {
-                for (int x = Camera.Screen.X; x < Camera.Screen.Width; x++)
+                for (int x = Camera.Screen.X - tileOffset; x <= Camera.Screen.Width - tileOffset; x++)
                 {
                     //COORDENADAS
                     float tmpX = ((x * TMBaseMap.TileSize) - (Camera.Scroll.X * TMBaseMap.TileSize));
                     float tmpY = ((y * TMBaseMap.TileSize) - (Camera.Scroll.Y * TMBaseMap.TileSize));
 
-                    tmpX += (TMBaseMap.TileSize * (_floor - FloorIndex));
-                    tmpY += (TMBaseMap.TileSize * (_floor - FloorIndex));
-
                     if (MapBase.Floors[FloorIndex][x, y].item != null)
                     {
-                        mapTile.DrawTileBase(FloorIndex, x, y, tmpX, tmpY, color: Color.DarkGray);
+                        tmpX += (TMBaseMap.TileSize * tileOffset);
+                        tmpY += (TMBaseMap.TileSize * tileOffset);
+
+                        mapTile.DrawTileBase(FloorIndex, x, y, tmpX, tmpY, color: color);
                     }
                 }
             }
 
             // DRAW TOP LAYER
-            for (int y = Camera.Screen.Y; y < Camera.Screen.Height; y++)
+            for (int y = Camera.Screen.Y - tileOffset; y <= Camera.Screen.Height - tileOffset; y++)
             {
-                for (int x = Camera.Screen.X; x < Camera.Screen.Width; x++)
+                for (int x = Camera.Screen.X - tileOffset; x <= Camera.Screen.Width - tileOffset; x++)
                 {
                     //COORDENADAS
                     float tmpX = ((x * TMBaseMap.TileSize) - (Camera.Scroll.X * TMBaseMap.TileSize));
                     float tmpY = ((y * TMBaseMap.TileSize) - (Camera.Scroll.Y * TMBaseMap.TileSize));
 
-                    tmpX += (TMBaseMap.TileSize * (_floor - FloorIndex));
-                    tmpY += (TMBaseMap.TileSize * (_floor - FloorIndex));
-
                     if (MapBase.Floors[FloorIndex][x, y].item != null)
                     {
-                        mapTile.DrawTileTop(FloorIndex, x, y, tmpX, tmpY, color: Color.DarkGray);
+                        tmpX += (TMBaseMap.TileSize * tileOffset);
+                        tmpY += (TMBaseMap.TileSize * tileOffset);
+
+                        mapTile.DrawTileTop(FloorIndex, x, y, tmpX, tmpY, color: color);
                     }
                 }
             }
