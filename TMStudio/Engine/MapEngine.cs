@@ -257,6 +257,10 @@ namespace TMStudio.Engine
         {
             if (MapManager.Instance.MapBase != null)
             {
+                if (!MapManager.Instance.isLoaded)
+                {
+                    return;
+                }
                 // Obtener las coordenadas del mouse en base a la resolución del juego
                 ScreenPos = new Vector2((int)(CurrentMouse.X * gamePositionX / TMBaseMap.TileSize) , (int)(CurrentMouse.Y * gamePositionY / TMBaseMap.TileSize));
                 GlobalPos = new Vector2(((CurrentMouse.X / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.X), ((CurrentMouse.Y / TMBaseMap.TileSize) + MapManager.Instance.Camera.Scroll.Y));

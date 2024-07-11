@@ -294,6 +294,10 @@ namespace TMStudio.Utils
 
         void onAnimateFloorCurrent(GameTime gameTime)
         {
+            if(!isLoaded)
+            {
+                return;
+            }
             // UPDATE TILE LAYER
             for (int y = Camera.Screen.Y; y < Camera.Screen.Height; y++)
             {
@@ -350,6 +354,10 @@ namespace TMStudio.Utils
 
         void onDrawFloorCurrent()
         {
+            if(!isLoaded)
+            {
+                return;
+            }
             // DRAW FLOOR LAYER
             for (int y = Camera.Screen.Y; y < Camera.Screen.Height; y++)
             {
@@ -385,6 +393,11 @@ namespace TMStudio.Utils
 
         void onDrawFloor(int FloorIndex)
         {
+            if (!isLoaded)
+            {
+                return;
+            }
+
             Color color = Color.DarkGray;
 
             int tileOffset = (FloorIndex - FloorCurrent);

@@ -306,7 +306,7 @@ public partial class MapMainView : UserControl, INotifyPropertyChanged
         bool? status  = await MapManager.Instance.Open();
         await DialogManager.Close();
 
-        if(status != null && !status.Value)
+        if(status != null && status == false)
         {
             await DialogManager.Display("Error", "No se pudo cargar el archivo.\nFormato desconocido.", "OK");
             return;
