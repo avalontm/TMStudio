@@ -10,34 +10,34 @@
 	<!-- LABEL -->
 	<Style Selector="Label">
 		<Setter Property="FontFamily" Value="{StaticResource SFRegular}" />
-		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
+		<Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource TemplatedParent}}" />
 	</Style>
 
 	<Style Selector="Label.Light">
 		<Setter Property="FontFamily" Value="{StaticResource SFLight}" />
-		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
+		<Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource TemplatedParent}}" />
 	</Style>
 	
 	<Style Selector="Label.SemiBold">
 		<Setter Property="FontFamily" Value="{StaticResource SFSemiBold}" />
-		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
+		<Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource TemplatedParent}}" />
 	</Style>
 
 	<Style Selector="Label.Bold">
 		<Setter Property="FontFamily" Value="{StaticResource SFBold}" />
-		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
+		<Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource TemplatedParent}}" />
 	</Style>
 
 	<Style Selector="TextBox">
 		<Setter Property="FontFamily" Value="{StaticResource SFRegular}" />
-		<Setter Property="FontWeight" Value="{TemplateBinding FontWeight}" />
+		<Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource TemplatedParent}}" />
 	</Style>
 
 	<!-- BUTTON -->
 
 	<Style Selector="Button">
 		<Setter Property="FontFamily" Value="{StaticResource SFRegular}" />
-		<Setter Property="Background" Value="{TemplateBinding Background}" />
+		<Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="VerticalAlignment" Value="Stretch" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -46,13 +46,13 @@
 	</Style>
 	
 	<Style Selector="Button:pointerover /template/ ContentPresenter">
-		<Setter Property="Background" Value="{TemplateBinding Background}" />
+		<Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
 		<Setter Property="BorderBrush" Value="{StaticResource Black}" />
 		<Setter Property="BorderThickness" Value="1" />
 	</Style>
 	
 	<Style Selector="Button:pressed /template/ ContentPresenter">
-		<Setter Property="Background" Value="{TemplateBinding Background}" />
+		<Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
 		<Setter Property="BorderBrush" Value="{StaticResource White}" />
 		<Setter Property="BorderThickness" Value="1" />
 	</Style>
