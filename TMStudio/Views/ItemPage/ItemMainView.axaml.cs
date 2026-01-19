@@ -615,34 +615,40 @@ public partial class ItemMainView : UserControl, INotifyPropertyChanged
 
                     if (_name == prop.Name)
                     {
-                        if (info.PropertyType == typeof(string))
+                        try
                         {
-                            info.SetValue(Item, prop.Value.ToString());
+                            if (info.PropertyType == typeof(string))
+                            {
+                                info.SetValue(Item, prop.StringValue);
+                            }
+                            else if (info.PropertyType == typeof(bool))
+                            {
+                                info.SetValue(Item, prop.BoolValue);
+                            }
+                            else if (info.PropertyType == typeof(double))
+                            {
+                                info.SetValue(Item, prop.DoubleValue);
+                            }
+                            else if (info.PropertyType == typeof(int))
+                            {
+                                info.SetValue(Item, prop.IntValue);
+                            }
                         }
-                        else if (info.PropertyType == typeof(bool))
+                        catch (Exception ex)
                         {
-                            info.SetValue(Item, bool.Parse(prop.Value.ToString()));
-                        }
-                        else if (info.PropertyType == typeof(double))
-                        {
-                            info.SetValue(Item, double.Parse(prop.Value.ToString()));
-                        }
-                        else if (info.PropertyType == typeof(int))
-                        {
-                            info.SetValue(Item, int.Parse(prop.Value.ToString()));
+                            Debug.WriteLine($"Error setting property {_name}: {ex.Message}");
                         }
                     }
                 }
             }
         }
 
-        //Animaciones
-
         var _exist = Items.Where(x => x.Id == Item.Id).FirstOrDefault();
 
         if (_exist != null)
         {
-            _exist = Item;
+            int index = Items.IndexOf(_exist);
+            Items[index] = Item;
 
             await DialogManager.Display("Guardado", "Se ha modificado este item.", "OK");
         }
